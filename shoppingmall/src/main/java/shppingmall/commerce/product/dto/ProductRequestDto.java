@@ -4,9 +4,9 @@ import lombok.Builder;
 import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
 import shppingmall.commerce.category.entity.Category;
-import shppingmall.commerce.category.repository.CategoryRepository;
 import shppingmall.commerce.product.entity.Product;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -27,6 +27,8 @@ public class ProductRequestDto {
                 .price(getPrice())
                 .category(category)
                 .imageUrl(fullPathUrl)
+                .createdAt(LocalDateTime.now())
+                .modifiedAt(LocalDateTime.now())
                 .build();
     }
 }
