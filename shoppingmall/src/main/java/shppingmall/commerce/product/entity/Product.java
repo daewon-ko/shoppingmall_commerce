@@ -1,11 +1,18 @@
 package shppingmall.commerce.product.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import shppingmall.commerce.category.entity.Category;
 import shppingmall.commerce.common.BaseEntity;
 
 @Entity
 @Table(name = "product")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,0 +1,32 @@
+package shppingmall.commerce.product.dto;
+
+import lombok.Builder;
+import lombok.Getter;
+import org.springframework.web.multipart.MultipartFile;
+import shppingmall.commerce.category.entity.Category;
+import shppingmall.commerce.category.repository.CategoryRepository;
+import shppingmall.commerce.product.entity.Product;
+
+import java.util.List;
+
+/**
+ * 상품을 생성을 요청하는 DTO입니다.
+ */
+@Getter
+@Builder
+public class ProductRequestDto {
+    private String name;
+    private int price;
+    private List<MultipartFile> images;
+    private Long categoryId;
+
+
+    public Product toEntity(final String fullPathUrl, final Category category) {
+        return Product.builder()
+                .name(getName())
+                .price(getPrice())
+                .category(category)
+                .imageUrl(fullPathUrl)
+                .build();
+    }
+}
