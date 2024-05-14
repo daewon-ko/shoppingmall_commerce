@@ -1,6 +1,9 @@
 package shppingmall.commerce.order.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import shppingmall.commerce.product.entity.Product;
 
 
@@ -10,6 +13,9 @@ import shppingmall.commerce.product.entity.Product;
  */
 @Entity
 @Table(name = "order_product")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
