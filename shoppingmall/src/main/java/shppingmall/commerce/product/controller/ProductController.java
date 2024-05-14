@@ -5,7 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import shppingmall.commerce.product.dto.ProductRequestDto;
+import shppingmall.commerce.product.dto.ProductResponseDto;
 import shppingmall.commerce.product.service.ProductService;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,5 +22,9 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body("OK");
     }
 
-
+    @GetMapping("/products")
+    public ResponseEntity<List<ProductResponseDto>> getAllProductList() {
+        List<ProductResponseDto> productResponseDtoList = productService.getAllProductList();
+        return ResponseEntity.status(HttpStatus.OK).body(productResponseDtoList);
+    }
 }

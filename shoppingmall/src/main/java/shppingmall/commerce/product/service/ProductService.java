@@ -7,10 +7,12 @@ import shppingmall.commerce.category.repository.CategoryRepository;
 import shppingmall.commerce.config.FileStore;
 import shppingmall.commerce.product.UploadFile;
 import shppingmall.commerce.product.dto.ProductRequestDto;
+import shppingmall.commerce.product.dto.ProductResponseDto;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -53,5 +55,15 @@ public class ProductService {
 
 
 
+    }
+
+    public List<ProductResponseDto> getAllProductList() {
+        List<ProductResponseDto> list = new ArrayList<>();
+        List<Product> productList = productRepository.findAll();
+
+        for (Product product : productList) {
+            list.add(product.toDto());
+        }
+        return list;
     }
 }
