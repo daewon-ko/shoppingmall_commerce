@@ -17,7 +17,6 @@ import java.util.List;
 public class ProductRequestDto {
     private String name;
     private int price;
-    private List<MultipartFile> images;
     private Long categoryId;
 
 

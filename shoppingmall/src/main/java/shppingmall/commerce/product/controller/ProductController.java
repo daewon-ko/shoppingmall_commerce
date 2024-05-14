@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import shppingmall.commerce.product.dto.ProductRequestDto;
 import shppingmall.commerce.product.dto.ProductResponseDto;
 import shppingmall.commerce.product.service.ProductService;
@@ -17,8 +18,8 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping("/product")
-    public ResponseEntity<String> createProduct(@ModelAttribute ProductRequestDto requestDto) {
-        productService.createProduct(requestDto);
+    public ResponseEntity<String> createProduct(@RequestPart ProductRequestDto requestDto, @RequestPart List<MultipartFile> images) {
+        productService.createProduct(requestDto, images);
         return ResponseEntity.status(HttpStatus.OK).body("OK");
     }
 
