@@ -2,6 +2,7 @@ package shppingmall.commerce.order.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import shppingmall.commerce.cart.entity.Cart;
 import shppingmall.commerce.cart.repository.CartRepository;
 import shppingmall.commerce.order.dto.OrderCartCreateRequestDto;
@@ -14,6 +15,7 @@ import shppingmall.commerce.order.repository.OrderRepository;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
 
+import java.beans.Transient;
 import java.util.List;
 
 @Service
@@ -25,6 +27,8 @@ public class OrderService {
     private final OrderProductRepository orderProductRepository;
     private final CartRepository cartRepository;
 
+
+    @Transactional
 
     public void createOrder(OrderCreateRequestDto orderCreateRequestDto) {
 
@@ -41,6 +45,8 @@ public class OrderService {
             orderProductRepository.save(orderProduct);
         }
     }
+
+    @Transactional
 
     public void createOrderCart(final OrderCartCreateRequestDto orderCartCreateRequestDto) {
         Long cartId = orderCartCreateRequestDto.getCartId();

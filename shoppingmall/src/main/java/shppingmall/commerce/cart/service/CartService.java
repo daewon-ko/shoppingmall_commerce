@@ -2,6 +2,7 @@ package shppingmall.commerce.cart.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import shppingmall.commerce.cart.dto.AddCartProductRequestDto;
 import shppingmall.commerce.cart.dto.AddCartRequestDto;
 import shppingmall.commerce.cart.dto.CreateCartRequestDto;
@@ -24,6 +25,7 @@ public class CartService {
 
 
     //Cart에 상품을 추가한다.
+    @Transactional
     public void addProductToCart(final AddCartRequestDto cartRequestDto) {
         // TODO : 예외정의 필요
         // TODO : Stream 이용
@@ -39,6 +41,7 @@ public class CartService {
 
 
     // Cart를 생성한다.
+    @Transactional
     public void createCart(final CreateCartRequestDto cartRequestDto) {
         Cart cart = cartRequestDto.toEntity();
         cartRepository.save(cart);

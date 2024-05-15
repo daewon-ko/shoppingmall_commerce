@@ -2,6 +2,7 @@ package shppingmall.commerce.product.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import shppingmall.commerce.category.entity.Category;
 import shppingmall.commerce.category.repository.CategoryRepository;
@@ -24,7 +25,8 @@ public class ProductService {
     private final CategoryRepository categoryRepository;
     private final FileStore fileStore;
 
-    public void createProduct(final ProductRequestDto requestDto, List<MultipartFile> images)  {
+    @Transactional
+    public void createProduct(final ProductRequestDto requestDto, List<MultipartFile> images) {
         // 1. requestDTO의 imageURL을 변환 및 저장과정
 
         // TODO : 예외정의 후 처리 예정(ControllerAdvice 등) - 재학습 필요
@@ -53,10 +55,9 @@ public class ProductService {
 
         }
 
-
-
-
     }
+
+    @Transactional(readOnly = true)
 
     public List<ProductResponseDto> getAllProductList() {
         List<ProductResponseDto> list = new ArrayList<>();
