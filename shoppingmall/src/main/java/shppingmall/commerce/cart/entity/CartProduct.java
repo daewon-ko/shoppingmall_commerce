@@ -3,6 +3,7 @@ package shppingmall.commerce.cart.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import shppingmall.commerce.common.BaseEntity;
@@ -16,6 +17,7 @@ import shppingmall.commerce.product.entity.Product;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class CartProduct extends BaseEntity {
 
     @Id

@@ -1,4 +1,4 @@
-package shppingmall.commerce.category.dto;
+package shppingmall.commerce.category.dto.request;
 
 import lombok.Getter;
 import shppingmall.commerce.category.entity.Category;

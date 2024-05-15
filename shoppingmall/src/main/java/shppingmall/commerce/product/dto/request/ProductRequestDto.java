@@ -1,4 +1,4 @@
-package shppingmall.commerce.product.dto;
+package shppingmall.commerce.product.dto.request;
 
 import lombok.Builder;
 import lombok.Getter;

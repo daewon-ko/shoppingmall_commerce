@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import shppingmall.commerce.category.entity.Category;
 import shppingmall.commerce.common.BaseEntity;
-import shppingmall.commerce.product.dto.ProductResponseDto;
+import shppingmall.commerce.product.dto.response.ProductResponseDto;
 
 @Entity
 @Table(name = "product")

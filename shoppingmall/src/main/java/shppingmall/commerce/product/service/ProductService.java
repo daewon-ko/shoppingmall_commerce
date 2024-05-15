@@ -8,8 +8,8 @@ import shppingmall.commerce.category.entity.Category;
 import shppingmall.commerce.category.repository.CategoryRepository;
 import shppingmall.commerce.common.FileStore;
 import shppingmall.commerce.product.UploadFile;
-import shppingmall.commerce.product.dto.ProductRequestDto;
-import shppingmall.commerce.product.dto.ProductResponseDto;
+import shppingmall.commerce.product.dto.request.ProductRequestDto;
+import shppingmall.commerce.product.dto.response.ProductResponseDto;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
 
