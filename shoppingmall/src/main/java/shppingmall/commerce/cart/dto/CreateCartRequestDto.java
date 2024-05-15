@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class CreateCartRequestDto {
-    private long CartId;
+    private long cartId;
 
 
 

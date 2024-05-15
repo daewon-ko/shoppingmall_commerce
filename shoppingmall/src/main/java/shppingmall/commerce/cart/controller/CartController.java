@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import shppingmall.commerce.cart.dto.AddCartProductRequestDto;
+import shppingmall.commerce.cart.dto.AddCartRequestDto;
 import shppingmall.commerce.cart.dto.CreateCartRequestDto;
 import shppingmall.commerce.cart.service.CartService;
 
@@ -27,8 +28,9 @@ public class CartController {
     }
 
     @PostMapping("/products")
-    public ResponseEntity<String> addProductToCart(@RequestBody List<AddCartProductRequestDto> cartProductRequestDtoList) {
+    public ResponseEntity<String> addProductToCart(@RequestBody AddCartRequestDto cartRequestDto) {
 
         cartService.addProductToCart(cartRequestDto);
+        return ResponseEntity.status(HttpStatus.OK).body("OK");
     }
 }
