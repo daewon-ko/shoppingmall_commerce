@@ -1,4 +1,4 @@
-package shppingmall.commerce.order.dto;
+package shppingmall.commerce.order.dto.request;
 
 import lombok.Getter;
 import shppingmall.commerce.order.entity.Order;

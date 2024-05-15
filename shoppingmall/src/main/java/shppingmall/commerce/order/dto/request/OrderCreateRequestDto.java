@@ -1,6 +1,7 @@
-package shppingmall.commerce.order.dto;
+package shppingmall.commerce.order.dto.request;
 
 import lombok.Getter;
+import shppingmall.commerce.cart.entity.Cart;
 import shppingmall.commerce.order.OrderStatus;
 import shppingmall.commerce.order.entity.Order;
 
@@ -9,6 +10,8 @@ import java.util.List;
 
 @Getter
 public class OrderCreateRequestDto {
+
+    private Long cartId;
 
     private String zipCode;
     private String detailAddress;
@@ -22,6 +25,18 @@ public class OrderCreateRequestDto {
                 .createdAt(LocalDateTime.now())
                 .modifiedAt(LocalDateTime.now())
                 .build();
+    }
+
+    public Order toEntity(Cart cart) {
+        return Order.builder()
+                .zipCode(getZipCode())
+                .detailAddress(getDetailAddress())
+                .cart(cart)
+                .createdAt(LocalDateTime.now())
+                .modifiedAt(LocalDateTime.now())
+                .orderStatus(OrderStatus.NEW)
+                .build();
+
     }
 
 }
