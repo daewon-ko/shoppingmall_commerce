@@ -21,7 +21,6 @@ public class CartProduct extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_product_id")
-    @NotNull
     private Long id;
 
     @Column(name = "quantity")
