@@ -1,5 +1,6 @@
 package shppingmall.commerce.product.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping("/product")
-    public ResponseEntity<String> createProduct(@RequestPart ProductRequestDto requestDto, @RequestPart List<MultipartFile> images) {
+    public ResponseEntity<String> createProduct(@RequestPart @Valid ProductRequestDto requestDto, @RequestPart List<MultipartFile> images) {
         productService.createProduct(requestDto, images);
         return ResponseEntity.status(HttpStatus.OK).body("OK");
     }

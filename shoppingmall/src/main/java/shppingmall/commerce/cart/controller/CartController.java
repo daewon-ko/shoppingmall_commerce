@@ -1,8 +1,10 @@
 package shppingmall.commerce.cart.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,13 +25,13 @@ public class CartController {
 
     // 장바구니 생성은 간단한 로직이기에 따로 ResponseDto 미생성
     @PostMapping
-    public ResponseEntity<String> createCart(@RequestBody CreateCartRequestDto cartRequestDto) {
+    public ResponseEntity<String> createCart(@RequestBody @Valid CreateCartRequestDto cartRequestDto) {
         cartService.createCart(cartRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body("OK");
     }
 
     @PostMapping("/products")
-    public ResponseEntity<List<AddCartProductResponseDto>> addProductToCart(@RequestBody AddCartRequestDto cartRequestDto) {
+    public ResponseEntity<List<AddCartProductResponseDto>> addProductToCart(@RequestBody @Valid AddCartRequestDto cartRequestDto) {
         return ResponseEntity.status(HttpStatus.OK).body(cartService.addProductToCart(cartRequestDto));
     }
 }

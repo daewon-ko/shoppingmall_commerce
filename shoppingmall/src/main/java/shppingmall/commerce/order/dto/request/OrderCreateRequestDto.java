@@ -1,5 +1,7 @@
 package shppingmall.commerce.order.dto.request;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import shppingmall.commerce.cart.entity.Cart;
 import shppingmall.commerce.order.OrderStatus;
@@ -11,10 +13,14 @@ import java.util.List;
 @Getter
 public class OrderCreateRequestDto {
 
+    @NotNull(message = "카트번호가 선택되지 않았습니다.")
     private Long cartId;
 
+    @NotBlank(message = "주소가 입력되지 않았습니다.")
     private String zipCode;
+    @NotBlank(message = "세부 주소가 입력되지 않았습니다.")
     private String detailAddress;
+
     private List<OrderProductCreateRequestDto> orderProductRequestDtoList;
 
     public Order toEntity() {

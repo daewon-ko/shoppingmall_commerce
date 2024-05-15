@@ -1,5 +1,6 @@
 package shppingmall.commerce.order.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class OrderController {
 
     // 바로 주문
     @PostMapping()
-    public ResponseEntity<List<OrderProductCreateResponseDto>> createOrder(@RequestBody OrderCreateRequestDto orderCreateRequestDto) {
+    public ResponseEntity<List<OrderProductCreateResponseDto>> createOrder(@RequestBody @Valid OrderCreateRequestDto orderCreateRequestDto) {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(orderService.createDirectOrder(orderCreateRequestDto));
 
@@ -30,7 +31,7 @@ public class OrderController {
 
     // 장바구니통해 주문
     @PostMapping("/cart")
-    public ResponseEntity<List<OrderProductCreateResponseDto>> createOrderWithCart(@RequestBody OrderCreateRequestDto orderCartCreateRequestDto) {
+    public ResponseEntity<List<OrderProductCreateResponseDto>> createOrderWithCart(@RequestBody @Valid OrderCreateRequestDto orderCartCreateRequestDto) {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(orderService.createOrderCart(orderCartCreateRequestDto));
     }
