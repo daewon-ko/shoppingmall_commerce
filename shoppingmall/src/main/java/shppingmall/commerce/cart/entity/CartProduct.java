@@ -1,6 +1,11 @@
 package shppingmall.commerce.cart.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import shppingmall.commerce.common.BaseEntity;
 import shppingmall.commerce.product.entity.Product;
 
@@ -9,6 +14,10 @@ import shppingmall.commerce.product.entity.Product;
  * 중간테이블
  */
 @Entity
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
 public class CartProduct extends BaseEntity {
 
     @Id
@@ -16,11 +25,15 @@ public class CartProduct extends BaseEntity {
     @Column(name = "cart_product_id")
     private Long id;
 
-    @ManyToOne
+    @Column(name = "quantity")
+    @NotNull
+    private int quantity;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
     private Product product;
 

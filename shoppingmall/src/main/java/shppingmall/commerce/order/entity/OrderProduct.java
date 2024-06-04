@@ -1,6 +1,10 @@
 package shppingmall.commerce.order.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import shppingmall.commerce.product.entity.Product;
 
 
@@ -10,17 +14,21 @@ import shppingmall.commerce.product.entity.Product;
  */
 @Entity
 @Table(name = "order_product")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class OrderProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_product_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
     private Order order;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
     private Product product;
 

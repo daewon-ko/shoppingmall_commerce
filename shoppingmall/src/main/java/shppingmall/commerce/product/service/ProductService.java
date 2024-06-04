@@ -2,15 +2,19 @@ package shppingmall.commerce.product.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import shppingmall.commerce.category.entity.Category;
 import shppingmall.commerce.category.repository.CategoryRepository;
-import shppingmall.commerce.config.FileStore;
+import shppingmall.commerce.common.FileStore;
 import shppingmall.commerce.product.UploadFile;
-import shppingmall.commerce.product.dto.ProductRequestDto;
+import shppingmall.commerce.product.dto.request.ProductRequestDto;
+import shppingmall.commerce.product.dto.response.ProductResponseDto;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,12 +25,13 @@ public class ProductService {
     private final CategoryRepository categoryRepository;
     private final FileStore fileStore;
 
-    public void createProduct(final ProductRequestDto requestDto)  {
+    @Transactional
+    public void createProduct(final ProductRequestDto requestDto, List<MultipartFile> images) {
         // 1. requestDTO의 imageURL을 변환 및 저장과정
 
         // TODO : 예외정의 후 처리 예정(ControllerAdvice 등) - 재학습 필요
         try {
-            List<UploadFile> uploadFiles = fileStore.uploadFiles(requestDto.getImages());
+            List<UploadFile> uploadFiles = fileStore.uploadFiles(images);
             for (UploadFile uploadFile : uploadFiles) {
                 String uploadName = uploadFile.getUploadName();
                 // Product Table에 저장될 image 저장경로 조회
@@ -50,8 +55,17 @@ public class ProductService {
 
         }
 
+    }
 
+    @Transactional(readOnly = true)
 
+    public List<ProductResponseDto> getAllProductList() {
+        List<ProductResponseDto> list = new ArrayList<>();
+        List<Product> productList = productRepository.findAll();
 
+        for (Product product : productList) {
+            list.add(product.toDto());
+        }
+        return list;
     }
 }
