@@ -2,30 +2,37 @@ package shppingmall.commerce.chat.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import shppingmall.commerce.common.BaseEntity;
+import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.user.entity.User;
+
+import java.util.UUID;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Getter
+@SuperBuilder
 public class ChatRoom extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "chat_room_id")
-    private Long id;
+    private UUID id;
 
-    @Column(name = "seller_id")
     @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "seller_id")
     private User seller;
 
-    @Column(name = "buyer_id")
     @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "buyer_id")
     private User buyer;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
 
 }
