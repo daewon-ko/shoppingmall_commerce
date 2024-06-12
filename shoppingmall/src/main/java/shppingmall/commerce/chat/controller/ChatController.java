@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,12 @@ import java.util.UUID;
 public class ChatController {
     private final ChatRoomService chatRoomService;
 
+    @GetMapping()
+    public String home() {
+        return "index";
+    }
+
+
     @PostMapping("/chat/chatRoom")
     public ResponseEntity<Void> createChatRoom(@RequestBody ChatRoomCreateDto chatRoomCreateDto, UriComponentsBuilder uriComponentsBuilder) {
         ChatRoomResponseDto chatRoomResponseDto = chatRoomService.createRoom(chatRoomCreateDto);
@@ -31,9 +38,11 @@ public class ChatController {
     }
 
     @GetMapping("/chat/chatRoom/{roomId}")
-    public ResponseEntity<String> chatRoom(@PathVariable(name = "roomId") UUID roomId) {
+    public String chatRoom(@PathVariable(name = "roomId") UUID roomId, Model model) {
+
         ChatRoomResponseDto chatRoom = chatRoomService.getChatRoom(roomId);
-        return ResponseEntity.status(HttpStatus.CREATED).body("OK");
+        model.addAttribute("chatRoom", chatRoom);
+        return "chatRoom";
     }
 
 }
