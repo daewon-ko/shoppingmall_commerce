@@ -14,6 +14,6 @@ import shppingmall.commerce.user.entity.UserRole;
 public class ChatMessageDto {
     private MessageType messageType;
     private Long senderId;
-//    private UserRole senderType;
+    private UserRole senderType;
     private String content;
 }

@@ -24,7 +24,19 @@ public class ChatController {
     private final ChatRoomService chatRoomService;
 
 
-
+    /**
+     *
+     * @param chatRoomCreateDto
+     * - 추후 삭제 예정(미필요)
+     * 현재는 화면에서 채팅기능 구현확인했음을 위해 아래와 같이 작성했으나,
+     * /products/{productId}/chat/chatRoom/{chatRoomID}와 같이 작성할 예정
+     *
+     * ChatRoomCreateDTO 자체가 의미가 있나 싶은 생각이 듬.
+     * 따라서 해당 DTO는 삭제 예정
+     *
+     * @param uriComponentsBuilder
+     * @return
+     */
 
     @PostMapping("/chat/chatRoom")
     public ResponseEntity<Void> createChatRoom(@RequestBody ChatRoomCreateDto chatRoomCreateDto, UriComponentsBuilder uriComponentsBuilder) {

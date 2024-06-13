@@ -7,18 +7,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     socket.onmessage = (event) => {
         const message = JSON.parse(event.data);
-        //TODO : 일단은 내가 보낸 모든 메시지가 웹소켓을 통해 서버에 거쳐서 다시 돌아와 Display 되게끔 설계
-        // 그러나 이러한 방법은 서버가 장애가 나서 보내지 못할 때와 같은 경우 서버에 보낼 수 없다.
-        // 카톡을 생각해보면 서버가 장애가 나도 채팅화면에 내가 작성한 내용이 전시가 되게끔 구성할 수는 없을까?
-        // 수신한 메시지가 자기 자신일 경우 메시지를 display 하지 않아도 된다.
-        // 해당 로직을 여기에 추가해야한다.
-        displayMessage(message.senderType, message.content);
+        // 수신한 메시지가 자신이 보낸 메시지인지 확인
+        const isOwnMessage = message.senderId === senderId;
+        displayMessage(message.senderType, message.content, isOwnMessage);
     };
 
     socket.onopen = () => {
         const enterMessage = {
             messageType: "ENTER",
-            senderId : senderId,
+            senderId: senderId,
+            senderType: currentUserRole,
             content: currentUserRole + " has entered the room."
         };
         socket.send(JSON.stringify(enterMessage));
@@ -29,22 +27,29 @@ document.addEventListener("DOMContentLoaded", () => {
         if (message !== "") {
             const chatMessage = {
                 messageType: "TALK",
-                senderId : senderId,
+                senderId: senderId,
+                senderType: currentUserRole,
                 content: message
             };
-            // displayMessage(currentUserRole, message);
+            // 메시지를 서버로 전송하고 동시에 로컬에 표시
+            // displayMessage(currentUserRole, message, true);
             socket.send(JSON.stringify(chatMessage));
             messageInput.value = "";
         }
     });
 
-    function displayMessage(sender, content) {
+    function displayMessage(senderType, content, isOwnMessage) {
         const messageElement = document.createElement("div");
         messageElement.classList.add("message");
-        if (sender === "BUYER") {
-            messageElement.classList.add("buyer-message");
-        } else if (sender === "SELLER") {
-            messageElement.classList.add("seller-message");
+        if (isOwnMessage) {
+            messageElement.classList.add("own-message");
+        } else {
+            messageElement.classList.add("other-message");
+            if (senderType === "BUYER") {
+                messageElement.classList.add("buyer-message");
+            } else if (senderType === "SELLER") {
+                messageElement.classList.add("seller-message");
+            }
         }
         messageElement.textContent = content;
         chatWindow.appendChild(messageElement);

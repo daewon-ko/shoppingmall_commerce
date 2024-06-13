@@ -50,3 +50,49 @@ body {
 .send-button:hover {
     background-color: #0056b3;
 }
+
+
+/* 기본 메시지 스타일 */
+.message {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    max-width: 60%;
+    clear: both;
+}
+
+/* 자신이 보낸 메시지 스타일 */
+.own-message {
+    background-color: #dcf8c6;
+    color: #000;
+    float: right;
+    text-align: right;
+}
+
+/* 상대방이 보낸 메시지 스타일 */
+.other-message {
+    background-color: #ffffff;
+    color: #000;
+    float: left;
+    text-align: left;
+}
+
+/* 상대방 메시지 중 구매자 메시지 스타일 */
+.buyer-message {
+    background-color: #f1f0f0;
+    color: #000;
+}
+
+/* 상대방 메시지 중 판매자 메시지 스타일 */
+.seller-message {
+    background-color: #f0f8ff;
+    color: #000;
+}
+
+/* 채팅 창 스타일 */
+#chatWindow {
+    overflow-y: scroll;
+    height: 400px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
