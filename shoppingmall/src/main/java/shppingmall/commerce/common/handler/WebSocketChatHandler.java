@@ -1,6 +1,5 @@
 package shppingmall.commerce.common.handler;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -10,7 +9,6 @@ import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 import shppingmall.commerce.chat.dto.ChatMessageDto;
-import shppingmall.commerce.chat.entity.MessageType;
 
 import java.net.URI;
 import java.util.Map;
@@ -28,19 +26,8 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         String roomId = getRoomId(session.getUri());
         sessions.put(session.getId(), session);
         session.getAttributes().put("roomId", roomId);
-        // TODO : 현재는 인증에 대한 부분은 일단 생략.
-        // 일단은 sender 등에 대한 정보를 임의로 넣어보기로 한다.
-//        session.getAttributes().put("username", session.getPrincipal().getName());
-
-
-        ChatMessageDto enterMessage = ChatMessageDto.builder()
-                .messageType(MessageType.ENTER)
-                .sender("A")
-                .content("A" + " has entered the room.")
-                .build();
-
-        sendMessageToRoom(roomId, enterMessage);
-        System.out.println("New WebSocket connection: " + session.getId() + " in room " + roomId);
+        // TODO : 현재는 인증에 대한 부분은 일단 생략. Principal 등의 객체는 인증 부분 학습 후 적용필요
+        log.info("웹소켓 연결 : session id = {}", session.getId() + "채팅방 번호 : {} ", roomId);
     }
 
     @Override
@@ -48,13 +35,9 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
 
 
         String roomId = (String) session.getAttributes().get("roomId");
-        String payload = (String)message.getPayload();
+        String payload = (String) message.getPayload();
         ChatMessageDto chatMessage = objectMapper.readValue(payload, ChatMessageDto.class);
-        if (chatMessage.getMessageType().equals(MessageType.TALK)) {
-            sendMessageToRoom(roomId, chatMessage);
-        }
-
-
+        sendMessageToRoom(roomId, chatMessage);
 
     }
 
@@ -69,16 +52,19 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         // TODO : 로직 개선 필요.
         // session이 열려있으면 메세지를 또 보낸다면, 메시지 중복전송할 수 있음. 그럼에도 session이 열려있음을 확인해야한다?
         // 또한 session 자체를 얼마나 유지할지또한 고민해봐야한다.
-        // 메시지를 보낼때마다 session이 열리고 닫힌다면 서버에 문제가 생기지 않을까?
-//        for (WebSocketSession session : sessions.values()) {
-//            if (session.isOpen() && roomId.equals(session.getAttributes().get("roomId"))) {
-//                try {
-//                    session.sendMessage(textMessage);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
+        // TODO:  한 명의 유저가 로그아웃인 상태라도 메세지는 전송되어야하는 문제 개선 필요
+
+
+        sessions.values().stream()
+                .filter(session -> session.isOpen() && roomId.equals(session.getAttributes().get("roomId")))
+                .distinct() // 중복된 세션을 걸러냅니다.
+                .forEach(session -> {
+                    try {
+                        session.sendMessage(textMessage);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
     }
 
     @Override

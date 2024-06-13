@@ -1,5 +1,6 @@
 package shppingmall.commerce.chat.service;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import shppingmall.commerce.chat.dto.ChatRoomCreateDto;
@@ -55,7 +56,7 @@ public class ChatRoomService {
                 return ChatRoomResponseDto.builder()
                         // TODO 수정 필요
                         // buyer, seller, product가 모두 동일하면 존재하는 채팅방 중 아무 거나 가져온다?
-                        .id(existingChatRoom.get().get(0).getId())
+                        .roomId(existingChatRoom.get().get(0).getId())
                         .buyerId(chatRoomCreateDto.getBuyerId())
                         .sellerId(chatRoomCreateDto.getSellerId())
                         .build();
@@ -74,23 +75,42 @@ public class ChatRoomService {
         chatRoom = chatRoomRepository.save(chatRoom);
 
         return ChatRoomResponseDto.builder()
-                .id(chatRoom.getId())
+                .roomId(chatRoom.getId())
                 .buyerId(chatRoomCreateDto.getBuyerId())
                 .sellerId(chatRoomCreateDto.getSellerId())
                 .build();
     }
 
 
-    public ChatRoomResponseDto getChatRoom(UUID roomId) {
+    public ChatRoomResponseDto getChatRoom(UUID roomId, HttpSession httpSession) {
+
         ChatRoom chatRoom = chatRoomRepository.findById(roomId).orElseThrow(
                 () -> new IllegalArgumentException("해당하는 채팅방이 존재하지 않습니다.")
         );
+        UUID chatRoomId = chatRoom.getId();
+
+        // ChatRoom 객체로 UserRole을 조회하는 메서드 정의 필요
+//        List<User> users = userRepository.findUserByChatRoom(chatRoomId).orElseThrow(() -> new IllegalArgumentException("해당하는 회원이 업슶니다."));
+
+        /**n
+         * seller냐 buyer냐에 따라서 분기가 필요하지 않을까?n
+         * 1. 똑같은 URL(/chat/chatRoom/{roomId}를 통n해 입장한다.
+         * 2. roomId로 채팅방을 조회한다.
+         * 3. 채팅방 객체에는 User(Seller), User(Buyer)가 저장되어 있다.
+         * 4. 해당 API에 접근한 주체가 누구인지는 어떻게 파악하나?
+         * - 인증의 문제n
+         */
+        User user = (User) httpSession.getAttribute("user");
+        UserRole userRole = user.getUserRole();
+        Long senderId = user.getId();
 
 
         return ChatRoomResponseDto.builder()
-                .id(chatRoom.getId())
+                .roomId(chatRoom.getId())
                 .buyerId(chatRoom.getBuyer().getId())
                 .sellerId(chatRoom.getSeller().getId())
+                .userRole(userRole)
+                .senderId(senderId)
                 .build();
     }
 

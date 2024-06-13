@@ -18,11 +18,12 @@
 <script th:src="@{/js/chat.js}"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
-    const roomId = [[${chatRoom.id}]];
+    const senderId = [[${chatRoom.senderId}]];
+    const roomId = [[${chatRoom.roomId}]];
         /*]]>*/
 
     // 'defaultRoomId';
-    const currentUserRole = 'buyer';  // 서버에서 전달된 사용자 역할을 사용합니다.
+    const currentUserRole = [[${chatRoom.userRole}]];  // 서버에서 전달된 사용자 역할을 사용합니다.
 </script>
 </body>
 </html>
