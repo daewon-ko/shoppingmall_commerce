@@ -1,6 +1,7 @@
 package shppingmall.commerce.common.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
@@ -9,6 +10,9 @@ import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 import shppingmall.commerce.chat.dto.ChatMessageDto;
+import shppingmall.commerce.chat.entity.MessageType;
+import shppingmall.commerce.chat.service.ChatRoomService;
+import shppingmall.commerce.chat.service.MessageService;
 
 import java.net.URI;
 import java.util.Map;
@@ -16,10 +20,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class WebSocketChatHandler extends TextWebSocketHandler {
 
     private final Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
     private final ObjectMapper objectMapper = new ObjectMapper();
+    private final MessageService messageService;
 
     @Override
     public void afterConnectionEstablished(final WebSocketSession session) throws Exception {
@@ -36,7 +42,12 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
 
         String roomId = (String) session.getAttributes().get("roomId");
         String payload = (String) message.getPayload();
+
         ChatMessageDto chatMessage = objectMapper.readValue(payload, ChatMessageDto.class);
+        if (chatMessage.getMessageType().equals(MessageType.TALK)) {
+            messageService.saveMessage(chatMessage, roomId);
+
+        }
         sendMessageToRoom(roomId, chatMessage);
 
     }

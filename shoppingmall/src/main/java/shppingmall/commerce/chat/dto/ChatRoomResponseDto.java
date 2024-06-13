@@ -14,7 +14,7 @@ public class ChatRoomResponseDto {
     private UUID roomId;
     private Long buyerId;
     private Long sellerId;
-    private UserRole userRole;
     private Long senderId;
+    private UserRole userRole;
 
 }

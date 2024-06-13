@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import shppingmall.commerce.chat.entity.MessageType;
+import shppingmall.commerce.user.entity.UserRole;
 
 @Builder
 @AllArgsConstructor
@@ -12,6 +13,7 @@ import shppingmall.commerce.chat.entity.MessageType;
 @NoArgsConstructor
 public class ChatMessageDto {
     private MessageType messageType;
-    private String sender;
+    private Long senderId;
+//    private UserRole senderType;
     private String content;
 }

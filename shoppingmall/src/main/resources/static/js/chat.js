@@ -3,8 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const messageInput = document.getElementById("messageInput");
     const sendButton = document.getElementById("sendButton");
 
-    // const roomId = [[${chatRoom.id}]];
-    // const currentUserRole = /*[[${currentUserRole}]]*/ 'buyer';  // 서버에서 전달된 사용자 역할을 사용합니다.
     const socket = new WebSocket(`ws://localhost:8080/ws/chatRoom/${roomId}`);
 
     socket.onmessage = (event) => {
@@ -14,13 +12,13 @@ document.addEventListener("DOMContentLoaded", () => {
         // 카톡을 생각해보면 서버가 장애가 나도 채팅화면에 내가 작성한 내용이 전시가 되게끔 구성할 수는 없을까?
         // 수신한 메시지가 자기 자신일 경우 메시지를 display 하지 않아도 된다.
         // 해당 로직을 여기에 추가해야한다.
-        displayMessage(message.sender, message.content);
+        displayMessage(message.senderType, message.content);
     };
 
     socket.onopen = () => {
         const enterMessage = {
             messageType: "ENTER",
-            sender: currentUserRole,
+            senderId : senderId,
             content: currentUserRole + " has entered the room."
         };
         socket.send(JSON.stringify(enterMessage));
@@ -31,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (message !== "") {
             const chatMessage = {
                 messageType: "TALK",
-                sender: currentUserRole,
+                senderId : senderId,
                 content: message
             };
             // displayMessage(currentUserRole, message);

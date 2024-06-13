@@ -1,5 +1,6 @@
 package shppingmall.commerce.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
@@ -9,12 +10,13 @@ import shppingmall.commerce.common.handler.WebSocketChatHandler;
 
 @Configuration
 @EnableWebSocket
+@RequiredArgsConstructor
 public class WebSocketConfig implements WebSocketConfigurer {
 
-    private WebSocketHandler webSocketHandler;
+    private final WebSocketChatHandler webSocketChatHandler;
     @Override
     public void registerWebSocketHandlers(final WebSocketHandlerRegistry registry) {
-        registry.addHandler(new WebSocketChatHandler(), "/ws/chatRoom/{roomId}")
+        registry.addHandler(webSocketChatHandler, "/ws/chatRoom/{roomId}")
                 .setAllowedOrigins("*");    // 일단 모든 경로에 대하여 허용
 
     }
