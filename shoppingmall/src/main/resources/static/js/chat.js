@@ -9,6 +9,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     socket.onmessage = (event) => {
         const message = JSON.parse(event.data);
+        //TODO : 일단은 내가 보낸 모든 메시지가 웹소켓을 통해 서버에 거쳐서 다시 돌아와 Display 되게끔 설계
+        // 그러나 이러한 방법은 서버가 장애가 나서 보내지 못할 때와 같은 경우 서버에 보낼 수 없다.
+        // 카톡을 생각해보면 서버가 장애가 나도 채팅화면에 내가 작성한 내용이 전시가 되게끔 구성할 수는 없을까?
+        // 수신한 메시지가 자기 자신일 경우 메시지를 display 하지 않아도 된다.
+        // 해당 로직을 여기에 추가해야한다.
         displayMessage(message.sender, message.content);
     };
 
@@ -29,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 sender: currentUserRole,
                 content: message
             };
-            displayMessage(currentUserRole, message);
+            // displayMessage(currentUserRole, message);
             socket.send(JSON.stringify(chatMessage));
             messageInput.value = "";
         }
@@ -38,9 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function displayMessage(sender, content) {
         const messageElement = document.createElement("div");
         messageElement.classList.add("message");
-        if (sender === "buyer") {
+        if (sender === "BUYER") {
             messageElement.classList.add("buyer-message");
-        } else if (sender === "seller") {
+        } else if (sender === "SELLER") {
             messageElement.classList.add("seller-message");
         }
         messageElement.textContent = content;

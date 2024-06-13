@@ -9,20 +9,32 @@ body {
     background-color: #f8f9fa;
 }
 
+
+
 .container {
     text-align: center;
+    margin-top: 50px;
 }
 
-.inquiry-button {
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* 버튼 간의 간격 조정 */
+    margin-top: 20px;
+}
+
+.action-button {
     padding: 10px 20px;
-    font-size: 16px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
 }
 
-.inquiry-button:hover {
+.action-button:hover {
     background-color: #0056b3;
 }
+
