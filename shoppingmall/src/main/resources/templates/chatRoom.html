@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room</title>
+    <link rel="stylesheet" th:href="@{/css/chat.css}">
+</head>
+<body>
+<div class="chat-container">
+    <h1>문의하기 </h1>
+    <div id="chatWindow" class="chat-window"></div>
+    <div class="message-box">
+        <input type="text" id="messageInput" class="message-input" placeholder="Type your message...">
+        <button id="sendButton" class="send-button">Send</button>
+    </div>
+</div>
+<script th:src="@{/js/chat.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const senderId = [[${chatRoom.senderId}]];
+    const roomId = [[${chatRoom.roomId}]];
+        /*]]>*/
+
+    // 'defaultRoomId';
+    const currentUserRole = [[${chatRoom.userRole}]];  // 서버에서 전달된 사용자 역할을 사용합니다.
+</script>
+</body>
+</html>
