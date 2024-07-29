@@ -16,8 +16,6 @@ public class CategoryRequestDto {
     public Category toEntity() {
         return Category.builder()
                 .name(getCategoryName())
-                .createdAt(LocalDateTime.now())
-                .modifiedAt(LocalDateTime.now())
                 .build();
     }
 }

@@ -1,10 +1,7 @@
 package shppingmall.commerce.product.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
+import lombok.*;
 import org.apache.catalina.webresources.AbstractResource;
 import shppingmall.commerce.category.entity.Category;
 import shppingmall.commerce.common.BaseEntity;
@@ -16,9 +13,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "product")
-@SuperBuilder
+@Builder
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Product extends BaseEntity {
     @Id
@@ -33,8 +30,6 @@ public class Product extends BaseEntity {
     private int price;
 
 
-//    @Column(name = "image_url")
-//    private String imageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
@@ -46,7 +41,6 @@ public class Product extends BaseEntity {
                 .id(getId())
                 .name(getName())
                 .price(getPrice())
-//                .imageUrl(getImageUrl())
                 .categoryId(getCategory().getId())
                 .categoryName(getCategory().getName())
                 .build();

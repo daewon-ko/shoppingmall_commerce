@@ -33,7 +33,6 @@ public class MessageService {
                 .chatRoom(chatRoom)
                 .content(content)
                 .user(user)
-                .createdAt(LocalDateTime.now())
                 .build();
 
         messageRepository.save(message);

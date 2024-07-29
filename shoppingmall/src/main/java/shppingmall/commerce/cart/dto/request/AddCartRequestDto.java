@@ -21,8 +21,6 @@ public class AddCartRequestDto {
                 .cart(cart)
                 .product(product)
                 .quantity(quantity)
-                .createdAt(LocalDateTime.now())
-                .modifiedAt(LocalDateTime.now())
                 .build();
     }
 }

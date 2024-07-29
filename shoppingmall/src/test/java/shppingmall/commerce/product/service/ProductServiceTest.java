@@ -151,7 +151,6 @@ class ProductServiceTest extends IntegrationTest {
                 .category(category)
                 .name(name)
                 .price(price)
-                .createdAt(localDateTime)
                 .build();
     }
 

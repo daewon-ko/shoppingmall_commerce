@@ -28,8 +28,6 @@ public class OrderCreateRequestDto {
                 .orderStatus(OrderStatus.NEW)   // 처음 주문이 들어오면 주문상태는 NEW로 고정
                 .zipCode(getZipCode())
                 .detailAddress(getDetailAddress())
-                .createdAt(LocalDateTime.now())
-                .modifiedAt(LocalDateTime.now())
                 .build();
     }
 
@@ -38,8 +36,6 @@ public class OrderCreateRequestDto {
                 .zipCode(getZipCode())
                 .detailAddress(getDetailAddress())
                 .cart(cart)
-                .createdAt(LocalDateTime.now())
-                .modifiedAt(LocalDateTime.now())
                 .orderStatus(OrderStatus.NEW)
                 .build();
 

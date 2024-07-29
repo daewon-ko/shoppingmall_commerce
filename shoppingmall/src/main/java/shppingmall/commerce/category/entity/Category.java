@@ -4,13 +4,13 @@ package shppingmall.commerce.category.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 import shppingmall.commerce.common.BaseEntity;
 
 import java.time.LocalDateTime;
 
 @Entity
-@SuperBuilder
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Category extends BaseEntity {

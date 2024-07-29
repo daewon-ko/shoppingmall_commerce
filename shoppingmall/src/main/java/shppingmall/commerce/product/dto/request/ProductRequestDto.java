@@ -34,8 +34,6 @@ public class ProductRequestDto {
                 .name(getName())
                 .price(getPrice())
                 .category(category)
-                .createdAt(LocalDateTime.now())
-                .modifiedAt(LocalDateTime.now())
                 .build();
     }
 }

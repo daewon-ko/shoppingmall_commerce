@@ -16,8 +16,6 @@ public class CreateCartRequestDto {
     public Cart toEntity() {
         return Cart.builder()
                 .id(getCartId())
-                .createdAt(LocalDateTime.now())
-                .modifiedAt(LocalDateTime.now())
                 .build();
     }
 
