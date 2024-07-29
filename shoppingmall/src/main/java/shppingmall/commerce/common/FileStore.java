@@ -3,7 +3,7 @@ package shppingmall.commerce.common;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-import shppingmall.commerce.product.UploadFile;
+import shppingmall.commerce.image.entity.Image;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,18 +18,18 @@ public class FileStore {
 
 
     // MultipartFile을 지정된 fileDir에 저장하는 로직
-    public List<UploadFile> uploadFiles(List<MultipartFile> multipartFiles) throws IOException {
-        List<UploadFile> uploadFileList = new ArrayList<>();
+    public List<String> uploadFiles(List<MultipartFile> multipartFiles) throws IOException {
+        List<String> imageList = new ArrayList<>();
 
         for (MultipartFile uploadFile : multipartFiles) {
             if (!uploadFile.isEmpty()) {
-                uploadFileList.add(storeFile(uploadFile));
+                imageList.add(storeFile(uploadFile));
             }
         }
-        return uploadFileList;
+        return imageList;
     }
 
-    private UploadFile storeFile(MultipartFile multipartFile) throws IOException {
+    private String storeFile(MultipartFile multipartFile) throws IOException {
         //TODO : 예외처리 필요
         if (multipartFile.isEmpty()) {
             return null;
@@ -37,9 +37,9 @@ public class FileStore {
 
         String originalFilename = multipartFile.getOriginalFilename();
         String uploadFileName = createUploadFileName(originalFilename);
-        multipartFile.transferTo(new File(getFullPath(uploadFileName)));
-        return new UploadFile(uploadFileName, originalFilename);
 
+        multipartFile.transferTo(new File(getFullPath(uploadFileName)));
+        return uploadFileName;
     }
 
     public String getFullPath(final String uploadFileName) {

@@ -5,9 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.apache.catalina.webresources.AbstractResource;
 import shppingmall.commerce.category.entity.Category;
 import shppingmall.commerce.common.BaseEntity;
+import shppingmall.commerce.image.entity.Image;
 import shppingmall.commerce.product.dto.response.ProductResponseDto;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "product")
@@ -26,6 +31,7 @@ public class Product extends BaseEntity {
 
     @Column
     private int price;
+
 
     @Column(name = "image_url")
     private String imageUrl;

@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public interface ImageService {
 
-    List<Image> saveImage(List<MultipartFile> images, Long targetId, FileType fileType) throws IOException;
+    List<Image> saveImage(List<MultipartFile> images, Long targetId, FileType fileType);
 
     Image getImage(String imageId);
 }

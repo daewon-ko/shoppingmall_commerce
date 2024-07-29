@@ -20,18 +20,21 @@ public class ImageServiceImpl implements ImageService {
 
     // TODO : 예외정의 후 처리 예정(ControllerAdvice 등) - 재학습 필요
     @Override
-    public List<Image> saveImage(List<MultipartFile> multipartFiles, Long targetId, FileType fileType) throws IOException {
+    public List<Image> saveImage(List<MultipartFile> multipartFiles, Long targetId, FileType fileType) {
 
 
-        List<List<String>> fileNames = fileStore.uploadFiles(multipartFiles);
+        List<String> fileNames;
+        try {
+            fileNames = fileStore.uploadFiles(multipartFiles);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
         List<Image> images = new ArrayList<>();
-        for (List<String> fileName : fileNames) {
 
-
-            String originalName = fileName.get(0);
-            String uploadName = fileName.get(1);
+        for (String uploadName : fileNames) {
             String fullPathUrl = fileStore.getFullPath(uploadName);
-
             Image image = Image.builder()
                     .uploadName(uploadName)
                     .fileType(fileType)
@@ -41,8 +44,8 @@ public class ImageServiceImpl implements ImageService {
 
             imageRepository.save(image);
             images.add(image);
-
         }
+
         return images;
 
 
