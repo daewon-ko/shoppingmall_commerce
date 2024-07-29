@@ -3,17 +3,15 @@ package shppingmall.commerce.category.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import shppingmall.commerce.common.BaseEntity;
 
+import java.time.LocalDateTime;
+
 @Entity
 @SuperBuilder
-@AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Category extends BaseEntity {
     @Id
@@ -25,4 +23,16 @@ public class Category extends BaseEntity {
     @NotNull
     private String name;
 
+
+    @Builder
+    private Category(String name) {
+        this.name = name;
+    }
+
+    public static Category createCategory(String name) {
+        return Category.builder()
+                .name(name).build();
+
+    }
 }
+

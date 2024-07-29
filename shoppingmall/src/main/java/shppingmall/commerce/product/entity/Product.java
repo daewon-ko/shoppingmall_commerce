@@ -33,8 +33,8 @@ public class Product extends BaseEntity {
     private int price;
 
 
-    @Column(name = "image_url")
-    private String imageUrl;
+//    @Column(name = "image_url")
+//    private String imageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
@@ -46,7 +46,7 @@ public class Product extends BaseEntity {
                 .id(getId())
                 .name(getName())
                 .price(getPrice())
-                .imageUrl(getImageUrl())
+//                .imageUrl(getImageUrl())
                 .categoryId(getCategory().getId())
                 .categoryName(getCategory().getName())
                 .build();
