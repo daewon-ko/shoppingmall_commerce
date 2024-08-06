@@ -32,8 +32,6 @@ public class ImageServiceImpl implements ImageService {
             throw new RuntimeException(e);
         }
 
-        List<Image> images = new ArrayList<>();
-
         return fileNames.stream()
                 .map(uploadName -> {
                     String fullPathUrl = fileStore.getFullPath(uploadName);
