@@ -19,14 +19,14 @@ public class FileStore {
 
     // MultipartFile을 지정된 fileDir에 저장하는 로직
     public List<String> uploadFiles(List<MultipartFile> multipartFiles) throws IOException {
-        List<String> imageList = new ArrayList<>();
+        List<String> imageNameList = new ArrayList<>();
 
         for (MultipartFile uploadFile : multipartFiles) {
             if (!uploadFile.isEmpty()) {
-                imageList.add(storeFile(uploadFile));
+                imageNameList.add(storeFile(uploadFile));
             }
         }
-        return imageList;
+        return imageNameList;
     }
 
     private String storeFile(MultipartFile multipartFile) throws IOException {

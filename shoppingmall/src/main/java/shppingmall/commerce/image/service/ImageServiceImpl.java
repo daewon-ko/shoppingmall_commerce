@@ -11,6 +11,7 @@ import shppingmall.commerce.image.entity.Image;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,20 +34,18 @@ public class ImageServiceImpl implements ImageService {
 
         List<Image> images = new ArrayList<>();
 
-        for (String uploadName : fileNames) {
-            String fullPathUrl = fileStore.getFullPath(uploadName);
-            Image image = Image.builder()
-                    .uploadName(uploadName)
-                    .fileType(fileType)
-                    .targetId(targetId)
-                    .fullPathUrl(fullPathUrl)
-                    .build();
-
-            imageRepository.save(image);
-            images.add(image);
-        }
-
-        return images;
+        return fileNames.stream()
+                .map(uploadName -> {
+                    String fullPathUrl = fileStore.getFullPath(uploadName);
+                    Image image = Image.builder()
+                            .uploadName(uploadName)
+                            .fullPathUrl(fullPathUrl)
+                            .targetId(targetId)
+                            .fileType(fileType)
+                            .build();
+                    imageRepository.save(image);
+                    return image;
+                }).collect(Collectors.toList());
 
 
     }
