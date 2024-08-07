@@ -1,6 +1,5 @@
 package shppingmall.commerce.chat.repository;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,14 +37,8 @@ class ChatRoomRepositoryTest {
         Product product = createProduct(10000, "상품A");
         productRepository.save(product);
 
-        User seller = User.builder()
-                .name("userA")
-                .userRole(UserRole.SELLER)
-                .build();
-        User buyer = User.builder()
-                .name("userB")
-                .userRole(UserRole.BUYER)
-                .build();
+        User seller = createUser("userA", UserRole.SELLER);
+        User buyer = createUser("userB", UserRole.BUYER);
 
         userRepository.save(seller);
         userRepository.save(buyer);
@@ -73,6 +66,14 @@ class ChatRoomRepositoryTest {
                             assertThat(chatRoom.getProduct()).isEqualTo(product);
                         });
 
+    }
+
+    private static User createUser(String name, UserRole userRole) {
+        User seller = User.builder()
+                .name(name)
+                .userRole(userRole)
+                .build();
+        return seller;
     }
 
     private static Product createProduct(int price, String name) {

@@ -15,6 +15,5 @@ public class ChatRoomResponseDto {
     private Long buyerId;
     private Long sellerId;
     private Long senderId;
-    private UserRole userRole;
 
 }
