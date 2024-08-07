@@ -30,11 +30,21 @@ public class Product extends BaseEntity {
     private int price;
 
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @Builder
+    private Product(String name, int price, Category category) {
+        this.name = name;
+        this.price = price;
+        this.category = category;
+    }
+
+    @Builder
+    private Product(String name, int price) {
+        this(name, price, null);
+    }
 
     public ProductResponseDto toDto() {
         return ProductResponseDto.builder()

@@ -62,8 +62,8 @@ public class OrderService {
             // TODO : 예외처리 정립 필요
             Product product = productRepository.findById(orderProductRequestDto.getProductId()).orElseThrow(() -> new IllegalArgumentException("해당 상품은 존재하지 않습니다."));
             OrderProduct orderProduct = orderProductRequestDto.toEntity(order, product);
-            orderProductRepository.save(orderProduct);
-            orderProductCreateResponseDtoList.add(OrderProductCreateResponseDto.of(orderProduct));
+            OrderProduct savedOrderProduct = orderProductRepository.save(orderProduct);
+            orderProductCreateResponseDtoList.add(OrderProductCreateResponseDto.of(savedOrderProduct));
         }
         return orderProductCreateResponseDtoList;
     }

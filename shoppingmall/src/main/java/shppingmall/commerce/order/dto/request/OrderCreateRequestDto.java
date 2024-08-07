@@ -2,6 +2,7 @@ package shppingmall.commerce.order.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 import shppingmall.commerce.cart.entity.Cart;
 import shppingmall.commerce.order.OrderStatus;
@@ -22,6 +23,15 @@ public class OrderCreateRequestDto {
     private String detailAddress;
 
     private List<OrderProductCreateRequestDto> orderProductRequestDtoList;
+
+
+    @Builder
+    private OrderCreateRequestDto(Long cartId, String zipCode, String detailAddress, List<OrderProductCreateRequestDto> orderProductRequestDtoList) {
+        this.cartId = cartId;
+        this.zipCode = zipCode;
+        this.detailAddress = detailAddress;
+        this.orderProductRequestDtoList = orderProductRequestDtoList;
+    }
 
     public Order toEntity() {
         return Order.builder()
