@@ -1,7 +1,10 @@
 package shppingmall.commerce.user.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import shppingmall.commerce.chat.entity.ChatRoom;
 
 import java.util.List;
@@ -13,6 +16,7 @@ import java.util.List;
 @Entity
 @Table
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +28,13 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
-//// TODO : UserRepository에서 ChatRoom과 조인해서 User를 조회하기위해 양방향 관계를 만들었으나, 다른방법은 없을까?
+    @Builder
+    private User(String name, UserRole userRole) {
+        this.name = name;
+        this.userRole = userRole;
+    }
+
+    //// TODO : UserRepository에서 ChatRoom과 조인해서 User를 조회하기위해 양방향 관계를 만들었으나, 다른방법은 없을까?
 //    @OneToMany(mappedBy = "user")
 //    private List<ChatRoom> chatRooms;
 

@@ -12,7 +12,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Builder
 public class ChatRoom extends BaseEntity {
     @Id
     @GeneratedValue
@@ -31,5 +30,10 @@ public class ChatRoom extends BaseEntity {
     @JoinColumn(name = "product_id")
     private Product product;
 
-
+    @Builder
+    private ChatRoom(User seller, User buyer, Product product) {
+        this.seller = seller;
+        this.buyer = buyer;
+        this.product = product;
+    }
 }

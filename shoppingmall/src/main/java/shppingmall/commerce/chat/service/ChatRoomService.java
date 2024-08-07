@@ -46,23 +46,23 @@ public class ChatRoomService {
 
 
         // 아래와 같이 로직을 작성하면 Optional 안에 null이 아닌 빈 객체를 담고 있을 수도 있지 않을까?
-        Optional<List<ChatRoom>> existingChatRoom = chatRoomRepository.findByBuyerAndSellerAndProduct(buyer, seller, product);
+        Optional<ChatRoom> existingChatRoom = chatRoomRepository.findByBuyerAndSellerAndProduct(buyer, seller, product);
 
         // TODO: 로직 변경 필요.
         if (existingChatRoom.isPresent()) {  // existingChatRoom이 null이 아니라면
-            List<ChatRoom> chatRooms = existingChatRoom.get();
+            ChatRoom chatRoom = existingChatRoom.get();
 
-            if (chatRooms.size() > 0) {
+
                 return ChatRoomResponseDto.builder()
                         // TODO 수정 필요
                         // buyer, seller, product가 모두 동일하면 존재하는 채팅방 중 아무 거나 가져온다?
-                        .roomId(existingChatRoom.get().get(0).getId())
+                        .roomId(chatRoom.getId())
                         .buyerId(chatRoomCreateDto.getBuyerId())
                         .sellerId(chatRoomCreateDto.getSellerId())
                         .build();
             }
 
-        }
+
 
 
         // TODO : DTO를 아래와 같이 만들면 매번 ChatRoom이 생성되지 않을까?, 같은 거
