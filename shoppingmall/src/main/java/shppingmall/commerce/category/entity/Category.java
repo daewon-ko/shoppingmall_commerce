@@ -9,7 +9,6 @@ import shppingmall.commerce.common.BaseEntity;
 import java.time.LocalDateTime;
 
 @Entity
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
