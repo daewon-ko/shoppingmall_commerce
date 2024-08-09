@@ -1,5 +1,6 @@
 package shppingmall.commerce.order.service;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import shppingmall.commerce.category.repository.CategoryRepository;
 import shppingmall.commerce.order.dto.request.OrderCreateRequestDto;
 import shppingmall.commerce.order.dto.request.OrderProductCreateRequestDto;
 import shppingmall.commerce.order.dto.response.OrderProductCreateResponseDto;
+import shppingmall.commerce.order.repository.OrderProductRepository;
+import shppingmall.commerce.order.repository.OrderRepository;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
 import shppingmall.commerce.support.IntegrationTest;
@@ -23,10 +26,25 @@ class OrderServiceTest extends IntegrationTest {
     private OrderService orderService;
 
     @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private OrderProductRepository orderProductRepository;
+
+    @Autowired
     ProductRepository productRepository;
 
     @Autowired
     CartRepository cartRepository;
+
+    @AfterEach
+    void tearDown() {
+        orderProductRepository.deleteAllInBatch();
+        orderRepository.deleteAllInBatch();
+        productRepository.deleteAllInBatch();
+        cartRepository.deleteAllInBatch();
+
+    }
 
     @DisplayName("장바구니 생성 없이 하나의 상품을 바로 주문을 한다.")
     @Test
