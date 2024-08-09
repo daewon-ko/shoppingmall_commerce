@@ -13,6 +13,10 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class ChatRoom extends BaseEntity {
+    /**
+     * TODO : PK를 UUID와 같은 식으로 뒀을 때,
+     *  조회 - 인덱스와 관련해서 이슈가 되는 부분을 고려해야하지 않을까?
+     */
     @Id
     @GeneratedValue
     @Column(name = "chat_room_id")
