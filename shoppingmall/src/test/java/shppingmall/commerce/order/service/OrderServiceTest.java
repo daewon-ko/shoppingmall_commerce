@@ -121,7 +121,7 @@ class OrderServiceTest extends IntegrationTest {
     @Test
     void createOrderCart() {
         //given
-        Cart cart = new Cart(1L);
+        Cart cart = Cart.builder().build();
 
         Cart savedCart = cartRepository.save(cart);
 

@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
@@ -15,4 +16,9 @@ public class AddCartProductRequestDto {
     private int quantity;
 
 
+    @Builder
+    private AddCartProductRequestDto(Long productId, int quantity) {
+        this.productId = productId;
+        this.quantity = quantity;
+    }
 }
