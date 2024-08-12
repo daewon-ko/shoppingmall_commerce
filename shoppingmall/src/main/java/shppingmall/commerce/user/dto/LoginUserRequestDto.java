@@ -1,6 +1,7 @@
 package shppingmall.commerce.user.dto;
 
 
+import lombok.Builder;
 import lombok.Getter;
 
 /**
@@ -11,4 +12,9 @@ public class LoginUserRequestDto {
     private String name;
     private String password;
 
+    @Builder
+    private LoginUserRequestDto(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
 }

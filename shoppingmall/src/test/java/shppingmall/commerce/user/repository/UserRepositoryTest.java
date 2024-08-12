@@ -1,15 +1,14 @@
 package shppingmall.commerce.user.repository;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import shppingmall.commerce.user.entity.User;
+import shppingmall.commerce.user.entity.UserRole;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)    // DB 교체
@@ -21,10 +20,7 @@ class UserRepositoryTest {
     @Test
     void findByNameAndPassword() {
         //given
-        User user = User.builder()
-                .name("test")
-                .password("1234")
-                .build();
+        User user = createUser("test", "1234", UserRole.BUYER);
         userRepository.save(user);
         //when
         User findUser = userRepository.findByNameAndPassword("test", "1234");
@@ -32,6 +28,17 @@ class UserRepositoryTest {
         //then
         assertThat(findUser).isEqualTo(user);
 
+    }
+
+
+
+    private static User createUser(String name, String password, UserRole userRole) {
+        User user = User.builder()
+                .name(name)
+                .password(password)
+                .userRole(userRole)
+                .build();
+        return user;
     }
 
 
