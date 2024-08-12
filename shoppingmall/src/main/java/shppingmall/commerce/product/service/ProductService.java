@@ -14,6 +14,10 @@ import shppingmall.commerce.product.dto.request.ProductRequestDto;
 import shppingmall.commerce.product.dto.response.ProductResponseDto;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
+import shppingmall.commerce.user.entity.User;
+import shppingmall.commerce.user.entity.UserRole;
+import shppingmall.commerce.user.repository.UserRepository;
+import shppingmall.commerce.user.service.UserService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,11 +25,13 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ProductService {
     private final ProductRepository productRepository;
     // TODO : Service Layer에서 타 도메인 Repository를 참고하는게 적절한가?
     private final CategoryRepository categoryRepository;
     private final ImageService imageService;
+    private final UserService userService;
 
     @Transactional
     public void createProduct(final ProductRequestDto requestDto, List<MultipartFile> images) {
@@ -36,7 +42,9 @@ public class ProductService {
         Category category = categoryRepository.findById(requestDto.getCategoryId()).orElseThrow(() -> new IllegalArgumentException("해당하는 카테고리가 없습니다."));
 
         // dto -> product entity 변환 필요
-        Product product = requestDto.toEntity(category);
+        User seller = userService.findUserByIdAndUserRole(requestDto.getSellerId());
+
+        Product product = requestDto.toEntity(category,seller);
 
         Product savedProduct = productRepository.save(product);
 
@@ -46,7 +54,7 @@ public class ProductService {
 
     }
 
-    @Transactional(readOnly = true)
+
     public List<ProductResponseDto> getAllProductList() {
         List<ProductResponseDto> list = new ArrayList<>();
         List<Product> productList = productRepository.findAll();

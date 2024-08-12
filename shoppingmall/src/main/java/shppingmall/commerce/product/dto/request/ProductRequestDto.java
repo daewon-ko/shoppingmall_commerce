@@ -9,6 +9,7 @@ import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
 import shppingmall.commerce.category.entity.Category;
 import shppingmall.commerce.product.entity.Product;
+import shppingmall.commerce.user.entity.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,12 +29,16 @@ public class ProductRequestDto {
     @NotNull(message = "카테고리 번호를 입력해주세요.")
     private Long categoryId;
 
+    @NotNull(message = "판매자의 id를 입력해주세요.")
+    private Long sellerId;
 
-    public Product toEntity(final Category category) {
+
+    public Product toEntity(final Category category, User user) {
         return Product.builder()
                 .name(getName())
                 .price(getPrice())
                 .category(category)
+                .seller(user)
                 .build();
     }
 }

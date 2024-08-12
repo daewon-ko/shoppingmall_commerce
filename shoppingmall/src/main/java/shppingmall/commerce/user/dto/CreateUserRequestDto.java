@@ -9,11 +9,20 @@ public class CreateUserRequestDto {
     private String name;
     private String password;
 
-    public User toEntity() {
+    public User toBuyerEntity() {
         return User.builder()
                 .name(name)
                 .password(password)
                 .userRole(UserRole.BUYER)
+                .build();
+
+    }
+
+    public User toSellerEntity() {
+        return User.builder()
+                .name(name)
+                .password(password)
+                .userRole(UserRole.SELLER)
                 .build();
 
     }
