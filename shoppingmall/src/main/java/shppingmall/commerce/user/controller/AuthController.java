@@ -1,15 +1,21 @@
 package shppingmall.commerce.user.controller;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import shppingmall.commerce.user.dto.CreateUserRequestDto;
+import shppingmall.commerce.user.dto.LoginUserRequestDto;
 import shppingmall.commerce.user.entity.User;
 import shppingmall.commerce.user.repository.UserRepository;
+import shppingmall.commerce.user.service.UserService;
 
 // TODO User Entity 자체를 매우 단순하게 설계했음.
 
@@ -22,10 +28,13 @@ import shppingmall.commerce.user.repository.UserRepository;
 @RequiredArgsConstructor
 @Slf4j
 public class AuthController {
+    private final UserService userService;
     private final UserRepository userRepository;
 
     @GetMapping("/login")
-    public String login() {
+    public String login(Model model) {
+        model.addAttribute("loginUserRequestDto", new LoginUserRequestDto());
+
         return "/login";
     }
 
@@ -34,11 +43,23 @@ public class AuthController {
     public String home() {
         return "index";
     }
+
     @PostMapping("/auth/login")
-    public String login(@RequestParam Long userId, HttpSession httpSession) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당하는 회원은 없습니다."));
-        httpSession.setAttribute("user", user);
-        log.info("로그인 및 Session 객체 생성 성공, session : {}", user);
+    public String login(@Valid LoginUserRequestDto loginUserRequestDto, HttpSession httpSession) {
+        userService.login(loginUserRequestDto, httpSession);
+        return "index";
+    }
+
+    @GetMapping("/auth/register")
+    public String signUP(Model model) {
+        model.addAttribute("memberForm", new CreateUserRequestDto());
+        return "signUp";
+    }
+
+    @PostMapping("/auth/register")
+    public String singUp(@Valid CreateUserRequestDto createUserRequest) {
+
+        userService.register(createUserRequest);
         return "index";
     }
 }

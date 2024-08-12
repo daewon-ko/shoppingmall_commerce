@@ -27,16 +27,18 @@ public class User {
 
     @Column(name = "user_name")
     private String name;
+    private String password;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
 
-
     @Builder
-    private User(String name, UserRole userRole) {
+    private User(String name, String password, UserRole userRole) {
         this.name = name;
+        this.password = password;
         this.userRole = userRole;
     }
+
 
     @Override
     public boolean equals(Object o) {

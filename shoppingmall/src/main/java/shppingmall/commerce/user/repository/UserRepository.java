@@ -16,4 +16,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 //    @Query("SELECT cr.buyer, cr.seller From ChatRoom cr where cr.id = : chatRoomId")
 //    Optional<List<User>> findUserByChatRoom(@Param("chatRoomId") UUID chatRoomId);
 
+    User findByNameAndPassword(String name, String password);
 }
