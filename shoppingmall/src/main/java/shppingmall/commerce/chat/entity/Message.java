@@ -1,16 +1,15 @@
 package shppingmall.commerce.chat.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
+import lombok.*;
+import shppingmall.commerce.chat.dto.ChatMessageResponseDto;
 import shppingmall.commerce.common.BaseEntity;
 import shppingmall.commerce.user.entity.User;
 
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@SuperBuilder
+@Getter
 public class Message extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,4 +28,19 @@ public class Message extends BaseEntity {
     @Column(name = "message_content")
     private String content;
 
+    @Builder
+    private Message(ChatRoom chatRoom, User user, String content) {
+        this.chatRoom = chatRoom;
+        this.user = user;
+        this.content = content;
+    }
+
+    public ChatMessageResponseDto of() {
+        return ChatMessageResponseDto.builder()
+                .id(id)
+                .content(content)
+                .senderId(user.getId())
+                .chatRoomId(chatRoom.getId())
+                .build();
+    }
 }

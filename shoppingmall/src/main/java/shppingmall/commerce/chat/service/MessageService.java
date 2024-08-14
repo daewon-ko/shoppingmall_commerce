@@ -2,7 +2,9 @@ package shppingmall.commerce.chat.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import shppingmall.commerce.chat.dto.ChatMessageDto;
+import org.springframework.transaction.annotation.Transactional;
+import shppingmall.commerce.chat.dto.ChatMessageRequestDto;
+import shppingmall.commerce.chat.dto.ChatMessageResponseDto;
 import shppingmall.commerce.chat.entity.ChatRoom;
 import shppingmall.commerce.chat.entity.Message;
 import shppingmall.commerce.chat.repository.ChatRoomRepository;
@@ -10,7 +12,6 @@ import shppingmall.commerce.chat.repository.MessageRepository;
 import shppingmall.commerce.user.entity.User;
 import shppingmall.commerce.user.repository.UserRepository;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -20,7 +21,8 @@ public class MessageService {
     private final ChatRoomRepository chatRoomRepository;
     private final UserRepository userRepository;
 
-    public void saveMessage(ChatMessageDto messageDto, String roomId) {
+    @Transactional
+    public ChatMessageResponseDto saveMessage(ChatMessageRequestDto messageDto, String roomId) {
         String content = messageDto.getContent();
         ChatRoom chatRoom = chatRoomRepository.findById(UUID.fromString(roomId))
                 .orElseThrow(() -> new IllegalArgumentException("해당하는 채팅방이 없습니다. 확인해주세요."));
@@ -33,10 +35,10 @@ public class MessageService {
                 .chatRoom(chatRoom)
                 .content(content)
                 .user(user)
-                .createdAt(LocalDateTime.now())
                 .build();
 
-        messageRepository.save(message);
+        Message savedMessage = messageRepository.save(message);
+        return ChatMessageResponseDto.from(savedMessage);
 
     }
 }

@@ -9,9 +9,8 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import shppingmall.commerce.chat.dto.ChatMessageDto;
+import shppingmall.commerce.chat.dto.ChatMessageRequestDto;
 import shppingmall.commerce.chat.entity.MessageType;
-import shppingmall.commerce.chat.service.ChatRoomService;
 import shppingmall.commerce.chat.service.MessageService;
 
 import java.net.URI;
@@ -43,7 +42,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
         String roomId = (String) session.getAttributes().get("roomId");
         String payload = (String) message.getPayload();
 
-        ChatMessageDto chatMessage = objectMapper.readValue(payload, ChatMessageDto.class);
+        ChatMessageRequestDto chatMessage = objectMapper.readValue(payload, ChatMessageRequestDto.class);
         if (chatMessage.getMessageType().equals(MessageType.TALK)) {
             messageService.saveMessage(chatMessage, roomId);
 
@@ -52,7 +51,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
 
     }
 
-    private void sendMessageToRoom(String roomId, ChatMessageDto message) {
+    private void sendMessageToRoom(String roomId, ChatMessageRequestDto message) {
         TextMessage textMessage;
         try {
             textMessage = new TextMessage(objectMapper.writeValueAsString(message));

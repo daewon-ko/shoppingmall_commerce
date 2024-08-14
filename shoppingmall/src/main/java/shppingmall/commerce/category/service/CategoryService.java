@@ -12,8 +12,11 @@ import shppingmall.commerce.category.repository.CategoryRepository;
 public class CategoryService {
     private final CategoryRepository categoryRepository;
     @Transactional
-    public void createCategory(final CategoryRequestDto categoryRequestDto) {
+    public long createCategory(final CategoryRequestDto categoryRequestDto) {
         Category category = categoryRequestDto.toEntity();
-        categoryRepository.save(category);
+        Category savedCategory = categoryRepository.save(category);
+
+        return savedCategory.getId();
+
     }
 }

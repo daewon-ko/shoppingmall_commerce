@@ -10,7 +10,7 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @Builder
-public class ChatRoomResponseDto {
+public class  ChatRoomResponseDto {
     private UUID roomId;
     private Long buyerId;
     private Long sellerId;

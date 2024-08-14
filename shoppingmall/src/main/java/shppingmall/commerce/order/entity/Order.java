@@ -2,9 +2,10 @@ package shppingmall.commerce.order.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 import org.springframework.lang.Nullable;
 import shppingmall.commerce.cart.entity.Cart;
 import shppingmall.commerce.common.BaseEntity;
@@ -12,9 +13,9 @@ import shppingmall.commerce.order.OrderStatus;
 
 @Entity
 @Table(name = "orders")
-@SuperBuilder
+@Builder
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,9 +3,9 @@ package shppingmall.commerce.cart.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 import shppingmall.commerce.common.BaseEntity;
 import shppingmall.commerce.product.entity.Product;
 
@@ -14,7 +14,7 @@ import shppingmall.commerce.product.entity.Product;
  * 중간테이블
  */
 @Entity
-@SuperBuilder
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
