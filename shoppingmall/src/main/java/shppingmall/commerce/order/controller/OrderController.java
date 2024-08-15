@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import shppingmall.commerce.global.ApiResponse;
 import shppingmall.commerce.order.dto.request.OrderCreateRequestDto;
 import shppingmall.commerce.order.dto.response.OrderProductCreateResponseDto;
 import shppingmall.commerce.order.service.OrderService;
@@ -23,17 +24,15 @@ public class OrderController {
 
     // 바로 주문
     @PostMapping()
-    public ResponseEntity<List<OrderProductCreateResponseDto>> createOrder(@RequestBody @Valid OrderCreateRequestDto orderCreateRequestDto) {
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(orderService.createDirectOrder(orderCreateRequestDto));
+    public ApiResponse<List<OrderProductCreateResponseDto>> createOrder(@RequestBody @Valid OrderCreateRequestDto orderCreateRequestDto) {
+        return ApiResponse.ok(orderService.createDirectOrder(orderCreateRequestDto));
 
     }
 
     // 장바구니통해 주문
     @PostMapping("/cart")
-    public ResponseEntity<List<OrderProductCreateResponseDto>> createOrderWithCart(@RequestBody @Valid OrderCreateRequestDto orderCartCreateRequestDto) {
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(orderService.createOrderCart(orderCartCreateRequestDto));
+    public ApiResponse<List<OrderProductCreateResponseDto>> createOrderWithCart(@RequestBody @Valid OrderCreateRequestDto orderCartCreateRequestDto) {
+        return ApiResponse.ok(orderService.createOrderCart(orderCartCreateRequestDto));
     }
 
 }
