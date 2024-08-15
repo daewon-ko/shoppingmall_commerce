@@ -1,6 +1,5 @@
 package shppingmall.commerce.product.service;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,18 +11,17 @@ import shppingmall.commerce.product.dto.request.ProductRequestDto;
 import shppingmall.commerce.product.dto.response.ProductResponseDto;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
-import shppingmall.commerce.support.IntegrationTest;
+import shppingmall.commerce.support.IntegrationTestSupport;
 import shppingmall.commerce.user.entity.User;
 import shppingmall.commerce.user.entity.UserRole;
 import shppingmall.commerce.user.repository.UserRepository;
-import shppingmall.commerce.user.service.UserService;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-class ProductServiceTest extends IntegrationTest {
+class ProductServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private ProductService productService;
