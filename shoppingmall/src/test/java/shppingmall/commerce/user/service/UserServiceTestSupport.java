@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import shppingmall.commerce.support.IntegrationTest;
+import shppingmall.commerce.support.IntegrationTestSupport;
 import shppingmall.commerce.user.dto.CreateUserRequestDto;
 import shppingmall.commerce.user.dto.LoginUserRequestDto;
 import shppingmall.commerce.user.dto.LoginUserResponseDto;
@@ -20,7 +20,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-class UserServiceTest extends IntegrationTest {
+class UserServiceTestSupport extends IntegrationTestSupport {
 
     @Autowired
     private UserService userService;

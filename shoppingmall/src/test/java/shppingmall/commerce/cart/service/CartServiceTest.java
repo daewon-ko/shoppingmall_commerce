@@ -13,7 +13,7 @@ import shppingmall.commerce.cart.repository.CartProductRepository;
 import shppingmall.commerce.cart.repository.CartRepository;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
-import shppingmall.commerce.support.IntegrationTest;
+import shppingmall.commerce.support.IntegrationTestSupport;
 import shppingmall.commerce.user.entity.User;
 import shppingmall.commerce.user.entity.UserRole;
 import shppingmall.commerce.user.repository.UserRepository;
@@ -23,7 +23,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-class CartServiceTest extends IntegrationTest {
+class CartServiceTest extends IntegrationTestSupport {
     @Autowired
     private CartService cartService;
     @Autowired

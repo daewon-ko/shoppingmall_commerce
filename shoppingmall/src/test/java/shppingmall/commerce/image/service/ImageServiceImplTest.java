@@ -1,7 +1,5 @@
 package shppingmall.commerce.image.service;
 
-import org.assertj.core.api.Assertions;
-import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -9,15 +7,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.web.multipart.MultipartFile;
 import shppingmall.commerce.common.FileStore;
 import shppingmall.commerce.image.entity.FileType;
 import shppingmall.commerce.image.entity.Image;
 import shppingmall.commerce.image.repository.ImageRepository;
-import shppingmall.commerce.support.IntegrationTest;
+import shppingmall.commerce.support.IntegrationTestSupport;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,7 +20,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 
 
-class ImageServiceImplTest extends IntegrationTest {
+class ImageServiceImplTest extends IntegrationTestSupport {
 
     //TODO : IntegrationTest를 상속받는 이유가 없어짐
     /**

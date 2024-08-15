@@ -1,7 +1,6 @@
 package shppingmall.commerce.chat.service;
 
 import jakarta.servlet.http.HttpSession;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,7 +13,7 @@ import shppingmall.commerce.chat.dto.ChatRoomResponseDto;
 import shppingmall.commerce.chat.repository.ChatRoomRepository;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
-import shppingmall.commerce.support.IntegrationTest;
+import shppingmall.commerce.support.IntegrationTestSupport;
 import shppingmall.commerce.user.entity.User;
 import shppingmall.commerce.user.entity.UserRole;
 import shppingmall.commerce.user.repository.UserRepository;
@@ -22,7 +21,7 @@ import shppingmall.commerce.user.repository.UserRepository;
 import static org.assertj.core.api.Assertions.*;
 
 
-class ChatRoomServiceTest extends IntegrationTest {
+class ChatRoomServiceTest extends IntegrationTestSupport {
     @Autowired
     private ChatRoomService chatRoomService;
     @Autowired
