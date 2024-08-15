@@ -27,8 +27,8 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public ResponseEntity<List<ProductResponseDto>> getAllProductList() {
+    public ApiResponse<List<ProductResponseDto>> getAllProductList() {
         List<ProductResponseDto> productResponseDtoList = productService.getAllProductList();
-        return ResponseEntity.status(HttpStatus.OK).body(productResponseDtoList);
+        return ApiResponse.ok(productResponseDtoList);
     }
 }

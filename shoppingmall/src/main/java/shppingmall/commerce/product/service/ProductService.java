@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import shppingmall.commerce.category.entity.Category;
 import shppingmall.commerce.category.repository.CategoryRepository;
 import shppingmall.commerce.image.entity.FileType;
+import shppingmall.commerce.image.entity.Image;
 import shppingmall.commerce.image.service.ImageService;
 import shppingmall.commerce.product.dto.request.ProductRequestDto;
 import shppingmall.commerce.product.dto.response.ProductResponseDto;
@@ -17,6 +18,7 @@ import shppingmall.commerce.user.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -39,14 +41,18 @@ public class ProductService {
         // dto -> product entity 변환 필요
         User seller = userService.findUserByIdAndSeller(requestDto.getSellerId());
 
-        Product product = requestDto.toEntity(category,seller);
+        Product product = requestDto.toEntity(category, seller);
 
         Product savedProduct = productRepository.save(product);
 
 
-        imageService.saveImage(images, savedProduct.getId(), FileType.PRODUCT_IMAGE);
+        List<Image> imageList = imageService.saveImage(images, savedProduct.getId(), FileType.PRODUCT_IMAGE);
 
-        return ProductResponseDto.of(product, category.getId());
+        List<Long> imageIds = imageList.stream()
+                .map(image -> image.getId())
+                .collect(Collectors.toList());
+
+        return ProductResponseDto.of(product, category.getId(), imageIds);
 
     }
 
