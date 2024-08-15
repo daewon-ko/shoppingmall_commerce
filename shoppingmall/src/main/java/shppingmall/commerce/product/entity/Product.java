@@ -4,8 +4,12 @@ import jakarta.persistence.*;
 import lombok.*;
 import shppingmall.commerce.category.entity.Category;
 import shppingmall.commerce.common.BaseEntity;
+import shppingmall.commerce.image.entity.Image;
 import shppingmall.commerce.product.dto.response.ProductResponseDto;
 import shppingmall.commerce.user.entity.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -31,7 +35,6 @@ public class Product extends BaseEntity {
     private User seller;
 
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
@@ -43,7 +46,6 @@ public class Product extends BaseEntity {
         this.seller = seller;
         this.category = category;
     }
-
 
 
     public ProductResponseDto toDto() {
