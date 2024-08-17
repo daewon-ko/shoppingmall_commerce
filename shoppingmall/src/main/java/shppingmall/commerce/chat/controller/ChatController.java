@@ -1,6 +1,7 @@
 package shppingmall.commerce.chat.controller;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +40,7 @@ public class ChatController {
      */
 
     @PostMapping("/chat/chatRoom")
-    public ResponseEntity<Void> createChatRoom(@RequestBody ChatRoomCreateDto chatRoomCreateDto, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<Void> createChatRoom( @RequestBody @Valid ChatRoomCreateDto chatRoomCreateDto, UriComponentsBuilder uriComponentsBuilder) {
         ChatRoomResponseDto chatRoomResponseDto = chatRoomService.createRoom(chatRoomCreateDto);
         URI uri = uriComponentsBuilder.path("/chat/chatRoom/{id}").buildAndExpand(chatRoomResponseDto.getRoomId()).toUri();
         return ResponseEntity.status(HttpStatus.SEE_OTHER).location(uri).build();
