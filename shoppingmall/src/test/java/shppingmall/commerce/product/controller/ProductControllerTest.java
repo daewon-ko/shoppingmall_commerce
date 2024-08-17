@@ -4,8 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import shppingmall.commerce.ControllerTestSupport;
@@ -21,7 +19,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
-@MockBean(JpaMetamodelMappingContext.class)
 class ProductControllerTest extends ControllerTestSupport {
 
     @Mock

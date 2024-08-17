@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.test.web.servlet.MockMvc;
 import shppingmall.commerce.cart.controller.CartController;
 import shppingmall.commerce.cart.service.CartService;
@@ -27,6 +28,7 @@ import shppingmall.commerce.user.service.UserService;
         CategoryController.class,
         CartController.class,
 })
+@MockBean(JpaMetamodelMappingContext.class)  // Application에서 @EnableJpaAuditing를 사용하므로 JPA관련 설정을 테스트에서도 해주도록 함
 public class ControllerTestSupport {
     @Autowired
     protected MockMvc mockMvc;
