@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import shppingmall.commerce.category.dto.request.CategoryRequestDto;
 import shppingmall.commerce.category.service.CategoryService;
+import shppingmall.commerce.global.ApiResponse;
 
 @RestController
 @RequestMapping("/api")
@@ -19,9 +20,10 @@ public class CategoryController {
 
     private final CategoryService categoryService;
     @PostMapping("/category")
-    public ResponseEntity<String> createCategory(@RequestBody @Valid CategoryRequestDto categoryRequestDto) {
+    public ResponseEntity<ApiResponse<String>> createCategory(@RequestBody @Valid CategoryRequestDto categoryRequestDto) {
         categoryService.createCategory(categoryRequestDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("OK");
+        ApiResponse<String> response = ApiResponse.of(HttpStatus.CREATED, "CREATED");
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
 
     }
 
