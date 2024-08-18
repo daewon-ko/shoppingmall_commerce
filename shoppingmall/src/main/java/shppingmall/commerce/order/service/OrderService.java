@@ -39,7 +39,7 @@ public class OrderService {
     @Transactional
     public List<OrderProductCreateResponseDto> createOrderCart(final OrderCreateRequestDto orderCartCreateRequestDto) {
         Long cartId = orderCartCreateRequestDto.getCartId();
-        // TODO : 예외처리 필요, Cart는 Nullable하다. 그러나 null로 Exception이 발생할 경우에는?
+
         // DTO에서 cartId는 Validation할 수 없으므로 Service Logic에서 아래와 같이 검증
         if (cartId == null) {
             throw new IllegalArgumentException("카트번호가 없습니다. 재확인해주세요.");
