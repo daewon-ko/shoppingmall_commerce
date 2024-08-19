@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import shppingmall.commerce.cart.dto.request.CreateCartRequestDto;
 import shppingmall.commerce.user.dto.CreateUserRequestDto;
 import shppingmall.commerce.user.dto.LoginUserRequestDto;
 import shppingmall.commerce.user.entity.User;
@@ -33,7 +34,9 @@ public class AuthController {
 
     @GetMapping("/login")
     public String login(Model model) {
-        model.addAttribute("loginUserRequestDto", new LoginUserRequestDto());
+        LoginUserRequestDto loginUserRequestDto = LoginUserRequestDto.builder()
+                .build();
+        model.addAttribute("loginUserRequestDto", loginUserRequestDto);
 
         return "/login";
     }
@@ -52,14 +55,16 @@ public class AuthController {
 
     @GetMapping("/auth/register")
     public String signUP(Model model) {
-        model.addAttribute("memberForm", new CreateUserRequestDto());
+        CreateUserRequestDto createUserRequestDto = CreateUserRequestDto.builder()
+                .build();
+        model.addAttribute("memberForm", createUserRequestDto);
         return "signUp";
     }
 
     @PostMapping("/auth/register")
     public String singUp(@Valid CreateUserRequestDto createUserRequest) {
 
-        userService.register(createUserRequest);
+        userService.registerBuyer(createUserRequest);
         return "index";
     }
 }

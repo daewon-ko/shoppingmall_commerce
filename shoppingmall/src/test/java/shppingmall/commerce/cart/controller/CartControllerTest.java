@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import shppingmall.commerce.ControllerTestSupport;
-import shppingmall.commerce.cart.dto.request.AddCartProductRequestDto;
 import shppingmall.commerce.cart.dto.request.AddCartRequestDto;
 import shppingmall.commerce.cart.dto.request.CreateCartRequestDto;
 import shppingmall.commerce.cart.dto.response.AddCartProductResponseDto;

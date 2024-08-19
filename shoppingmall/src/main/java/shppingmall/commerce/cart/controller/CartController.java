@@ -12,6 +12,7 @@ import shppingmall.commerce.cart.dto.response.AddCartProductResponseDto;
 import shppingmall.commerce.cart.dto.request.AddCartRequestDto;
 import shppingmall.commerce.cart.dto.request.CreateCartRequestDto;
 import shppingmall.commerce.cart.service.CartService;
+import shppingmall.commerce.global.ApiResponse;
 
 import java.util.List;
 
@@ -24,13 +25,13 @@ public class CartController {
 
     // 장바구니 생성은 간단한 로직이기에 따로 ResponseDto 미생성
     @PostMapping
-    public ResponseEntity<String> createCart(@RequestBody @Valid CreateCartRequestDto cartRequestDto) {
+    public ResponseEntity<ApiResponse<String>> createCart(@RequestBody @Valid CreateCartRequestDto cartRequestDto) {
         cartService.createCart(cartRequestDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("OK");
+        return ResponseEntity.ok(ApiResponse.of(HttpStatus.CREATED, "OK"));
     }
 
     @PostMapping("/products")
-    public ResponseEntity<List<AddCartProductResponseDto>> addProductToCart(@RequestBody @Valid AddCartRequestDto cartRequestDto) {
-        return ResponseEntity.status(HttpStatus.OK).body(cartService.addProductToCart(cartRequestDto));
+    public ResponseEntity<ApiResponse<List<AddCartProductResponseDto>>> addProductToCart(@RequestBody @Valid AddCartRequestDto cartRequestDto) {
+        return ResponseEntity.ok(ApiResponse.of(HttpStatus.OK,cartService.addProductToCart(cartRequestDto)));
     }
 }
