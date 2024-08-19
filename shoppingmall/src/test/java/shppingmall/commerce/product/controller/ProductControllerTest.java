@@ -7,7 +7,7 @@ import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import shppingmall.commerce.ControllerTestSupport;
-import shppingmall.commerce.product.dto.request.ProductRequestDto;
+import shppingmall.commerce.product.dto.request.ProductCreateRequestDto;
 import shppingmall.commerce.product.dto.response.ProductResponseDto;
 
 import java.nio.charset.StandardCharsets;
@@ -28,7 +28,7 @@ class ProductControllerTest extends ControllerTestSupport {
     @Test
     void createProduct() throws Exception {
         //given
-        ProductRequestDto request = ProductRequestDto.builder()
+        ProductCreateRequestDto request = ProductCreateRequestDto.builder()
                 .name("test")
                 .price(10000)
                 .sellerId(1L)
@@ -58,7 +58,7 @@ class ProductControllerTest extends ControllerTestSupport {
     @Test
     void createProductExceptName() throws Exception {
         //given
-        ProductRequestDto request = ProductRequestDto.builder()
+        ProductCreateRequestDto request = ProductCreateRequestDto.builder()
                 .price(10000)
                 .sellerId(1L)
                 .categoryId(1L)
@@ -87,7 +87,7 @@ class ProductControllerTest extends ControllerTestSupport {
     @Test
     void createProductExceptSellerId() throws Exception {
         //given
-        ProductRequestDto request = ProductRequestDto.builder()
+        ProductCreateRequestDto request = ProductCreateRequestDto.builder()
                 .name("test")
                 .sellerId(null)
                 .price(10000)
@@ -117,7 +117,7 @@ class ProductControllerTest extends ControllerTestSupport {
     @Test
     void createProductWithZeroPrice() throws Exception {
         //given
-        ProductRequestDto request = ProductRequestDto.builder()
+        ProductCreateRequestDto request = ProductCreateRequestDto.builder()
                 .name("test")
                 .sellerId(1L)
                 .price(-1)

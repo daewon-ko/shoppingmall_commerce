@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 import shppingmall.commerce.category.entity.Category;
 import shppingmall.commerce.category.repository.CategoryRepository;
-import shppingmall.commerce.product.dto.request.ProductRequestDto;
+import shppingmall.commerce.product.dto.request.ProductCreateRequestDto;
 import shppingmall.commerce.product.dto.response.ProductResponseDto;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
@@ -60,7 +60,7 @@ class ProductServiceTest extends IntegrationTestSupport {
                 .name("의류").build();
         Category savedCategory = categoryRepository.save(category1);
 
-        ProductRequestDto request = ProductRequestDto.builder()
+        ProductCreateRequestDto request = ProductCreateRequestDto.builder()
                 .categoryId(savedCategory.getId())
                 .price(5000)
                 .name("티셔츠")
@@ -101,7 +101,7 @@ class ProductServiceTest extends IntegrationTestSupport {
         MockMultipartFile mockMultipartFile1 = new MockMultipartFile("images", "test-image.jpg", "image/jpeg", "image.png".getBytes());
         MockMultipartFile mockMultipartFile2 = new MockMultipartFile("images", "test-image.jpg", "image/jpeg", "image.png".getBytes());
 
-        ProductRequestDto request = ProductRequestDto.builder()
+        ProductCreateRequestDto request = ProductCreateRequestDto.builder()
                 .categoryId(savedCategory.getId())
                 .price(5000)
                 .name("바지")
@@ -135,7 +135,7 @@ class ProductServiceTest extends IntegrationTestSupport {
         MockMultipartFile mockMultipartFile1 = new MockMultipartFile("images", "test-image.jpg", "image/jpeg", "image.png".getBytes());
         MockMultipartFile mockMultipartFile2 = new MockMultipartFile("images", "test-image.jpg", "image/jpeg", "image.png".getBytes());
 
-        ProductRequestDto request1 = ProductRequestDto.builder()
+        ProductCreateRequestDto request1 = ProductCreateRequestDto.builder()
                 .categoryId(savedCategory.getId())
                 .price(5000)
                 .name("바지")
@@ -147,7 +147,7 @@ class ProductServiceTest extends IntegrationTestSupport {
         MockMultipartFile mockMultipartFile3 = new MockMultipartFile("images", "test-image.jpg", "image/jpeg", "image.png".getBytes());
         MockMultipartFile mockMultipartFile4 = new MockMultipartFile("images", "test-image.jpg", "image/jpeg", "image.png".getBytes());
 
-        ProductRequestDto request2 = ProductRequestDto.builder()
+        ProductCreateRequestDto request2 = ProductCreateRequestDto.builder()
                 .categoryId(savedCategory.getId())
                 .price(5000)
                 .name("바지")
