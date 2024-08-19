@@ -25,6 +25,7 @@ public class CartController {
 
     // 장바구니 생성은 간단한 로직이기에 따로 ResponseDto 미생성
     @PostMapping
+
     public ResponseEntity<ApiResponse<String>> createCart(@RequestBody @Valid CreateCartRequestDto cartRequestDto) {
         cartService.createCart(cartRequestDto);
         return ResponseEntity.ok(ApiResponse.of(HttpStatus.CREATED, "OK"));

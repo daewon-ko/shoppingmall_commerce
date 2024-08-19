@@ -1,6 +1,7 @@
 package shppingmall.commerce;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -18,6 +19,7 @@ import shppingmall.commerce.order.service.OrderService;
 import shppingmall.commerce.product.controller.ProductController;
 import shppingmall.commerce.product.service.ProductService;
 import shppingmall.commerce.user.controller.AuthController;
+import shppingmall.commerce.user.repository.UserRepository;
 import shppingmall.commerce.user.service.UserService;
 
 @WebMvcTest(controllers = {
@@ -49,6 +51,8 @@ public class ControllerTestSupport {
     protected MessageService messageService;
     @MockBean
     protected UserService userService;
+    @MockBean
+    protected UserRepository userRepository;
 
 
 }
