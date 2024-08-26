@@ -8,7 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import shppingmall.commerce.ControllerTestSupport;
 import shppingmall.commerce.product.dto.request.ProductCreateRequestDto;
-import shppingmall.commerce.product.dto.response.ProductResponseDto;
+import shppingmall.commerce.product.dto.response.ProductCreateResponseDto;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -149,7 +149,7 @@ class ProductControllerTest extends ControllerTestSupport {
         //given
 
 
-        ProductResponseDto response = createProductResponse(1L, "test", 1L, "test", 10000, List.of(1L, 2L, 3L));
+        ProductCreateResponseDto response = createProductResponse(1L, "test", 1L, "test", 10000, List.of(1L, 2L, 3L));
         Mockito.when(productService.getAllProductList())
                 .thenReturn(List.of(response));
 
@@ -169,8 +169,8 @@ class ProductControllerTest extends ControllerTestSupport {
 
     }
 
-    private static ProductResponseDto createProductResponse(long id, String name, long categoryId, String categoryName, int price, List<Long> imageIds) {
-        ProductResponseDto response = ProductResponseDto.builder()
+    private static ProductCreateResponseDto createProductResponse(long id, String name, long categoryId, String categoryName, int price, List<Long> imageIds) {
+        ProductCreateResponseDto response = ProductCreateResponseDto.builder()
                 .id(id)
                 .name(name)
                 .categoryId(categoryId)

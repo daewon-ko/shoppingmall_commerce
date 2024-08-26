@@ -4,12 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import shppingmall.commerce.category.entity.Category;
 import shppingmall.commerce.common.BaseEntity;
-import shppingmall.commerce.image.entity.Image;
-import shppingmall.commerce.product.dto.response.ProductResponseDto;
+import shppingmall.commerce.product.dto.response.ProductCreateResponseDto;
 import shppingmall.commerce.user.entity.User;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Entity
@@ -48,8 +44,8 @@ public class Product extends BaseEntity {
     }
 
 
-    public ProductResponseDto toDto() {
-        return ProductResponseDto.builder()
+    public ProductCreateResponseDto toDto() {
+        return ProductCreateResponseDto.builder()
                 .id(getId())
                 .name(getName())
                 .price(getPrice())

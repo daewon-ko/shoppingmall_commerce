@@ -11,5 +11,5 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select i from Image i where i.fileType = :fileType and i.targetId =:productId")
-    List<Image> findImageById(@Param("fileType") FileType fileType, @Param("productId") Long productId);
+    List<Image> findImagesByProductId(@Param("fileType") FileType fileType, @Param("productId") Long productId);
 }

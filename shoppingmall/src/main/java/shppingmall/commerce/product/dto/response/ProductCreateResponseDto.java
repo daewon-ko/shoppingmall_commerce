@@ -7,7 +7,7 @@ import shppingmall.commerce.product.entity.Product;
 import java.util.List;
 
 @Getter
-public class ProductResponseDto {
+public class ProductCreateResponseDto {
     private Long id;
     private String name;
     private int price;
@@ -16,7 +16,7 @@ public class ProductResponseDto {
     private List<Long> imageIds;
 
     @Builder
-    private ProductResponseDto(Long id, String name, int price, Long categoryId, String categoryName, List<Long> imageIds) {
+    private ProductCreateResponseDto(Long id, String name, int price, Long categoryId, String categoryName, List<Long> imageIds) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -27,8 +27,8 @@ public class ProductResponseDto {
 
 
 
-    public static ProductResponseDto of(Product product, Long categoryId, List<Long> imageIds) {
-        return ProductResponseDto.builder()
+    public static ProductCreateResponseDto of(Product product, Long categoryId, List<Long> imageIds) {
+        return ProductCreateResponseDto.builder()
                 .id(product.getId())
                 .name(product.getName())
                 .price(product.getPrice())
