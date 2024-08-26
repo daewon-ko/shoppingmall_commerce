@@ -70,7 +70,7 @@ public class ProductService {
     }
 
     @Transactional
-    public ProductUpdateResponseDto updateProduct(Long id, ProductUpdateRequestDto requestDto) {
+    public ProductUpdateResponseDto updateProduct(Long id, ProductUpdateRequestDto requestDto, List<MultipartFile> images) {
         Product product = productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당하는 상품이 존재하지 않습니다."));
         Product changedProduct = product.updateDetails(requestDto.getName(), requestDto.getPrice());
         // productRepository를 통하여 Image 객체 조회
@@ -89,9 +89,9 @@ public class ProductService {
         }
 
         // 이미지를 추가한다.(저장한다.)
-        if (requestDto.getImages() != null) {
-            List<Image> images = imageService.saveImage(requestDto.getImages(), product.getId(), FileType.PRODUCT_IMAGE);
-             imageIds = images.stream()
+        if (images != null) {
+            List<Image> savedImages = imageService.saveImage(images, product.getId(), FileType.PRODUCT_IMAGE);
+             imageIds = savedImages.stream()
                     .map(i -> i.getId())
                     .collect(Collectors.toList());
 

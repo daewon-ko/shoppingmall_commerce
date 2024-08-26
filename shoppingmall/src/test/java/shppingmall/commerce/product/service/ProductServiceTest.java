@@ -197,7 +197,7 @@ class ProductServiceTest extends IntegrationTestSupport {
 
         ProductCreateResponseDto createProductResponse = productService.createProduct(createProductRequest, List.of(mockMultipartFile1, mockMultipartFile2));
         List<Long> imageIds = createProductResponse.getImageIds();
-//
+
         MockMultipartFile newUploadImage1 = new MockMultipartFile("newUploadImage1", "test-image.jpg", "image/jpeg", "image.png".getBytes());
         MockMultipartFile newUploadImage2 = new MockMultipartFile("newUploadImage2", "test-image.jpg", "image/jpeg", "image.png".getBytes());
 
@@ -206,11 +206,10 @@ class ProductServiceTest extends IntegrationTestSupport {
                 .name("변경된 상품A")
                 .price(5000)
                 .imagesToDelete(imageIds)
-                .images(List.of(newUploadImage1, newUploadImage2))
                 .build();
 
         //when
-        ProductUpdateResponseDto updateProductResponse = productService.updateProduct(createProductResponse.getId(), updateProductRequest);
+        ProductUpdateResponseDto updateProductResponse = productService.updateProduct(createProductResponse.getId(), updateProductRequest, List.of(newUploadImage1, newUploadImage2));
 
         //then
         assertThat(updateProductResponse)
@@ -254,8 +253,7 @@ class ProductServiceTest extends IntegrationTestSupport {
 
 
         //when
-
-        ProductUpdateResponseDto updateProductResponse = productService.updateProduct(createProductResponse.getId(), updateProductRequest);
+        ProductUpdateResponseDto updateProductResponse = productService.updateProduct(createProductResponse.getId(), updateProductRequest, null);
         //then
         assertThat(updateProductResponse.getImages()).isNullOrEmpty();
 

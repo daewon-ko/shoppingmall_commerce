@@ -22,13 +22,12 @@ public class ProductUpdateRequestDto {
 
     private List<Long> imagesToDelete = new ArrayList<>();
 
-    private List<MultipartFile> images = new ArrayList<>();
 
     @Builder
-    private ProductUpdateRequestDto(String name, int price, List<Long> imagesToDelete, List<MultipartFile> images) {
+    private ProductUpdateRequestDto(String name, int price, List<Long> imagesToDelete) {
         this.name = name;
         this.price = price;
         this.imagesToDelete = imagesToDelete;
-        this.images = images;
     }
+
 }

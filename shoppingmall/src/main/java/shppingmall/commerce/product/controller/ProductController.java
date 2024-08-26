@@ -9,6 +9,7 @@ import shppingmall.commerce.global.ApiResponse;
 import shppingmall.commerce.product.dto.request.ProductUpdateRequestDto;
 import shppingmall.commerce.product.dto.request.ProductCreateRequestDto;
 import shppingmall.commerce.product.dto.response.ProductCreateResponseDto;
+import shppingmall.commerce.product.dto.response.ProductUpdateResponseDto;
 import shppingmall.commerce.product.service.ProductService;
 
 import java.util.List;
@@ -33,13 +34,15 @@ public class ProductController {
     }
 
     @PutMapping("/product/{id}")
-    public ApiResponse<Void> updateProduct(@PathVariable("id") Long id, @RequestPart @Valid ProductUpdateRequestDto requestDto) {
+    public ApiResponse<ProductUpdateResponseDto> updateProduct(@PathVariable("id") Long id,
+                                                               @RequestPart("requestDto") @Valid ProductUpdateRequestDto requestDto,
+                                                               @RequestPart("images") List<MultipartFile> images) {
 
-        productService.updateProduct(id, requestDto);
-        return ApiResponse.of(HttpStatus.OK, null);
-
+        ProductUpdateResponseDto productUpdateResponseDto = productService.updateProduct(id, requestDto, images);
+        return ApiResponse.of(HttpStatus.OK, productUpdateResponseDto);
 
     }
 
 
 }
+
