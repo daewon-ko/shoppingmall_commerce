@@ -23,7 +23,6 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public List<Image> saveImage(List<MultipartFile> multipartFiles, Long targetId, FileType fileType) {
 
-
         List<String> fileNames;
         try {
             fileNames = fileStore.uploadFiles(multipartFiles);
@@ -51,5 +50,19 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public Image getImage(String imageId) {
         return null;
+    }
+
+    @Override
+    public void deleteImages(Long targetId, FileType fileType) {
+        // ImageRepository에서 FileType 및 targetId이 일치하는 이미지 조회
+        List<Image> imageList = imageRepository.findImagesByTargetIdAndFileType(fileType, targetId);
+
+
+        // 저장된 파일을 삭제하고 이미지도 삭제한다.
+        for (Image image : imageList) {
+            fileStore.deleteFile(image.getUploadName());
+            imageRepository.deleteById(image.getId());
+        }
+
     }
 }
