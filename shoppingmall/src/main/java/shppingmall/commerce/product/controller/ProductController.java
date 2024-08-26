@@ -43,6 +43,11 @@ public class ProductController {
 
     }
 
-
+    // TODO : Data를 넘겨줄떄 jsonIncldude로 null을 무시한다고해도 아래와 같은 방식이 적합할까?
+    @DeleteMapping("/product/{id}")
+    public ApiResponse<Void> deleteProduct(@PathVariable("id") Long id) {
+        productService.deleteProduct(id);
+        return ApiResponse.of(HttpStatus.OK, null);
+    }
 }
 

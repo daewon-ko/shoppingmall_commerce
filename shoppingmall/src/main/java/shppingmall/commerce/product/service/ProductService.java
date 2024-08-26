@@ -8,6 +8,7 @@ import shppingmall.commerce.category.entity.Category;
 import shppingmall.commerce.category.repository.CategoryRepository;
 import shppingmall.commerce.image.entity.FileType;
 import shppingmall.commerce.image.entity.Image;
+import shppingmall.commerce.image.repository.ImageRepository;
 import shppingmall.commerce.image.service.ImageService;
 import shppingmall.commerce.product.dto.request.ProductUpdateRequestDto;
 import shppingmall.commerce.product.dto.request.ProductCreateRequestDto;
@@ -31,6 +32,7 @@ public class ProductService {
     private final CategoryRepository categoryRepository;
     private final ImageService imageService;
     private final UserService userService;
+    private final ImageRepository imageRepository;
 
     @Transactional
     public ProductCreateResponseDto createProduct(final ProductCreateRequestDto requestDto, List<MultipartFile> images) {
@@ -105,5 +107,17 @@ public class ProductService {
                 .build();
 
 
+    }
+
+    // TODO : 상품을 삭제할때, 상품과 연관된 Image들도 삭제해주는게 맞을까?
+    @Transactional
+    public void deleteProduct(Long id) {
+        // 상품 삭제
+        productRepository.deleteById(id);
+        List<Image> images = imageRepository.findImagesByTargetIdAndFileType(FileType.PRODUCT_IMAGE, id);
+        // 연관된 이미지 삭제
+        for (Image image : images) {
+            imageRepository.deleteById(image.getId());
+        }
     }
 }

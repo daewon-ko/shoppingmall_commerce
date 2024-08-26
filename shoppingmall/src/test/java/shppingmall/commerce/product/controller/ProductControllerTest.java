@@ -214,6 +214,23 @@ class ProductControllerTest extends ControllerTestSupport {
 
     }
 
+    @DisplayName("상품을 삭제하면 200 응답을 반환받는다.")
+    @Test
+    void deleteProduct() throws Exception {
+
+        //given
+        Long productId = 1L;
+        Mockito.doNothing().when(productService).deleteProduct(productId);
+
+        //when, then
+        mockMvc.perform(
+                        delete("/api/product/{id}", productId)
+                )
+                .andExpect(status().isOk())
+                .andDo(print());
+
+    }
+
 
     private static ProductCreateResponseDto createProductResponse(long id, String name, long categoryId, String categoryName, int price, List<Long> imageIds) {
         ProductCreateResponseDto response = ProductCreateResponseDto.builder()

@@ -1,5 +1,6 @@
 package shppingmall.commerce.product.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import shppingmall.commerce.category.entity.Category;
 import shppingmall.commerce.category.repository.CategoryRepository;
 import shppingmall.commerce.image.entity.FileType;
+import shppingmall.commerce.image.entity.Image;
 import shppingmall.commerce.image.repository.ImageRepository;
 import shppingmall.commerce.product.dto.request.ProductCreateRequestDto;
 import shppingmall.commerce.product.dto.request.ProductUpdateRequestDto;
@@ -256,6 +258,35 @@ class ProductServiceTest extends IntegrationTestSupport {
         ProductUpdateResponseDto updateProductResponse = productService.updateProduct(createProductResponse.getId(), updateProductRequest, null);
         //then
         assertThat(updateProductResponse.getImages()).isNullOrEmpty();
+
+    }
+
+    @DisplayName("상품을 삭제한다. 상품을 삭제하면 연관된 이미지도 삭제된다. ")
+    @Test
+    void deleteProduct() {
+
+        //given
+        Product productA = Product.builder()
+                .price(10000)
+                .name("상품A")
+                .build();
+        Product savedProduct = productRepository.save(productA);
+        Image image = Image.builder()
+                .targetId(savedProduct.getId())
+                .fileType(FileType.PRODUCT_IMAGE)
+                .build();
+        imageRepository.save(image);
+
+        //when
+        productService.deleteProduct(savedProduct.getId());
+
+        //then
+
+        assertThatThrownBy(() -> productRepository.findById(savedProduct.getId()).orElseThrow(() -> new IllegalArgumentException("해당하는 상품이 없습니다.")))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("해당하는 상품이 없습니다.");
+
+        assertThat(imageRepository.findAll()).isEmpty();
 
     }
 
