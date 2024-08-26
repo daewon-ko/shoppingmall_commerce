@@ -7,8 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 import shppingmall.commerce.category.entity.Category;
 import shppingmall.commerce.category.repository.CategoryRepository;
+import shppingmall.commerce.image.entity.FileType;
+import shppingmall.commerce.image.repository.ImageRepository;
 import shppingmall.commerce.product.dto.request.ProductCreateRequestDto;
-import shppingmall.commerce.product.dto.response.ProductResponseDto;
+import shppingmall.commerce.product.dto.request.ProductUpdateRequestDto;
+import shppingmall.commerce.product.dto.response.ProductCreateResponseDto;
+import shppingmall.commerce.product.dto.response.ProductUpdateResponseDto;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
 import shppingmall.commerce.support.IntegrationTestSupport;
@@ -35,9 +39,11 @@ class ProductServiceTest extends IntegrationTestSupport {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ImageRepository imageRepository;
+
 
     @AfterEach
-
     void tearDown() {
         productRepository.deleteAllInBatch();
         userRepository.deleteAllInBatch();
@@ -158,15 +164,103 @@ class ProductServiceTest extends IntegrationTestSupport {
 
 
         //when
-        List<ProductResponseDto> allProductList = productService.getAllProductList();
+        List<ProductCreateResponseDto> allProductList = productService.getAllProductList();
         //then
         assertThat(allProductList).hasSize(2)
-                .extracting(ProductResponseDto::getCategoryId, ProductResponseDto::getName, ProductResponseDto::getPrice)
+                .extracting(ProductCreateResponseDto::getCategoryId, ProductCreateResponseDto::getName, ProductCreateResponseDto::getPrice)
                 .contains(
                         tuple(savedCategory.getId(), request1.getName(), request1.getPrice()),
                         tuple(savedCategory.getId(), request2.getName(), request2.getPrice()));
 
     }
+
+    @DisplayName("상품을 저장한 후 수정한다.")
+    @Test
+    void updateProduct() {
+        //given
+        User user = createUser("test", "test", UserRole.SELLER);
+        user = userRepository.save(user);
+        Category category1 = Category.builder()
+                .name("의류").build();
+        Category savedCategory = categoryRepository.save(category1);
+
+
+        MockMultipartFile mockMultipartFile1 = new MockMultipartFile("images", "test-image.jpg", "image/jpeg", "image.png".getBytes());
+        MockMultipartFile mockMultipartFile2 = new MockMultipartFile("images", "test-image.jpg", "image/jpeg", "image.png".getBytes());
+
+        ProductCreateRequestDto createProductRequest = ProductCreateRequestDto.builder()
+                .categoryId(savedCategory.getId())
+                .price(5000)
+                .name("바지")
+                .sellerId(user.getId())
+                .build();
+
+        ProductCreateResponseDto createProductResponse = productService.createProduct(createProductRequest, List.of(mockMultipartFile1, mockMultipartFile2));
+        List<Long> imageIds = createProductResponse.getImageIds();
+//
+        MockMultipartFile newUploadImage1 = new MockMultipartFile("newUploadImage1", "test-image.jpg", "image/jpeg", "image.png".getBytes());
+        MockMultipartFile newUploadImage2 = new MockMultipartFile("newUploadImage2", "test-image.jpg", "image/jpeg", "image.png".getBytes());
+
+
+        ProductUpdateRequestDto updateProductRequest = ProductUpdateRequestDto.builder()
+                .name("변경된 상품A")
+                .price(5000)
+                .imagesToDelete(imageIds)
+                .images(List.of(newUploadImage1, newUploadImage2))
+                .build();
+
+        //when
+        ProductUpdateResponseDto updateProductResponse = productService.updateProduct(createProductResponse.getId(), updateProductRequest);
+
+        //then
+        assertThat(updateProductResponse)
+                .extracting(ProductUpdateResponseDto::getName,
+                        ProductUpdateResponseDto::getPrice,
+                        ProductUpdateResponseDto::getProductId)
+                .containsExactly("변경된 상품A", 5000, createProductResponse.getId());
+
+    }
+
+    @DisplayName("이미지를 삭제하는 상품 수정이 요청되면, 이미지를 삭제할 수 있다. ")
+    @Test
+    void updateProductWithOutAddingImages() {
+        //given
+        User user = createUser("test", "test", UserRole.SELLER);
+        user = userRepository.save(user);
+        Category category1 = Category.builder()
+                .name("의류").build();
+        Category savedCategory = categoryRepository.save(category1);
+
+
+        MockMultipartFile mockMultipartFile1 = new MockMultipartFile("images", "test-image.jpg", "image/jpeg", "image.png".getBytes());
+        MockMultipartFile mockMultipartFile2 = new MockMultipartFile("images", "test-image.jpg", "image/jpeg", "image.png".getBytes());
+
+        ProductCreateRequestDto createProductRequest = ProductCreateRequestDto.builder()
+                .categoryId(savedCategory.getId())
+                .price(5000)
+                .name("바지")
+                .sellerId(user.getId())
+                .build();
+
+        ProductCreateResponseDto createProductResponse = productService.createProduct(createProductRequest, List.of(mockMultipartFile1, mockMultipartFile2));
+        List<Long> imageIds = createProductResponse.getImageIds();
+
+
+        ProductUpdateRequestDto updateProductRequest = ProductUpdateRequestDto.builder()
+                .name("변경된 상품A")
+                .price(5000)
+                .imagesToDelete(imageIds)
+                .build();
+
+
+        //when
+
+        ProductUpdateResponseDto updateProductResponse = productService.updateProduct(createProductResponse.getId(), updateProductRequest);
+        //then
+        assertThat(updateProductResponse.getImages()).isNullOrEmpty();
+
+    }
+
 
     private static User createUser(String name, String password, UserRole userRole) {
         User user = User.builder()
