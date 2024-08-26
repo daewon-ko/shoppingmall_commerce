@@ -57,4 +57,10 @@ public class Product extends BaseEntity {
                 .categoryName(getCategory().getName())
                 .build();
     }
+
+    public Product updateDetails(String name, int price) {
+        this.name = name;
+        this.price = price;
+        return this;
+    }
 }
