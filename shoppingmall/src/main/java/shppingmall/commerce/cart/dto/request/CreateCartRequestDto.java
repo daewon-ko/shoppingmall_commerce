@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 public class CreateCartRequestDto {
-//    @NotBlank(message = "사용자 ID를 반드시 입력해주세요.")
+    @NotNull(message = "사용자 ID를 반드시 입력해주세요.")
     private Long userId;
 
 

@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import shppingmall.commerce.category.dto.request.CategoryRequestDto;
 import shppingmall.commerce.category.repository.CategoryRepository;
-import shppingmall.commerce.support.IntegrationTest;
+import shppingmall.commerce.support.IntegrationTestSupport;
 
 import static org.assertj.core.api.Assertions.*;
 
-class CategoryServiceTest extends IntegrationTest {
+class CategoryServiceTest extends IntegrationTestSupport {
 
     @Autowired
     CategoryService categoryService;

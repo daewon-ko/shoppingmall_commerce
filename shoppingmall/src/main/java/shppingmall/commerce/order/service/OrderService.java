@@ -39,9 +39,11 @@ public class OrderService {
     @Transactional
     public List<OrderProductCreateResponseDto> createOrderCart(final OrderCreateRequestDto orderCartCreateRequestDto) {
         Long cartId = orderCartCreateRequestDto.getCartId();
-        // TODO : 예외처리 필요, Cart는 Nullable하다. 그러나 null로 Exception이 발생할 경우에는?
-        // 그렇지만, 해당 Order의 경우 반드시 Cart가 존재해야한다. (장바구니가 있는 주문을 상정하기 때문에)
-        // 그럼에도 아래와 같은 로직은 적절하다고 할 수 있을까?
+
+        // DTO에서 cartId는 Validation할 수 없으므로 Service Logic에서 아래와 같이 검증
+        if (cartId == null) {
+            throw new IllegalArgumentException("카트번호가 없습니다. 재확인해주세요.");
+        }
         Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new IllegalArgumentException("해당하는 카트가 존재하지 않습니다."));
 
         Order order = orderCartCreateRequestDto.toEntity(cart);

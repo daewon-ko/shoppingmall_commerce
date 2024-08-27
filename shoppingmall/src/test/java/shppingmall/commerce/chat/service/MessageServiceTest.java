@@ -4,18 +4,16 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import shppingmall.commerce.chat.dto.ChatMessageRequestDto;
 import shppingmall.commerce.chat.dto.ChatMessageResponseDto;
 import shppingmall.commerce.chat.dto.ChatRoomCreateDto;
 import shppingmall.commerce.chat.dto.ChatRoomResponseDto;
-import shppingmall.commerce.chat.entity.Message;
 import shppingmall.commerce.chat.entity.MessageType;
 import shppingmall.commerce.chat.repository.ChatRoomRepository;
 import shppingmall.commerce.chat.repository.MessageRepository;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
-import shppingmall.commerce.support.IntegrationTest;
+import shppingmall.commerce.support.IntegrationTestSupport;
 import shppingmall.commerce.user.entity.User;
 import shppingmall.commerce.user.entity.UserRole;
 import shppingmall.commerce.user.repository.UserRepository;
@@ -23,7 +21,7 @@ import shppingmall.commerce.user.repository.UserRepository;
 import static org.assertj.core.api.Assertions.*;
 
 
-class MessageServiceTest extends IntegrationTest {
+class MessageServiceTest extends IntegrationTestSupport {
     @Autowired
     private MessageService messageService;
     @Autowired

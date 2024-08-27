@@ -1,6 +1,5 @@
 package shppingmall.commerce.product.service;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,14 +11,17 @@ import shppingmall.commerce.product.dto.request.ProductRequestDto;
 import shppingmall.commerce.product.dto.response.ProductResponseDto;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
-import shppingmall.commerce.support.IntegrationTest;
+import shppingmall.commerce.support.IntegrationTestSupport;
+import shppingmall.commerce.user.entity.User;
+import shppingmall.commerce.user.entity.UserRole;
+import shppingmall.commerce.user.repository.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-class ProductServiceTest extends IntegrationTest {
+class ProductServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private ProductService productService;
@@ -30,10 +32,15 @@ class ProductServiceTest extends IntegrationTest {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
 
     @AfterEach
+
     void tearDown() {
         productRepository.deleteAllInBatch();
+        userRepository.deleteAllInBatch();
         categoryRepository.deleteAllInBatch();
 
     }
@@ -45,6 +52,10 @@ class ProductServiceTest extends IntegrationTest {
     @Test
     void createProductWithOnlyOneImage() {
         //given
+        User user = createUser("test", "test", UserRole.SELLER);
+
+        user = userRepository.save(user);
+
         Category category1 = Category.builder()
                 .name("의류").build();
         Category savedCategory = categoryRepository.save(category1);
@@ -52,7 +63,10 @@ class ProductServiceTest extends IntegrationTest {
         ProductRequestDto request = ProductRequestDto.builder()
                 .categoryId(savedCategory.getId())
                 .price(5000)
-                .name("티셔츠").build();
+                .name("티셔츠")
+                .sellerId(user.getId())
+                .build();
+
         MockMultipartFile mockMultipartFile = new MockMultipartFile("images", "test-image.jpg", "image/jpeg", "image.png".getBytes());
 
 
@@ -73,6 +87,10 @@ class ProductServiceTest extends IntegrationTest {
     @Test
     void createProductWithTwoImages() {
         //given
+
+        User user = createUser("test", "test", UserRole.SELLER);
+        user = userRepository.save(user);
+
         Category category1 = Category.builder()
                 .name("의류").build();
 
@@ -87,6 +105,7 @@ class ProductServiceTest extends IntegrationTest {
                 .categoryId(savedCategory.getId())
                 .price(5000)
                 .name("바지")
+                .sellerId(user.getId())
                 .build();
 
 
@@ -106,6 +125,8 @@ class ProductServiceTest extends IntegrationTest {
     @Test
     void createProductsThenGetProductList() {
         //given
+        User user = createUser("test", "test", UserRole.SELLER);
+        user = userRepository.save(user);
         Category category1 = Category.builder()
                 .name("의류").build();
         Category savedCategory = categoryRepository.save(category1);
@@ -118,6 +139,7 @@ class ProductServiceTest extends IntegrationTest {
                 .categoryId(savedCategory.getId())
                 .price(5000)
                 .name("바지")
+                .sellerId(user.getId())
                 .build();
 
         productService.createProduct(request1, List.of(mockMultipartFile1, mockMultipartFile2));
@@ -129,6 +151,7 @@ class ProductServiceTest extends IntegrationTest {
                 .categoryId(savedCategory.getId())
                 .price(5000)
                 .name("바지")
+                .sellerId(user.getId())
                 .build();
 
         productService.createProduct(request2, List.of(mockMultipartFile3, mockMultipartFile4));
@@ -143,6 +166,15 @@ class ProductServiceTest extends IntegrationTest {
                         tuple(savedCategory.getId(), request1.getName(), request1.getPrice()),
                         tuple(savedCategory.getId(), request2.getName(), request2.getPrice()));
 
+    }
+
+    private static User createUser(String name, String password, UserRole userRole) {
+        User user = User.builder()
+                .name(name)
+                .password(password)
+                .userRole(userRole)
+                .build();
+        return user;
     }
 
 

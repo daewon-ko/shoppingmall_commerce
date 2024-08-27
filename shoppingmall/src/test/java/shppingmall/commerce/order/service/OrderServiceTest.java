@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import shppingmall.commerce.cart.entity.Cart;
 import shppingmall.commerce.cart.repository.CartRepository;
-import shppingmall.commerce.category.repository.CategoryRepository;
 import shppingmall.commerce.order.dto.request.OrderCreateRequestDto;
 import shppingmall.commerce.order.dto.request.OrderProductCreateRequestDto;
 import shppingmall.commerce.order.dto.response.OrderProductCreateResponseDto;
@@ -14,13 +13,13 @@ import shppingmall.commerce.order.repository.OrderProductRepository;
 import shppingmall.commerce.order.repository.OrderRepository;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
-import shppingmall.commerce.support.IntegrationTest;
+import shppingmall.commerce.support.IntegrationTestSupport;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-class OrderServiceTest extends IntegrationTest {
+class OrderServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private OrderService orderService;
