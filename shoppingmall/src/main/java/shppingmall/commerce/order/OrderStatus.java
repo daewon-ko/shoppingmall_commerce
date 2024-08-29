@@ -1,5 +1,5 @@
 package shppingmall.commerce.order;
 
 public enum OrderStatus {
-    NEW, READY, FINISH
+    NEW, READY, FINISH, CANCELED
 }

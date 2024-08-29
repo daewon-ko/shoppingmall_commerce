@@ -34,4 +34,7 @@ public class OrderProduct {
 
     @Column(name = "quantity")
     private int quantity;
+
+    @Column
+    private int price;
 }

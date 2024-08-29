@@ -2,27 +2,27 @@ package shppingmall.commerce.order.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.lang.Nullable;
 import shppingmall.commerce.cart.entity.Cart;
 import shppingmall.commerce.common.BaseEntity;
 import shppingmall.commerce.order.OrderStatus;
+import shppingmall.commerce.user.entity.User;
 
 @Entity
 @Table(name = "orders")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+
 public class Order extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "orders_id")
+//    @Column(name = "orders_id")
     private Long id;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "order_status")
     OrderStatus orderStatus;
 
@@ -39,9 +39,7 @@ public class Order extends BaseEntity {
     @Nullable
     Cart cart;
 
-
-
-
-
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    User user;
 }
