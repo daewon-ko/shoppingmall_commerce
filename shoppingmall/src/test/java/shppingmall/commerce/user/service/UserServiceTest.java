@@ -19,8 +19,9 @@ import java.util.Collection;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
+import static shppingmall.commerce.support.TestFixture.createUser;
 
-class UserServiceTestSupport extends IntegrationTestSupport {
+class UserServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private UserService userService;
@@ -34,6 +35,8 @@ class UserServiceTestSupport extends IntegrationTestSupport {
     Collection<DynamicTest> findUserByUserRole() {
         User seller = createUser("test", "1234", UserRole.SELLER);
         User buyer = createUser("test", "1234", UserRole.BUYER);
+        userRepository.save(seller);
+        userRepository.save(buyer);
 
         return List.of(
                 DynamicTest.dynamicTest("판매자를 조회할 수 있다.", () -> {
@@ -123,14 +126,7 @@ class UserServiceTestSupport extends IntegrationTestSupport {
     }
 
 
-    private User createUser(String name, String password, UserRole userRole) {
-        User user = User.builder()
-                .name(name)
-                .password(password)
-                .userRole(userRole)
-                .build();
-        return userRepository.save(user);
-    }
+
 
 
 }

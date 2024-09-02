@@ -21,6 +21,7 @@ import shppingmall.commerce.order.entity.Order;
 import shppingmall.commerce.order.entity.OrderProduct;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
+import shppingmall.commerce.support.TestFixture;
 import shppingmall.commerce.user.entity.User;
 import shppingmall.commerce.user.entity.UserRole;
 import shppingmall.commerce.user.repository.UserRepository;
@@ -28,6 +29,7 @@ import shppingmall.commerce.user.repository.UserRepository;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
+import static shppingmall.commerce.support.TestFixture.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)    // DB 교
@@ -153,41 +155,5 @@ class OrderQueryRepositoryTest {
     }
 
 
-    private OrderProduct createOrderProduct(Order savedOrder, Product savedProductB, int quantity) {
-        OrderProduct orderProduct2 = OrderProduct.builder()
-                .order(savedOrder)
-                .product(savedProductB)
-                .price(savedProductB.getPrice())
-                .quantity(quantity)
-                .build();
-        return orderProduct2;
-    }
 
-    private Order createOrder(User userA, OrderStatus orderStatus, String detailAddress, String zipCode) {
-        return Order.builder()
-                .orderStatus(orderStatus)
-                .user(userA)
-                .detailAddress(detailAddress)
-                .zipCode(zipCode)
-                .build();
-    }
-
-
-    private User createUser(String name, String password, UserRole userRole) {
-        User user = User.builder()
-                .name(name)
-                .password(password)
-                .userRole(userRole)
-                .build();
-        return userRepository.save(user);
-    }
-
-    private Product createProduct(int price, String name) {
-        Product product = Product.builder()
-                .price(price)
-                .name(name)
-                .build();
-
-        return product;
-    }
 }

@@ -4,20 +4,33 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
 import shppingmall.commerce.cart.entity.Cart;
 import shppingmall.commerce.cart.repository.CartRepository;
+import shppingmall.commerce.order.OrderStatus;
 import shppingmall.commerce.order.dto.request.OrderCreateRequestDto;
 import shppingmall.commerce.order.dto.request.OrderProductCreateRequestDto;
+import shppingmall.commerce.order.dto.request.OrderSearchCondition;
 import shppingmall.commerce.order.dto.response.OrderProductCreateResponseDto;
+import shppingmall.commerce.order.dto.response.OrderProductResponseDto;
+import shppingmall.commerce.order.entity.Order;
+import shppingmall.commerce.order.entity.OrderProduct;
 import shppingmall.commerce.order.repository.OrderProductRepository;
 import shppingmall.commerce.order.repository.OrderRepository;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
 import shppingmall.commerce.support.IntegrationTestSupport;
+import shppingmall.commerce.support.TestFixture;
+import shppingmall.commerce.user.entity.User;
+import shppingmall.commerce.user.entity.UserRole;
+import shppingmall.commerce.user.repository.UserRepository;
 
+import java.awt.*;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
+import static shppingmall.commerce.support.TestFixture.*;
 
 class OrderServiceTest extends IntegrationTestSupport {
 
@@ -31,10 +44,13 @@ class OrderServiceTest extends IntegrationTestSupport {
     private OrderProductRepository orderProductRepository;
 
     @Autowired
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
 
     @Autowired
-    CartRepository cartRepository;
+    private CartRepository cartRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @AfterEach
     void tearDown() {
@@ -162,13 +178,60 @@ class OrderServiceTest extends IntegrationTestSupport {
 
     }
 
+    @DisplayName("특정 조건에 맞는 주문상품을 조회할 수 있다.")
+    @Test
+    void test() {
+        //given
+        Product productA = createProduct(10000, "상품A");
+        Product productB = createProduct(10000, "상품B");
 
-    private static Product createProduct(int price, String name) {
-        Product product = Product.builder()
-                .price(price)
-                .name(name)
+        Product savedProductA = productRepository.save(productA);
+        Product savedProductB = productRepository.save(productB);
+
+        User userA = createUser("userA", "1234", UserRole.BUYER);
+        User savedUser = userRepository.save(userA);
+
+        Order newOrder = createOrder(savedUser, OrderStatus.NEW, "test-detailAddress", "test-zipcode");
+        Order finishedOrder = createOrder(savedUser, OrderStatus.FINISH, "test-detailAddress", "test-zipcode");
+
+        Order savedOrderNew = orderRepository.save(newOrder);
+        Order savedOrderFinished = orderRepository.save(finishedOrder);
+
+
+        for (int i = 0; i < 50; i++) {
+            OrderProduct orderProductA = createOrderProduct(savedOrderNew, savedProductA, i);
+            orderProductRepository.save(orderProductA);
+        }
+
+        for (int i = 0; i < 50; i++) {
+            OrderProduct orderProductB = createOrderProduct(savedOrderFinished, savedProductB, i);
+            orderProductRepository.save(orderProductB);
+        }
+
+        OrderSearchCondition orderSearchCondition = OrderSearchCondition.builder()
+                .pageable(PageRequest.of(0, 10))
+                .orderStatus(OrderStatus.FINISH)
                 .build();
-        return product;
+
+        //when
+        Slice<OrderProductResponseDto> result = orderService.getOrderList(savedUser.getId(), orderSearchCondition);
+
+        //then
+
+        assertThat(result).extracting(OrderProductResponseDto::getProductName, OrderProductResponseDto::getQuantity)
+                .containsExactly(
+                        tuple("상품B",0),
+                        tuple("상품B",1),
+                        tuple("상품B",2),
+                        tuple("상품B",3),
+                        tuple("상품B",4),
+                        tuple("상품B",5),
+                        tuple("상품B",6),
+                        tuple("상품B",7),
+                        tuple("상품B",8),
+                        tuple("상품B",9)
+                );
+
     }
 
 
