@@ -27,9 +27,9 @@ public class OrderQueryRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
 
-    public Slice<OrderProductResponseDto> findOrderProducts(Long userId,  OrderSearchCondition orderSearchCondition) {
+    public Slice<OrderProductResponseDto> findOrderProducts(Long userId,  OrderSearchCondition orderSearchCondition, Pageable pageable) {
         final OrderStatus orderStatus = orderSearchCondition.getOrderStatus();
-        final Pageable pageable = orderSearchCondition.getPageable();
+
 
         List<OrderProductResponseDto> results = jpaQueryFactory
                 .select(new QOrderProductResponseDto(

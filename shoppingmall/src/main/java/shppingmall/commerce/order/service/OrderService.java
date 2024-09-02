@@ -1,6 +1,8 @@
 package shppingmall.commerce.order.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -76,8 +78,8 @@ public class OrderService {
         return orderProductCreateResponseDtoList;
     }
 
-    public Slice<OrderProductResponseDto> getOrderList(Long userId, OrderSearchCondition orderSearchCondition) {
-        return orderQueryRepository.findOrderProducts(userId, orderSearchCondition);
+    public Slice<OrderProductResponseDto> getOrderList(Long userId, OrderSearchCondition orderSearchCondition, Pageable pageable) {
+        return orderQueryRepository.findOrderProducts(userId, orderSearchCondition, pageable);
 
 
     }

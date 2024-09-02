@@ -180,7 +180,7 @@ class OrderServiceTest extends IntegrationTestSupport {
 
     @DisplayName("특정 조건에 맞는 주문상품을 조회할 수 있다.")
     @Test
-    void test() {
+    void findPagedOrderProductsByUserIdAndStatus() {
         //given
         Product productA = createProduct(10000, "상품A");
         Product productB = createProduct(10000, "상품B");
@@ -208,13 +208,14 @@ class OrderServiceTest extends IntegrationTestSupport {
             orderProductRepository.save(orderProductB);
         }
 
+        PageRequest pageRequest = PageRequest.of(0, 10);
+
         OrderSearchCondition orderSearchCondition = OrderSearchCondition.builder()
-                .pageable(PageRequest.of(0, 10))
                 .orderStatus(OrderStatus.FINISH)
                 .build();
 
         //when
-        Slice<OrderProductResponseDto> result = orderService.getOrderList(savedUser.getId(), orderSearchCondition);
+        Slice<OrderProductResponseDto> result = orderService.getOrderList(savedUser.getId(), orderSearchCondition, pageRequest);
 
         //then
 

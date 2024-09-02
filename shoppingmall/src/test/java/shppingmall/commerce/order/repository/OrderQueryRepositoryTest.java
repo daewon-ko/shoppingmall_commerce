@@ -77,16 +77,16 @@ class OrderQueryRepositoryTest {
 
         orderProductRepository.save(orderProduct1);
         orderProductRepository.save(orderProduct2);
+        PageRequest pageRequest = PageRequest.of(0, 1);
 
         OrderSearchCondition orderStatus = OrderSearchCondition
                 .builder()
-                .pageable(PageRequest.of(0, 1))
                 .orderStatus(OrderStatus.NEW)
                 .build();
 
 
         //when
-        Slice<OrderProductResponseDto> result = orderQueryRepository.findOrderProducts(userA.getId(), orderStatus);
+        Slice<OrderProductResponseDto> result = orderQueryRepository.findOrderProducts(userA.getId(), orderStatus, pageRequest);
 
 
         //then
@@ -130,14 +130,15 @@ class OrderQueryRepositoryTest {
             orderProductRepository.save(orderProductB);
         }
 
+        PageRequest pageRequest = PageRequest.of(4, 5);
+
         OrderSearchCondition orderStatus = OrderSearchCondition
                 .builder()
-                .pageable(PageRequest.of(4, 5))
                 .orderStatus(OrderStatus.NEW)
                 .build();
 
 
-        Slice<OrderProductResponseDto> result = orderQueryRepository.findOrderProducts(userA.getId(), orderStatus);
+        Slice<OrderProductResponseDto> result = orderQueryRepository.findOrderProducts(userA.getId(), orderStatus, pageRequest);
 
 
         //then
