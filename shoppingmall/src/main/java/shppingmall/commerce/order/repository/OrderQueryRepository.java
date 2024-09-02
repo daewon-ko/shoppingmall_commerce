@@ -13,6 +13,7 @@ import shppingmall.commerce.order.OrderStatus;
 import shppingmall.commerce.order.dto.request.OrderSearchCondition;
 import shppingmall.commerce.order.dto.response.OrderProductResponseDto;
 import shppingmall.commerce.order.dto.response.QOrderProductResponseDto;
+import shppingmall.commerce.order.entity.OrderProduct;
 
 import java.util.List;
 
@@ -59,9 +60,19 @@ public class OrderQueryRepository {
 
     }
 
+
+
     private BooleanExpression orderStatusEq(OrderStatus orderStatus) {
         return orderStatus != null ? order.orderStatus.eq(orderStatus) : null;
     }
 
 
+    public OrderProduct findOrderProductWithOrderIdAndProductId(Long orderId, Long productId) {
+
+        return jpaQueryFactory.selectFrom(orderProduct)
+                .leftJoin(orderProduct.order, order).fetchJoin() // Order와 fetch join
+                .leftJoin(orderProduct.product, product).fetchJoin() // Product와 fetch join
+                .where(order.id.eq(orderId).and(product.id.eq(productId))) // 필터링 조건은 where 절에서 처리
+                .fetchOne();
+    }
 }
