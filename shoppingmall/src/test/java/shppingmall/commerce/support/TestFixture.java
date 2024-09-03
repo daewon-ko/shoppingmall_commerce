@@ -34,11 +34,11 @@ public class TestFixture {
                 .build();
     }
 
-    public static OrderProduct createOrderProduct(Order savedOrder, Product savedProductB, int quantity) {
+    public static OrderProduct createOrderProduct(Order savedOrder, Product savedProduct, int quantity) {
         OrderProduct orderProduct2 = OrderProduct.builder()
                 .order(savedOrder)
-                .product(savedProductB)
-                .price(savedProductB.getPrice())
+                .product(savedProduct)
+                .price(savedProduct.getPrice())
                 .quantity(quantity)
                 .build();
         return orderProduct2;

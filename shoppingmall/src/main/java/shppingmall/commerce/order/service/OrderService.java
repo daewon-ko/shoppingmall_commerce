@@ -59,30 +59,12 @@ public class OrderService {
 
     }
 
-    private List<OrderProductCreateResponseDto> createCommonOrder(final OrderCreateRequestDto orderCreateRequestDto, final Order order) {
-        // Order 생성(DB 저장)
-        orderRepository.save(order);
-
-        // OrderProduct 생성
-        List<OrderProductCreateRequestDto> orderProductRequestDtoList = orderCreateRequestDto.getOrderProductRequestDtoList();
-        // 응답용 객체를 담은 List 생성
-        List<OrderProductCreateResponseDto> orderProductCreateResponseDtoList = new ArrayList<>();
-
-        for (OrderProductCreateRequestDto orderProductRequestDto : orderProductRequestDtoList) {
-            // TODO : 예외처리 정립 필요
-            Product product = productRepository.findById(orderProductRequestDto.getProductId()).orElseThrow(() -> new IllegalArgumentException("해당 상품은 존재하지 않습니다."));
-            OrderProduct orderProduct = orderProductRequestDto.toEntity(order, product);
-            OrderProduct savedOrderProduct = orderProductRepository.save(orderProduct);
-            orderProductCreateResponseDtoList.add(OrderProductCreateResponseDto.of(savedOrderProduct));
-        }
-        return orderProductCreateResponseDtoList;
-    }
 
     public Slice<OrderProductResponseDto> getOrderList(Long userId, OrderSearchCondition orderSearchCondition, Pageable pageable) {
         return orderQueryRepository.findOrderProducts(userId, orderSearchCondition, pageable);
 
-
     }
+
 
     @Transactional
     public void cancelOrder(Long orderId) {
@@ -91,12 +73,6 @@ public class OrderService {
         checkCancelValidation(order);
         order.cancelOrder();
         orderRepository.save(order);
-    }
-
-    private static void checkCancelValidation(Order order) {
-        if (order.getOrderStatus().equals(OrderStatus.DELIVERY_FINISHED) || order.getOrderStatus().equals(OrderStatus.CANCELED)) {
-            throw new IllegalStateException("주문을 취소할 수 없습니다.");
-        }
     }
 
     @Transactional
@@ -122,4 +98,32 @@ public class OrderService {
         });
 
     }
+
+    private List<OrderProductCreateResponseDto> createCommonOrder(final OrderCreateRequestDto orderCreateRequestDto, final Order order) {
+        // Order 생성(DB 저장)
+        orderRepository.save(order);
+
+        // OrderProduct 생성
+        List<OrderProductCreateRequestDto> orderProductRequestDtoList = orderCreateRequestDto.getOrderProductRequestDtoList();
+        // 응답용 객체를 담은 List 생성
+        List<OrderProductCreateResponseDto> orderProductCreateResponseDtoList = new ArrayList<>();
+
+        for (OrderProductCreateRequestDto orderProductRequestDto : orderProductRequestDtoList) {
+            // TODO : 예외처리 정립 필요
+            Product product = productRepository.findById(orderProductRequestDto.getProductId()).orElseThrow(() -> new IllegalArgumentException("해당 상품은 존재하지 않습니다."));
+            OrderProduct orderProduct = orderProductRequestDto.toEntity(order, product);
+            OrderProduct savedOrderProduct = orderProductRepository.save(orderProduct);
+            orderProductCreateResponseDtoList.add(OrderProductCreateResponseDto.of(savedOrderProduct));
+        }
+        return orderProductCreateResponseDtoList;
+    }
+
+
+    private static void checkCancelValidation(Order order) {
+        if (order.getOrderStatus().equals(OrderStatus.DELIVERY_FINISHED) || order.getOrderStatus().equals(OrderStatus.CANCELED)) {
+            throw new IllegalStateException("주문을 취소할 수 없습니다.");
+        }
+    }
+
+
 }
