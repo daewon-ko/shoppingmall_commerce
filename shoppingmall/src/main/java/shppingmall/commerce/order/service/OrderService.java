@@ -1,16 +1,14 @@
 package shppingmall.commerce.order.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shppingmall.commerce.cart.entity.Cart;
 import shppingmall.commerce.cart.repository.CartRepository;
-import shppingmall.commerce.order.dto.request.OrderCreateRequestDto;
-import shppingmall.commerce.order.dto.request.OrderProductCreateRequestDto;
-import shppingmall.commerce.order.dto.request.OrderSearchCondition;
+import shppingmall.commerce.order.OrderStatus;
+import shppingmall.commerce.order.dto.request.*;
 import shppingmall.commerce.order.dto.response.OrderProductCreateResponseDto;
 import shppingmall.commerce.order.dto.response.OrderProductResponseDto;
 import shppingmall.commerce.order.entity.Order;
@@ -23,6 +21,8 @@ import shppingmall.commerce.product.repository.ProductRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -38,7 +38,7 @@ public class OrderService {
 
     @Transactional
     public List<OrderProductCreateResponseDto> createDirectOrder(OrderCreateRequestDto orderCreateRequestDto) {
-        Order order  = orderCreateRequestDto.toEntity();
+        Order order = orderCreateRequestDto.toEntity();
 
         return createCommonOrder(orderCreateRequestDto, order);
     }
@@ -84,4 +84,42 @@ public class OrderService {
 
     }
 
+    @Transactional
+    public void cancelOrder(Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new IllegalStateException("해당하는 주문이 없습니다."));
+
+        checkCancelValidation(order);
+        order.cancelOrder();
+        orderRepository.save(order);
+    }
+
+    private static void checkCancelValidation(Order order) {
+        if (order.getOrderStatus().equals(OrderStatus.DELIVERY_FINISHED) || order.getOrderStatus().equals(OrderStatus.CANCELED)) {
+            throw new IllegalStateException("주문을 취소할 수 없습니다.");
+        }
+    }
+
+    @Transactional
+    public void updateOrderProducts(Long orderId, OrderUpdateRequest orderUpdateRequest) {
+        Order findOrder = orderRepository.findById(orderId).orElseThrow(() -> new IllegalStateException("해당하는 주문이 없습니다."));
+
+        if (findOrder.getOrderStatus() == OrderStatus.DELIVERY_FINISHED || findOrder.getOrderStatus() == OrderStatus.CANCELED) {
+            throw new IllegalStateException("주문을 수정할 수 없습니다.");
+        }
+
+        List<OrderProductUpdateRequest> updateRequestList = orderUpdateRequest.getUpdateRequestList();
+
+        // TODO : 변경감지가 아닌 BulkUpdate가 더 적절할까?
+        // save, saveAll이 더 좋은 방식일까? ..
+
+        updateRequestList.forEach(orderProductUpdateRequest -> {
+            // 특정 주문번호 및 특정 상품번호와 연관된 주문상품을 조회한다.
+            OrderProduct orderProduct = orderQueryRepository.findOrderProductWithOrderIdAndProductId(orderId, orderProductUpdateRequest.getProductId());
+//            // 주문상품의 수량을 수정한다.
+            orderProduct.changeQuantity(orderProductUpdateRequest.getQuantity());
+
+            orderProductRepository.save(orderProduct);
+        });
+
+    }
 }

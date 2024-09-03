@@ -42,4 +42,8 @@ public class Order extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     User user;
+
+    public void cancelOrder() {
+        orderStatus = OrderStatus.CANCELED;
+    }
 }

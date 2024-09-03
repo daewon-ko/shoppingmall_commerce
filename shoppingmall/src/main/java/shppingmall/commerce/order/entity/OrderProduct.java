@@ -37,4 +37,8 @@ public class OrderProduct {
 
     @Column
     private int price;
+
+    public void changeQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }
