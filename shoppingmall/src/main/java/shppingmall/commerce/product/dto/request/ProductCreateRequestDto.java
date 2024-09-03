@@ -6,20 +6,16 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.web.multipart.MultipartFile;
 import shppingmall.commerce.category.entity.Category;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.user.entity.User;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * 상품을 생성을 요청하는 DTO입니다.
  */
 @Getter
 @Builder
-public class ProductRequestDto {
+public class ProductCreateRequestDto {
     @NotBlank(message = "이름은 공백이 될 수 없습니다.")
     private String name;
     @PositiveOrZero(message = "가격은 음수가 될 수 없습니다.")

@@ -4,17 +4,19 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import shppingmall.commerce.ControllerTestSupport;
-import shppingmall.commerce.product.dto.request.ProductRequestDto;
-import shppingmall.commerce.product.dto.response.ProductResponseDto;
+import shppingmall.commerce.product.dto.request.ProductCreateRequestDto;
+import shppingmall.commerce.product.dto.request.ProductUpdateRequestDto;
+import shppingmall.commerce.product.dto.response.ProductCreateResponseDto;
+import shppingmall.commerce.product.dto.response.ProductUpdateResponseDto;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -28,7 +30,7 @@ class ProductControllerTest extends ControllerTestSupport {
     @Test
     void createProduct() throws Exception {
         //given
-        ProductRequestDto request = ProductRequestDto.builder()
+        ProductCreateRequestDto request = ProductCreateRequestDto.builder()
                 .name("test")
                 .price(10000)
                 .sellerId(1L)
@@ -58,7 +60,7 @@ class ProductControllerTest extends ControllerTestSupport {
     @Test
     void createProductExceptName() throws Exception {
         //given
-        ProductRequestDto request = ProductRequestDto.builder()
+        ProductCreateRequestDto request = ProductCreateRequestDto.builder()
                 .price(10000)
                 .sellerId(1L)
                 .categoryId(1L)
@@ -87,7 +89,7 @@ class ProductControllerTest extends ControllerTestSupport {
     @Test
     void createProductExceptSellerId() throws Exception {
         //given
-        ProductRequestDto request = ProductRequestDto.builder()
+        ProductCreateRequestDto request = ProductCreateRequestDto.builder()
                 .name("test")
                 .sellerId(null)
                 .price(10000)
@@ -117,7 +119,7 @@ class ProductControllerTest extends ControllerTestSupport {
     @Test
     void createProductWithZeroPrice() throws Exception {
         //given
-        ProductRequestDto request = ProductRequestDto.builder()
+        ProductCreateRequestDto request = ProductCreateRequestDto.builder()
                 .name("test")
                 .sellerId(1L)
                 .price(-1)
@@ -149,11 +151,11 @@ class ProductControllerTest extends ControllerTestSupport {
         //given
 
 
-        ProductResponseDto response = createProductResponse(1L, "test", 1L, "test", 10000, List.of(1L, 2L, 3L));
+        ProductCreateResponseDto response = createProductResponse(1L, "test", 1L, "test", 10000, List.of(1L, 2L, 3L));
         Mockito.when(productService.getAllProductList())
                 .thenReturn(List.of(response));
 
-        //when
+        //when, then
 
 
         mockMvc.perform(get(
@@ -165,12 +167,73 @@ class ProductControllerTest extends ControllerTestSupport {
                 .andExpect(jsonPath("$.data[0].name").value(response.getName()))
                 .andExpect(jsonPath("$.data[0].price").value(response.getPrice()));
 
-        //then
+    }
+
+    @DisplayName("상품을 수정할 수 있다.")
+    @Test
+    void updateProduct() throws Exception {
+        //given
+        Long productId = 1L;
+        MockMultipartFile mockMultipartFile1 = new MockMultipartFile("images", "test.jpg", "image/jpeg", "image.png".getBytes());
+
+        ProductUpdateRequestDto updateRequestDto = ProductUpdateRequestDto.builder()
+                .name("test")
+                .price(10000)
+                .imagesToDelete(List.of(1L))
+                .build();
+
+        ProductUpdateResponseDto updateResponseDto = ProductUpdateResponseDto.builder()
+                .productId(1L)
+                .name("updated Product")
+                .price(10000)
+                .images(List.of(2L, 3L))
+                .build();
+
+        Mockito.when(productService.updateProduct(Mockito.eq(productId), Mockito.any(ProductUpdateRequestDto.class), Mockito.anyList()))
+                .thenReturn(updateResponseDto);
+
+
+        String updateRequestJson = objectMapper.writeValueAsString(updateRequestDto);
+
+        MockMultipartFile mockMultipartFile2 = new MockMultipartFile("requestDto", "test", "application/json", updateRequestJson.getBytes(StandardCharsets.UTF_8));
+
+        //when, then
+        mockMvc.perform((multipart(HttpMethod.PUT, "/api/product/{id}", productId)
+                        .file(mockMultipartFile1)
+                        .file(mockMultipartFile2)
+                        .contentType(MediaType.MULTIPART_FORM_DATA)
+                        .accept(MediaType.APPLICATION_JSON)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value("200"))
+                .andExpect(jsonPath("$.httpStatus").value("OK"))
+                .andExpect(jsonPath("$.data.name").value(updateResponseDto.getName()))
+                .andExpect(jsonPath("$.data.productId").value(updateResponseDto.getProductId()))
+                .andExpect(jsonPath("$.data.images[0]").value(2L))
+                .andExpect(jsonPath("$.data.images[1]").value(3L));
+
 
     }
 
-    private static ProductResponseDto createProductResponse(long id, String name, long categoryId, String categoryName, int price, List<Long> imageIds) {
-        ProductResponseDto response = ProductResponseDto.builder()
+    @DisplayName("상품을 삭제하면 200 응답을 반환받는다.")
+    @Test
+    void deleteProduct() throws Exception {
+
+        //given
+        Long productId = 1L;
+        Mockito.doNothing().when(productService).deleteProduct(productId);
+
+        //when, then
+        mockMvc.perform(
+                        delete("/api/product/{id}", productId)
+                )
+                .andExpect(status().isOk())
+                .andDo(print());
+
+    }
+
+
+    private static ProductCreateResponseDto createProductResponse(long id, String name, long categoryId, String categoryName, int price, List<Long> imageIds) {
+        ProductCreateResponseDto response = ProductCreateResponseDto.builder()
                 .id(id)
                 .name(name)
                 .categoryId(categoryId)

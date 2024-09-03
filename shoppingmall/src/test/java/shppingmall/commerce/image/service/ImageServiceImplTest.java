@@ -26,10 +26,10 @@ class ImageServiceImplTest extends IntegrationTestSupport {
     /**
      * FileStore에 물리적으로 저장되는 Data를 피하기 위해서 Mock처리를 했으나,
      * 타 Service Layer의 클래스들의 테스트들과 같이 일관적으로 Mock 처리 안 하는게 맞을까?
-     *
+     * <p>
      * FileStore를 Mock처리를 하게되면 ImageRepository도 Mock처리를 해야 NPE 회피 가능
      * -> 아마 스프링이 빈 주입을 못하는 듯
-     *
+     * <p>
      * Mock의 경우 일관되게 관리가 필요해 보임
      */
     @InjectMocks
@@ -73,6 +73,24 @@ class ImageServiceImplTest extends IntegrationTestSupport {
                 .contains(
                         tuple(FileType.PRODUCT_IMAGE, 1L)
                 );
+
+    }
+
+    @DisplayName("이미지를 삭제한다.")
+    @Test
+    void deleteImage() {
+        //given
+        MockMultipartFile mockMultipartFile = new MockMultipartFile("test", "test.jpg", "test.jpg", "test.jpg".getBytes());
+        List<Image> images = imageService.saveImage(List.of(mockMultipartFile), 1L, FileType.PRODUCT_IMAGE);
+        //when
+        for (Image image : images) {
+            imageService.deleteImages(image.getTargetId(), FileType.PRODUCT_IMAGE);
+        }
+
+        //then
+
+        assertThat(imageRepository.findAll()).hasSize(0);
+
 
     }
 

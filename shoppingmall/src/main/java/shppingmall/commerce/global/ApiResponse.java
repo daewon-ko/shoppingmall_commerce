@@ -1,10 +1,12 @@
 package shppingmall.commerce.global;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
+@JsonInclude(JsonInclude.Include.NON_NULL)  // null로 들어오는 Data 무시
 public class ApiResponse<T> {
     private int code;
     private HttpStatus httpStatus;
