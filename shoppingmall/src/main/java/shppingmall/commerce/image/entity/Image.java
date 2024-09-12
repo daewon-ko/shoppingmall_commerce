@@ -22,8 +22,13 @@ public class Image extends BaseEntity {
     private FileType fileType;
 
     private Long targetId;
+    private Boolean isDeleted;
 
     private LocalDateTime deletedAt;
 
 
+    public void deleteImage(LocalDateTime deletedAt) {
+        this.deletedAt = deletedAt;
+        this.isDeleted = true;
+    }
 }
