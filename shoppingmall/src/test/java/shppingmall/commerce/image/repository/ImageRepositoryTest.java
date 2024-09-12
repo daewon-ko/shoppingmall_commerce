@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.transaction.annotation.Transactional;
 import shppingmall.commerce.image.entity.FileType;
 import shppingmall.commerce.image.entity.Image;
 import shppingmall.commerce.product.entity.Product;
@@ -18,7 +17,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
-import static org.junit.jupiter.api.Assertions.*;
+import static shppingmall.commerce.support.TestFixture.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -35,29 +34,29 @@ class ImageRepositoryTest {
     void tearDown() {
         imageRepository.deleteAllInBatch();
         productRepository.deleteAllInBatch();
-//        em.createNativeQuery("ALTER table image AUTO_INCREMENT = 1").executeUpdate();
 
     }
 
-    @DisplayName("상품에 저장되어 있는 단일 이미지를 조회할 수 있다..")
+    @DisplayName("상품에 썸네일 이미지와 디테일 이미지를 저장후 썸네일 이미지만 조회할 수 있다.")
     @Test
     void findImageWithProductId() {
         //given
         Product productA = createProduct(1000, "상품A");
         Product savedProduct = productRepository.save(productA);
 
-        Image image = createImage(1L, "upload", savedProduct);
+        Image image1 = createImage("upload", savedProduct, FileType.PRODUCT_THUMBNAIL);
+        Image image2 = createImage("upload", savedProduct, FileType.PRODUCT_DETAIL_IMAGE);
 
 
-        Image savedImage = imageRepository.save(image);
+        List<Image> savedImages = imageRepository.saveAll(List.of(image1, image2));
 
 
         //when
-        List<Image> images = imageRepository.findImagesByTargetIdAndFileType(FileType.PRODUCT_IMAGE, savedProduct.getId());
+        List<Image> images = imageRepository.findImagesByTargetIdAndFileType(List.of(FileType.PRODUCT_THUMBNAIL), savedProduct.getId());
 
         //then
-        assertThat(images.get(0)).extracting(Image::getId, Image::getFileType, Image::getUploadName)
-                .contains(savedImage.getId(), FileType.PRODUCT_IMAGE, "upload");
+        assertThat(images.get(0)).extracting(Image::getFileType, Image::getUploadName)
+                .contains( FileType.PRODUCT_THUMBNAIL, "upload");
 
     }
 
@@ -70,9 +69,9 @@ class ImageRepositoryTest {
         Product productA = createProduct(1000, "상품A");
         Product savedProduct = productRepository.save(productA);
 
-        Image image1 = createImage(1L, "upload1", savedProduct);
+        Image image1 = createImage("upload1", savedProduct, FileType.PRODUCT_THUMBNAIL);
 
-        Image image2 = createImage(2L, "upload2", savedProduct);
+        Image image2 = createImage( "upload2", savedProduct, FileType.PRODUCT_DETAIL_IMAGE);
 
 
         Image savedImage1 = imageRepository.save(image1);
@@ -82,14 +81,14 @@ class ImageRepositoryTest {
         //when
 
 
-        List<Image> images= imageRepository.findImagesByTargetIdAndFileType(FileType.PRODUCT_IMAGE, savedProduct.getId());
+        List<Image> images= imageRepository.findImagesByTargetIdAndFileType(List.of(FileType.PRODUCT_THUMBNAIL, FileType.PRODUCT_DETAIL_IMAGE), savedProduct.getId());
 
 
         //then
         assertThat(images).extracting(Image::getFileType, Image::getId, Image::getUploadName)
                 .contains(
-                        tuple(FileType.PRODUCT_IMAGE, savedImage1.getId(), "upload1"),
-                        tuple(FileType.PRODUCT_IMAGE, savedImage2.getId(), "upload2")
+                        tuple(FileType.PRODUCT_THUMBNAIL, savedImage1.getId(), "upload1"),
+                        tuple(FileType.PRODUCT_DETAIL_IMAGE, savedImage2.getId(), "upload2")
                 );
     }
 
@@ -100,15 +99,7 @@ class ImageRepositoryTest {
                 .build();
         return product;
     }
-    private static Image createImage(long id, String upload, Product savedProduct) {
-        Image image = Image.builder()
-//                .id(id)
-                .fileType(FileType.PRODUCT_IMAGE)
-                .uploadName(upload)
-                .targetId(savedProduct.getId())
-                .build();
-        return image;
-    }
+
 
 
 

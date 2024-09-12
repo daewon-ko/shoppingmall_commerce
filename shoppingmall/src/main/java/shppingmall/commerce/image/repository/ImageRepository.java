@@ -9,6 +9,6 @@ import shppingmall.commerce.image.entity.Image;
 import java.util.List;
 
 public interface ImageRepository extends JpaRepository<Image, Long> {
-    @Query("select i from Image i where i.fileType = :fileType and i.targetId =:targetId")
-    List<Image> findImagesByTargetIdAndFileType(@Param("fileType") FileType fileType, @Param("targetId") Long targetId);
+    @Query("select i from Image i where i.fileType in :fileTypes and i.targetId =:targetId")
+    List<Image> findImagesByTargetIdAndFileType(@Param("fileTypes") List<FileType> fileType, @Param("targetId") Long targetId);
 }
