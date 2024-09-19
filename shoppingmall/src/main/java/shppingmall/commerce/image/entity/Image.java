@@ -22,7 +22,9 @@ public class Image extends BaseEntity {
     private FileType fileType;
 
     private Long targetId;
+    @Column(columnDefinition = "TINYINT(1)")
     private Boolean isDeleted;
+
 
     private LocalDateTime deletedAt;
 
