@@ -2,6 +2,7 @@ package shppingmall.commerce.image.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,10 @@ import shppingmall.commerce.image.entity.Image;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
@@ -91,6 +95,48 @@ class ImageRepositoryTest {
                         tuple(FileType.PRODUCT_DETAIL_IMAGE, savedImage2.getId(), "upload2")
                 );
     }
+    
+    @DisplayName("이미지를 삭제할 경우, isDeleted가 false인 이미지를 조회할 수 없다.")
+    @Test
+    void findByTargetIdAndIsDeletedIsFalse(){
+    //given
+        Product productA = createProduct(1000, "상품A");
+        Product savedProduct = productRepository.save(productA);
+
+        Image image = createImage("test", savedProduct, FileType.PRODUCT_THUMBNAIL);
+        Image savedImage = imageRepository.save(image);
+        savedImage.deleteImage(LocalDateTime.of(2024, 9, 19, 13, 23));
+        
+        //when
+        Optional<Image> result = imageRepository.findByTargetIdAndIsDeletedFalse(savedProduct.getId());
+        //then
+        Assertions.assertThatThrownBy(
+                () -> result.get()).isInstanceOf(NoSuchElementException.class);
+
+    }
+
+    @DisplayName("이미지를 삭제하지 않았을경우, IsDeleted가 Falsed인 이미지를 조회할 수 있다. ")
+    @Test
+    void findImageByTargetIdAndIsNotDeleted(){
+        //given
+        Product productA = createProduct(1000, "상품A");
+        Product savedProduct = productRepository.save(productA);
+
+        Image image = createImage("test", savedProduct, FileType.PRODUCT_THUMBNAIL);
+        Image savedImage = imageRepository.save(image);
+
+        //when
+        Optional<Image> result = imageRepository.findByTargetIdAndIsDeletedFalse(savedProduct.getId());
+        //then
+        assertThat(result.isPresent()).isTrue();
+
+    }
+
+
+
+
+
+
 
     private static Product createProduct(int price, String name) {
         Product product = Product.builder()
@@ -99,6 +145,7 @@ class ImageRepositoryTest {
                 .build();
         return product;
     }
+
 
 
 
