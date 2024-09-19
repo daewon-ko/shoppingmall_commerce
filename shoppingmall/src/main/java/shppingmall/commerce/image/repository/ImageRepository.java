@@ -13,5 +13,5 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
     @Query("select i from Image i where i.fileType in :fileTypes and i.targetId =:targetId")
     List<Image> findImagesByTargetIdAndFileType(@Param("fileTypes") List<FileType> fileType, @Param("targetId") Long targetId);
 
-    Optional<Image> findByTargetIdAndIsDeletedFalse(@Param("targetId")Long targetId);
+    List<Image> findByTargetIdAndIsDeletedFalse(@Param("targetId")Long targetId);
 }

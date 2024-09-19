@@ -108,10 +108,10 @@ class ImageRepositoryTest {
         savedImage.deleteImage(LocalDateTime.of(2024, 9, 19, 13, 23));
         
         //when
-        Optional<Image> result = imageRepository.findByTargetIdAndIsDeletedFalse(savedProduct.getId());
+        List<Image> images = imageRepository.findByTargetIdAndIsDeletedFalse(savedProduct.getId());
         //then
-        Assertions.assertThatThrownBy(
-                () -> result.get()).isInstanceOf(NoSuchElementException.class);
+
+        assertThat(images).isNullOrEmpty();
 
     }
 
@@ -126,9 +126,9 @@ class ImageRepositoryTest {
         Image savedImage = imageRepository.save(image);
 
         //when
-        Optional<Image> result = imageRepository.findByTargetIdAndIsDeletedFalse(savedProduct.getId());
+        List<Image> result = imageRepository.findByTargetIdAndIsDeletedFalse(savedProduct.getId());
         //then
-        assertThat(result.isPresent()).isTrue();
+        assertThat(result.get(0)).isNotNull();
 
     }
 
