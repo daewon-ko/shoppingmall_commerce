@@ -7,10 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import shppingmall.commerce.cart.dto.request.CreateCartRequestDto;
 import shppingmall.commerce.user.dto.CreateUserRequestDto;
 import shppingmall.commerce.user.dto.LoginUserRequestDto;
@@ -28,6 +25,7 @@ import shppingmall.commerce.user.service.UserService;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/api")
 public class AuthController {
     private final UserService userService;
     private final UserRepository userRepository;
@@ -62,7 +60,7 @@ public class AuthController {
     }
 
     @PostMapping("/auth/register")
-    public String singUp(@Valid CreateUserRequestDto createUserRequest) {
+    public String singUp(@Valid @RequestBody CreateUserRequestDto createUserRequest) {
 
         userService.registerBuyer(createUserRequest);
         return "index";
