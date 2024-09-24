@@ -1,5 +1,7 @@
 package shppingmall.commerce.support;
 
+import shppingmall.commerce.image.entity.FileType;
+import shppingmall.commerce.image.entity.Image;
 import shppingmall.commerce.order.OrderStatus;
 import shppingmall.commerce.order.entity.Order;
 import shppingmall.commerce.order.entity.OrderProduct;
@@ -42,5 +44,14 @@ public class TestFixture {
                 .quantity(quantity)
                 .build();
         return orderProduct2;
+    }
+    public static Image createImage(String uploadName, Product savedProduct, FileType fileType) {
+        Image image = Image.builder()
+                .fileType(fileType)
+                .uploadName(uploadName)
+                .isDeleted(false)
+                .targetId(savedProduct.getId())
+                .build();
+        return image;
     }
 }
