@@ -2,7 +2,6 @@ package shppingmall.commerce.image.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,11 +15,9 @@ import shppingmall.commerce.product.repository.ProductRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.tuple;
+import static org.assertj.core.api.Assertions.*;
 import static shppingmall.commerce.support.TestFixture.*;
 
 @DataJpaTest
@@ -60,10 +57,9 @@ class ImageRepositoryTest {
 
         //then
         assertThat(images.get(0)).extracting(Image::getFileType, Image::getUploadName)
-                .contains( FileType.PRODUCT_THUMBNAIL, "upload");
+                .contains(FileType.PRODUCT_THUMBNAIL, "upload");
 
     }
-
 
 
     @DisplayName("상품에 저장되어 있는 다량의 이미지를 조회할 수 있다.")
@@ -75,7 +71,7 @@ class ImageRepositoryTest {
 
         Image image1 = createImage("upload1", savedProduct, FileType.PRODUCT_THUMBNAIL);
 
-        Image image2 = createImage( "upload2", savedProduct, FileType.PRODUCT_DETAIL_IMAGE);
+        Image image2 = createImage("upload2", savedProduct, FileType.PRODUCT_DETAIL_IMAGE);
 
 
         Image savedImage1 = imageRepository.save(image1);
@@ -85,7 +81,7 @@ class ImageRepositoryTest {
         //when
 
 
-        List<Image> images= imageRepository.findImagesByTargetIdAndFileType(List.of(FileType.PRODUCT_THUMBNAIL, FileType.PRODUCT_DETAIL_IMAGE), savedProduct.getId());
+        List<Image> images = imageRepository.findImagesByTargetIdAndFileType(List.of(FileType.PRODUCT_THUMBNAIL, FileType.PRODUCT_DETAIL_IMAGE), savedProduct.getId());
 
 
         //then
@@ -95,29 +91,30 @@ class ImageRepositoryTest {
                         tuple(FileType.PRODUCT_DETAIL_IMAGE, savedImage2.getId(), "upload2")
                 );
     }
-    
+
     @DisplayName("이미지를 삭제할 경우, isDeleted가 false인 이미지를 조회할 수 없다.")
     @Test
-    void findByTargetIdAndIsDeletedIsFalse(){
-    //given
+    void findByTargetIdAndIsDeletedIsFalse() {
+        //given
         Product productA = createProduct(1000, "상품A");
         Product savedProduct = productRepository.save(productA);
 
         Image image = createImage("test", savedProduct, FileType.PRODUCT_THUMBNAIL);
         Image savedImage = imageRepository.save(image);
         savedImage.deleteImage(LocalDateTime.of(2024, 9, 19, 13, 23));
-        
+
         //when
-        List<Image> images = imageRepository.findByTargetIdAndIsDeletedFalse(savedProduct.getId());
+        Optional<List<Image>> images = imageRepository.findImagesBySearchCond(savedProduct.getId(), List.of(FileType.PRODUCT_THUMBNAIL));
         //then
 
-        assertThat(images).isNullOrEmpty();
+        assertThat(images.orElseGet(null)).isNullOrEmpty();
+
 
     }
 
     @DisplayName("이미지를 삭제하지 않았을경우, IsDeleted가 Falsed인 이미지를 조회할 수 있다. ")
     @Test
-    void findImageByTargetIdAndIsNotDeleted(){
+    void findImageByTargetIdAndIsNotDeleted() {
         //given
         Product productA = createProduct(1000, "상품A");
         Product savedProduct = productRepository.save(productA);
@@ -126,15 +123,52 @@ class ImageRepositoryTest {
         Image savedImage = imageRepository.save(image);
 
         //when
-        List<Image> result = imageRepository.findByTargetIdAndIsDeletedFalse(savedProduct.getId());
+        Optional<List<Image>> images = imageRepository.findImagesBySearchCond(savedProduct.getId(), List.of(FileType.PRODUCT_THUMBNAIL));
         //then
-        assertThat(result.get(0)).isNotNull();
+        assertThat(images.orElse(null).get(0)).extracting(Image::getFileType).isEqualTo(FileType.PRODUCT_THUMBNAIL);
 
     }
 
 
+    @DisplayName("상품과 이미지를 저장 후, 올바른 상품번호와 이미지 타입으로 조회가능하다.")
+    @Test
+    void findWithInTargetIdAndFileType() {
 
+        //given
+        Product productA = createProduct(1000, "상품A");
+        Product savedProduct = productRepository.save(productA);
 
+        Image image = createImage("test", savedProduct, FileType.PRODUCT_THUMBNAIL);
+        Image savedImage = imageRepository.save(image);
+
+        //when
+
+        List<Image> result = imageRepository.findImagesByTargetIdAndFileType(List.of(FileType.PRODUCT_THUMBNAIL), savedProduct.getId());
+
+        //then
+        assertThat(result).extracting(Image::getFileType, Image::getId, Image::getUploadName)
+                .containsExactly(tuple(FileType.PRODUCT_THUMBNAIL, savedImage.getId(), savedImage.getUploadName()));
+
+    }
+
+    @DisplayName("상품과 이미지를 저장 후, 올바르지 못한 파일 타입으로 조회시 조회 불가능하다.")
+    @Test
+    void findWithInTargetIdAndWrongFileType() {
+
+        //given
+        Product productA = createProduct(1000, "상품A");
+        Product savedProduct = productRepository.save(productA);
+
+        Image image = createImage("test", savedProduct, FileType.PRODUCT_THUMBNAIL);
+        Image savedImage = imageRepository.save(image);
+
+        //when
+        List<Image> imageList = imageRepository.findImagesByTargetIdAndFileType(List.of(FileType.CHATMESSAGE_IMAGE), savedProduct.getId());
+
+        //then
+        assertThat(imageList).isNullOrEmpty();
+
+    }
 
 
 
@@ -145,9 +179,6 @@ class ImageRepositoryTest {
                 .build();
         return product;
     }
-
-
-
 
 
 }
