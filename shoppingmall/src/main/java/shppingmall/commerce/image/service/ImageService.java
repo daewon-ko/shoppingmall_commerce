@@ -64,23 +64,22 @@ public class ImageService {
 
     }
 
-    /**
-     * 메인페이지에서 상품 썸네일 이미지 조회
-     * @param targetId
-     * @param fileType
-     * @return
-     */
-    public List<ImageResponseDto> getImages(Long targetId, FileType fileType) {
+    public List<ImageResponseDto> getImages(Long targetId, List<FileType> fileTypes) {
 
         // 이미지 테이블에서 삭제되지 않은 Image를 조회 후 ImageResponseDto로 변환
 
-        return imageRepository.findByTargetIdAndIsDeletedFalse(targetId).stream()
-                .map(i -> ImageResponseDto.builder()
-                        .targetId(targetId)
-                        .fileType(fileType)
-                        .imageUrl(i.getFullPathUrl())
-                        .build())
-                .collect(Collectors.toList());
+
+        return imageRepository.findImagesBySearchCond(targetId, fileTypes).filter(images -> !images.isEmpty())
+                .orElseThrow(() -> new IllegalArgumentException("조건에 해당하는 이미지가 없습니다."))
+                .stream().map(
+
+                        i -> ImageResponseDto.builder()
+                                .targetId(targetId)
+                                .imageUrl(i.getFullPathUrl())
+                                .fileType(i.getFileType())
+                                .build()
+                ).collect(Collectors.toUnmodifiableList());
+
 
     }
 
