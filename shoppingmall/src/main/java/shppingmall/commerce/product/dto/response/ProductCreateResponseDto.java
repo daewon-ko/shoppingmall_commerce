@@ -33,6 +33,7 @@ public class ProductCreateResponseDto {
                 .name(product.getName())
                 .price(product.getPrice())
                 .categoryId(categoryId)
+                .categoryName(product.getCategory().getName())
                 .imageIds(imageIds)
                 .build();
 
