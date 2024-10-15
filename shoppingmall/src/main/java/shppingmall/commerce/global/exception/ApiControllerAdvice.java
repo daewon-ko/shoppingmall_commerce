@@ -10,6 +10,12 @@ import shppingmall.commerce.global.ApiResponse;
 @RestControllerAdvice
 public class ApiControllerAdvice {
 
+    @ExceptionHandler(ApiException.class)
+    public ApiResponse<Object> apiException(ApiException e) {
+        return ApiResponse.of(e.getHttpStatusCode(), e.getMessage(), null);
+    }
+
+
     @ExceptionHandler(BindException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiResponse<Object> bindException(BindException e) {
