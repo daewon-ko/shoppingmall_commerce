@@ -4,8 +4,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -129,12 +127,12 @@ class ImageServiceTest extends IntegrationTestSupport {
 
 
         //when
-        List<ImageResponseDto> imageResponseDtos = imageService.getImages(savedImage.getId(), List.of(FileType.PRODUCT_THUMBNAIL));
+        List<ImageResponseDto> imageResponseDtos = imageService.getImages(savedProduct.getId(), List.of(FileType.PRODUCT_THUMBNAIL));
 
         //then
         assertThat(imageResponseDtos).hasSize(1);
         assertThat(imageResponseDtos.get(0).getFileType()).isEqualTo(FileType.PRODUCT_THUMBNAIL);
-        assertThat(imageResponseDtos.get(0).getTargetId()).isEqualTo(savedImage.getId());
+        assertThat(imageResponseDtos.get(0).getTargetId()).isEqualTo(savedProduct.getId());
 
     }
 
