@@ -4,15 +4,23 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.internal.matchers.Any;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.SliceImpl;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import shppingmall.commerce.ControllerTestSupport;
+import shppingmall.commerce.image.entity.FileType;
+import shppingmall.commerce.product.ProductSearchCondition;
 import shppingmall.commerce.product.dto.request.ProductCreateRequestDto;
 import shppingmall.commerce.product.dto.request.ProductUpdateRequestDto;
 import shppingmall.commerce.product.dto.response.ProductCreateResponseDto;
+import shppingmall.commerce.product.dto.response.ProductQueryResponseDto;
 import shppingmall.commerce.product.dto.response.ProductUpdateResponseDto;
 
+import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -144,29 +152,44 @@ class ProductControllerTest extends ControllerTestSupport {
 
     }
 
-    @DisplayName("전체 상품을 조회한다.")
+    @DisplayName("전체 상품을 특정 조건에 따라서 조회할 수 있다.")
     @Test
     void getAllProducts() throws Exception {
 
         //given
+        ProductQueryResponseDto response1 = ProductQueryResponseDto.builder()
+                .name("상품A")
+                .categoryId(1L)
+                .price(10000)
+                .categoryName("카테고리A")
+                .build();
+
+        ProductQueryResponseDto response2 = ProductQueryResponseDto.builder()
+                .name("상품B")
+                .categoryId(1L)
+                .price(5000)
+                .categoryName("카테고리A")
+                .build();
 
 
-        ProductCreateResponseDto response = createProductResponse(1L, "test", 1L, "test", 10000, List.of(1L, 2L, 3L));
-        Mockito.when(productService.getAllProductList())
-                .thenReturn(List.of(response));
+        Pageable pageRequest = PageRequest.of(0, 10);
+
+        Mockito.when(productService.getAllProductList(Mockito.any(ProductSearchCondition.class), Mockito.any(PageRequest.class)))
+                .thenReturn(new SliceImpl<>(List.of(response1, response2), pageRequest, false));
 
         //when, then
-
-
         mockMvc.perform(get(
-                        "/api/products")
+                        "/api/products?categoryId=1&fileType=PRODUCT_THUMBNAIL")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.code").value("200"))
+                .andDo(print())
+                .andExpect(jsonPath("$.code").value(200))
                 .andExpect(jsonPath("$.httpStatus").value("OK"))
-                .andExpect(jsonPath("$.data[0].id").value(response.getId()))
-                .andExpect(jsonPath("$.data[0].name").value(response.getName()))
-                .andExpect(jsonPath("$.data[0].price").value(response.getPrice()));
-
+                .andExpect(jsonPath("$.data.content[0].name").value("상품A"))
+                .andExpect(jsonPath("$.data.content[0].price").value(10000))
+                .andExpect(jsonPath("$.data.content[0].categoryName").value("카테고리A"))
+                .andExpect(jsonPath("$.data.content[1].name").value("상품B"))
+                .andExpect(jsonPath("$.data.content[1].price").value(5000))
+                .andExpect(jsonPath("$.data.content[1].categoryName").value("카테고리A"));
     }
 
     @DisplayName("상품을 수정할 수 있다.")
@@ -174,7 +197,8 @@ class ProductControllerTest extends ControllerTestSupport {
     void updateProduct() throws Exception {
         //given
         Long productId = 1L;
-        MockMultipartFile mockMultipartFile1 = new MockMultipartFile("images", "test.jpg", "image/jpeg", "image.png".getBytes());
+        MockMultipartFile detailImages = new MockMultipartFile("detailImages", "test.jpg", "image/jpeg", "image.png".getBytes());
+        MockMultipartFile thumbnailImage = new MockMultipartFile("detailImages", "test.jpg", "image/jpeg", "image.png".getBytes());
 
         ProductUpdateRequestDto updateRequestDto = ProductUpdateRequestDto.builder()
                 .name("test")
@@ -189,18 +213,19 @@ class ProductControllerTest extends ControllerTestSupport {
                 .images(List.of(2L, 3L))
                 .build();
 
-        Mockito.when(productService.updateProduct(Mockito.eq(productId), Mockito.any(ProductUpdateRequestDto.class), Mockito.anyList()))
+        Mockito.when(productService.updateProduct(Mockito.anyLong(), Mockito.any(ProductUpdateRequestDto.class), Mockito.any(), Mockito.anyList()))
                 .thenReturn(updateResponseDto);
 
 
         String updateRequestJson = objectMapper.writeValueAsString(updateRequestDto);
 
-        MockMultipartFile mockMultipartFile2 = new MockMultipartFile("requestDto", "test", "application/json", updateRequestJson.getBytes(StandardCharsets.UTF_8));
+        MockMultipartFile requestDto = new MockMultipartFile("requestDto", "test", "application/json", updateRequestJson.getBytes(StandardCharsets.UTF_8));
 
         //when, then
         mockMvc.perform((multipart(HttpMethod.PUT, "/api/product/{id}", productId)
-                        .file(mockMultipartFile1)
-                        .file(mockMultipartFile2)
+                        .file(thumbnailImage)
+                        .file(thumbnailImage)
+                        .file(requestDto)
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)))
                 .andExpect(status().isOk())
