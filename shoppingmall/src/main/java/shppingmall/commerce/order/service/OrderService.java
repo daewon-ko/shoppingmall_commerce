@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shppingmall.commerce.cart.entity.Cart;
 import shppingmall.commerce.cart.repository.CartRepository;
+import shppingmall.commerce.global.exception.ApiException;
+import shppingmall.commerce.global.exception.domain.CartErrorCode;
+import shppingmall.commerce.global.exception.domain.OrderErrorCode;
+import shppingmall.commerce.global.exception.domain.ProductErrorCode;
 import shppingmall.commerce.order.OrderStatus;
 import shppingmall.commerce.order.dto.request.*;
 import shppingmall.commerce.order.dto.response.OrderProductCreateResponseDto;
@@ -21,7 +25,6 @@ import shppingmall.commerce.product.repository.ProductRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -48,11 +51,7 @@ public class OrderService {
     public List<OrderProductCreateResponseDto> createOrderCart(final OrderCreateRequestDto orderCartCreateRequestDto) {
         Long cartId = orderCartCreateRequestDto.getCartId();
 
-        // DTO에서 cartId는 Validation할 수 없으므로 Service Logic에서 아래와 같이 검증
-        if (cartId == null) {
-            throw new IllegalArgumentException("카트번호가 없습니다. 재확인해주세요.");
-        }
-        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new IllegalArgumentException("해당하는 카트가 존재하지 않습니다."));
+        Cart cart = validateCartId(cartId);
 
         Order order = orderCartCreateRequestDto.toEntity(cart);
         return createCommonOrder(orderCartCreateRequestDto, order);
@@ -68,7 +67,7 @@ public class OrderService {
 
     @Transactional
     public void cancelOrder(Long orderId) {
-        Order order = orderRepository.findById(orderId).orElseThrow(() -> new IllegalStateException("해당하는 주문이 없습니다."));
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new ApiException(OrderErrorCode.NOT_EXIST_ORDER));
 
         checkCancelValidation(order);
         order.cancelOrder();
@@ -77,10 +76,10 @@ public class OrderService {
 
     @Transactional
     public void updateOrderProducts(Long orderId, OrderUpdateRequest orderUpdateRequest) {
-        Order findOrder = orderRepository.findById(orderId).orElseThrow(() -> new IllegalStateException("해당하는 주문이 없습니다."));
+        Order findOrder = orderRepository.findById(orderId).orElseThrow(() -> new ApiException(OrderErrorCode.NOT_EXIST_ORDER));
 
         if (findOrder.getOrderStatus() == OrderStatus.DELIVERY_FINISHED || findOrder.getOrderStatus() == OrderStatus.CANCELED) {
-            throw new IllegalStateException("주문을 수정할 수 없습니다.");
+            throw new ApiException(OrderErrorCode.ORDER_UPDATE_NOT_ALLOWED);
         }
 
         List<OrderProductUpdateRequest> updateRequestList = orderUpdateRequest.getUpdateRequestList();
@@ -110,7 +109,7 @@ public class OrderService {
 
         for (OrderProductCreateRequestDto orderProductRequestDto : orderProductRequestDtoList) {
             // TODO : 예외처리 정립 필요
-            Product product = productRepository.findById(orderProductRequestDto.getProductId()).orElseThrow(() -> new IllegalArgumentException("해당 상품은 존재하지 않습니다."));
+            Product product = productRepository.findById(orderProductRequestDto.getProductId()).orElseThrow(() -> new ApiException(ProductErrorCode.PRODUCT_NOT_FOUND));
             OrderProduct orderProduct = orderProductRequestDto.toEntity(order, product);
             OrderProduct savedOrderProduct = orderProductRepository.save(orderProduct);
             orderProductCreateResponseDtoList.add(OrderProductCreateResponseDto.of(savedOrderProduct));
@@ -121,9 +120,18 @@ public class OrderService {
 
     private static void checkCancelValidation(Order order) {
         if (order.getOrderStatus().equals(OrderStatus.DELIVERY_FINISHED) || order.getOrderStatus().equals(OrderStatus.CANCELED)) {
-            throw new IllegalStateException("주문을 취소할 수 없습니다.");
+            throw new ApiException(OrderErrorCode.ORDER_UPDATE_NOT_ALLOWED);
         }
     }
 
+
+    private Cart validateCartId(Long cartId) {
+        // DTO에서 cartId는 Validation할 수 없으므로 Service Logic에서 아래와 같이 검증
+        if (cartId == null) {
+            throw new ApiException(CartErrorCode.NO_EXIST_CART_NUMBER);
+        }
+        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new ApiException(CartErrorCode.NO_EXIST_CART));
+        return cart;
+    }
 
 }

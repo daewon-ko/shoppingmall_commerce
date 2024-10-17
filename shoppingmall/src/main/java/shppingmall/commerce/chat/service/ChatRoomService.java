@@ -7,6 +7,10 @@ import shppingmall.commerce.chat.dto.ChatRoomCreateDto;
 import shppingmall.commerce.chat.dto.ChatRoomResponseDto;
 import shppingmall.commerce.chat.entity.ChatRoom;
 import shppingmall.commerce.chat.repository.ChatRoomRepository;
+import shppingmall.commerce.global.exception.ApiException;
+import shppingmall.commerce.global.exception.domain.ChatErrorCode;
+import shppingmall.commerce.global.exception.domain.ProductErrorCode;
+import shppingmall.commerce.global.exception.domain.UserErrorCode;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
 import shppingmall.commerce.user.entity.User;
@@ -28,21 +32,21 @@ public class ChatRoomService {
     // TODO : 예외처리 커스텀 필요 및 세부적으로 작성 필요
     public ChatRoomResponseDto createRoom(final ChatRoomCreateDto chatRoomCreateDto) {
         User buyer = userRepository.findById(chatRoomCreateDto.getBuyerId()).
-                orElseThrow(() -> new IllegalArgumentException("해당하는 회원이 존재하지 않습니다."));
+                orElseThrow(() -> new ApiException(UserErrorCode.NO_EXIST_USER));
 
         // buyer 검증
         if (!buyer.getUserRole().equals(UserRole.BUYER)) {
-            throw new IllegalArgumentException("회원의 정보가 잘못 되었습니다.");
+            throw new ApiException(UserErrorCode.INVALID_USER_INFORMATION);
         }
         User seller = userRepository.findById(chatRoomCreateDto.getSellerId()).
-                orElseThrow(() -> new IllegalArgumentException("해당하는 회원이 존재하지 않습니다."));
+                orElseThrow(() -> new ApiException(UserErrorCode.NO_EXIST_USER));
         // seller 검증
         if (!seller.getUserRole().equals(UserRole.SELLER)) {
-            throw new IllegalArgumentException("회원의 정보가 잘못 되었습니다.");
+            throw new ApiException(UserErrorCode.INVALID_USER_INFORMATION);
         }
 
         Product product = productRepository.findById(chatRoomCreateDto.getProductId())
-                .orElseThrow(() -> new IllegalArgumentException("해당하는 상품이 존재하지 않습니다."));
+                .orElseThrow(() -> new ApiException(ProductErrorCode.PRODUCT_NOT_FOUND));
 
 
         // 아래와 같이 로직을 작성하면 Optional 안에 null이 아닌 빈 객체를 담고 있을 수도 있지 않을까?
@@ -85,8 +89,9 @@ public class ChatRoomService {
     public ChatRoomResponseDto getChatRoom(UUID roomId, HttpSession httpSession) {
 
         ChatRoom chatRoom = chatRoomRepository.findById(roomId).orElseThrow(
-                () -> new IllegalArgumentException("해당하는 채팅방이 존재하지 않습니다.")
+                () -> new ApiException(ChatErrorCode.NO_EXIST_CHATROOM)
         );
+
         UUID chatRoomId = chatRoom.getId();
 
         // ChatRoom 객체로 UserRole을 조회하는 메서드 정의 필요

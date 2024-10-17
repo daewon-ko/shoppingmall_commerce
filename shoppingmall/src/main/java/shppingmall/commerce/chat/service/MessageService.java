@@ -9,6 +9,9 @@ import shppingmall.commerce.chat.entity.ChatRoom;
 import shppingmall.commerce.chat.entity.Message;
 import shppingmall.commerce.chat.repository.ChatRoomRepository;
 import shppingmall.commerce.chat.repository.MessageRepository;
+import shppingmall.commerce.global.exception.ApiException;
+import shppingmall.commerce.global.exception.domain.ChatErrorCode;
+import shppingmall.commerce.global.exception.domain.UserErrorCode;
 import shppingmall.commerce.user.entity.User;
 import shppingmall.commerce.user.repository.UserRepository;
 
@@ -25,12 +28,11 @@ public class MessageService {
     public ChatMessageResponseDto saveMessage(ChatMessageRequestDto messageDto, String roomId) {
         String content = messageDto.getContent();
         ChatRoom chatRoom = chatRoomRepository.findById(UUID.fromString(roomId))
-                .orElseThrow(() -> new IllegalArgumentException("해당하는 채팅방이 없습니다. 확인해주세요."));
+                .orElseThrow(() -> new ApiException(ChatErrorCode.NO_EXIST_CHATROOM));
 
 
         Long senderId = messageDto.getSenderId();
-        User user = userRepository.findById(senderId).orElseThrow(() -> new IllegalArgumentException("해당하는 회원이 존재하지 않습니다."));
-
+        User user = userRepository.findById(senderId).orElseThrow(() -> new ApiException(UserErrorCode.NO_EXIST_USER));
         Message message = Message.builder()
                 .chatRoom(chatRoom)
                 .content(content)
