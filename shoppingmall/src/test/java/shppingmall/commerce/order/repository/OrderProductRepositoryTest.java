@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import shppingmall.commerce.global.exception.ApiException;
+import shppingmall.commerce.global.exception.domain.OrderErrorCode;
 import shppingmall.commerce.order.OrderStatus;
 import shppingmall.commerce.order.dto.request.OrderUpdateRequest;
 import shppingmall.commerce.order.entity.Order;
@@ -61,7 +63,7 @@ class OrderProductRepositoryTest {
         //then
 
         assertThat(result).isEqualTo(1);
-        assertThat(orderProductRepository.findById(orderProductA.getId()).orElseThrow(() -> new IllegalStateException("해당 주문상품이 없습니다."))
+        assertThat(orderProductRepository.findById(orderProductA.getId()).orElseThrow(() -> new ApiException(OrderErrorCode.NOT_EXIST_ORDER_PRODUCT))
                 .getQuantity()).isEqualTo(20);
 
 

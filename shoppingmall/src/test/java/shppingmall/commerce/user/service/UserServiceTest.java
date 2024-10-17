@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import shppingmall.commerce.global.exception.ApiException;
+import shppingmall.commerce.global.exception.domain.UserErrorCode;
 import shppingmall.commerce.support.IntegrationTestSupport;
 import shppingmall.commerce.user.dto.CreateUserRequestDto;
 import shppingmall.commerce.user.dto.LoginUserRequestDto;
@@ -55,7 +57,7 @@ class UserServiceTest extends IntegrationTestSupport {
 
                     //when, then
                     assertThatThrownBy(() -> userService.findUserByIdAndSeller(buyerId)).hasMessage("해당 회원은 판매자가 아닙니다. 판매자만이 상품을 생성할수 있습니다.")
-                            .isInstanceOf(IllegalStateException.class);
+                            .isInstanceOf(ApiException.class);
 
                 })
         );
@@ -74,7 +76,7 @@ class UserServiceTest extends IntegrationTestSupport {
 
         //then
         assertThat(userRepository.findById(savedId)
-                .orElseThrow(() -> new IllegalArgumentException("해당하는 회원이 없습니다."))
+                .orElseThrow(() -> new ApiException(UserErrorCode.NO_EXIST_USER))
                 .getUserRole())
                 .isEqualTo(UserRole.SELLER);
     }
@@ -91,7 +93,7 @@ class UserServiceTest extends IntegrationTestSupport {
 
         //then
         assertThat(userRepository.findById(savedId)
-                .orElseThrow(() -> new IllegalArgumentException("해당하는 회원이 없습니다."))
+                .orElseThrow(() -> new ApiException(UserErrorCode.NO_EXIST_USER))
                 .getUserRole())
                 .isEqualTo(UserRole.BUYER);
     }

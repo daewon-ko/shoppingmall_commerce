@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockMultipartFile;
 import shppingmall.commerce.common.FileStore;
+import shppingmall.commerce.global.exception.ApiException;
 import shppingmall.commerce.image.dto.response.ImageResponseDto;
 import shppingmall.commerce.image.entity.FileType;
 import shppingmall.commerce.image.entity.Image;
@@ -151,8 +152,8 @@ class ImageServiceTest extends IntegrationTestSupport {
 
         assertThatThrownBy(
                 () -> imageService.getImages(savedImage.getId(), List.of(FileType.CHATMESSAGE_IMAGE))
-        ).isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("조건에 해당하는 이미지가 없습니다.");
+        ).isInstanceOf(ApiException.class)
+                .hasMessage("해당하는 이미지가 없습니다");
     }
 
 
