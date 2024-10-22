@@ -4,21 +4,31 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import shppingmall.commerce.chat.dto.ChatMessageRequestDto;
 import shppingmall.commerce.chat.dto.ChatMessageResponseDto;
 import shppingmall.commerce.chat.dto.ChatRoomCreateDto;
 import shppingmall.commerce.chat.dto.ChatRoomResponseDto;
+import shppingmall.commerce.chat.entity.ChatRoom;
+import shppingmall.commerce.chat.entity.Message;
 import shppingmall.commerce.chat.entity.MessageType;
 import shppingmall.commerce.chat.repository.ChatRoomRepository;
 import shppingmall.commerce.chat.repository.MessageRepository;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
 import shppingmall.commerce.support.IntegrationTestSupport;
+import shppingmall.commerce.support.TestFixture;
 import shppingmall.commerce.user.entity.User;
 import shppingmall.commerce.user.entity.UserRole;
 import shppingmall.commerce.user.repository.UserRepository;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.*;
+import static shppingmall.commerce.support.TestFixture.*;
+import static shppingmall.commerce.support.TestFixture.createMessage;
 
 
 class MessageServiceTest extends IntegrationTestSupport {
@@ -36,7 +46,6 @@ class MessageServiceTest extends IntegrationTestSupport {
     private ProductRepository productRepository;
 
 
-
     @AfterEach
     void tearDown() {
         messageRepository.deleteAllInBatch();
@@ -51,8 +60,8 @@ class MessageServiceTest extends IntegrationTestSupport {
     void saveMessage() {
         //given
 
-        User buyer = createUser("userA", UserRole.BUYER);
-        User seller = createUser("userB", UserRole.SELLER);
+        User buyer = createUser("userA","1234", UserRole.BUYER);
+        User seller = createUser("userB", "1234",  UserRole.SELLER);
         Product product = createProduct(10000, "상품A");
 
         seller = userRepository.save(seller);
@@ -63,7 +72,7 @@ class MessageServiceTest extends IntegrationTestSupport {
 
         ChatRoomResponseDto response = chatRoomService.createRoom(createRequest);
 
-        ChatMessageRequestDto chatMessageRequest = createChatMessageRequest(buyer);
+        ChatMessageRequestDto chatMessageRequest = createChatMessageRequest(buyer, "안녕하세요 문의사항 있습니다.");
 
 
         //when
@@ -78,11 +87,49 @@ class MessageServiceTest extends IntegrationTestSupport {
 
     }
 
-    private static ChatMessageRequestDto createChatMessageRequest(User buyer) {
+
+    @DisplayName("저장된 메시지를 채팅방 Id를 기준으로 순서대로 조회할 수 있다.")
+    @Test
+    void findMessagesWithRoomId() {
+        //given
+        User buyer = createUser("buyer", "1234", UserRole.BUYER);
+        User seller = createUser("seller", "1234", UserRole.SELLER);
+
+        userRepository.saveAll(List.of(buyer, seller));
+
+        Product product = createProduct(1000, "testProduct");
+        productRepository.save(product);
+
+        ChatRoom chatRoom = createChatRoom(seller, buyer, product);
+        chatRoomRepository.save(chatRoom);
+
+        Message message1 = createMessage(chatRoom, buyer, "firstMessage");
+        Message message2 = createMessage(chatRoom, buyer, "secondMessage");
+        Message message3 = createMessage(chatRoom, buyer, "thirdMessage");
+        List<Message> messages = messageRepository.saveAll(List.of(message1, message2, message3));
+
+        Pageable pageRequest = PageRequest.of(0, 10);
+
+        //when
+        List<ChatMessageResponseDto> content = messageService.getMessageByRoomId(chatRoom.getId().toString(), pageRequest).getContent();
+
+        //then
+        assertThat(content).hasSize(3)
+                .extracting(ChatMessageResponseDto::getContent)
+                .containsExactly(
+                        "thirdMessage",
+                        "secondMessage",
+                        "firstMessage"
+                );
+
+    }
+
+
+    private static ChatMessageRequestDto createChatMessageRequest(User buyer, String content) {
         ChatMessageRequestDto chatMessageRequest = ChatMessageRequestDto.builder()
                 .messageType(MessageType.ENTER)
                 .senderId(buyer.getId())
-                .content("안녕하세요 문의사항 있습니다.")
+                .content(content)
                 .build();
         return chatMessageRequest;
     }
@@ -96,20 +143,6 @@ class MessageServiceTest extends IntegrationTestSupport {
         return createRequest;
     }
 
-    private static User createUser(String name, UserRole userRole) {
-        User user = User.builder()
-                .name(name)
-                .userRole(userRole)
-                .build();
-        return user;
-    }
 
-    private static Product createProduct(int price, String name) {
-        Product product = Product.builder()
-                .price(price)
-                .name(name)
-                .build();
-        return product;
-    }
 
 }

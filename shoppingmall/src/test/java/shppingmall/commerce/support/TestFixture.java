@@ -2,7 +2,7 @@ package shppingmall.commerce.support;
 
 import shppingmall.commerce.category.entity.Category;
 import shppingmall.commerce.chat.entity.ChatRoom;
-import shppingmall.commerce.chat.entity.Message;
+import shppingmall.commerce.message.entity.Message;
 import shppingmall.commerce.image.entity.FileType;
 import shppingmall.commerce.image.entity.Image;
 import shppingmall.commerce.order.OrderStatus;
