@@ -1,6 +1,8 @@
 package shppingmall.commerce.support;
 
 import shppingmall.commerce.category.entity.Category;
+import shppingmall.commerce.chat.entity.ChatRoom;
+import shppingmall.commerce.chat.entity.Message;
 import shppingmall.commerce.image.entity.FileType;
 import shppingmall.commerce.image.entity.Image;
 import shppingmall.commerce.order.OrderStatus;
@@ -69,6 +71,23 @@ public class TestFixture {
     public static Category createCategory(String name) {
         return Category.builder()
                 .name(name)
+                .build();
+    }
+
+
+    public static ChatRoom createChatRoom(User seller, User buyer, Product product) {
+        return ChatRoom.builder()
+                .product(product)
+                .buyer(buyer)
+                .seller(seller)
+                .build();
+    }
+
+    public static Message createMessage(ChatRoom chatRoom, User sender, String content) {
+        return Message.builder()
+                .chatRoom(chatRoom)
+                .user(sender)
+                .content(content)
                 .build();
     }
 }
