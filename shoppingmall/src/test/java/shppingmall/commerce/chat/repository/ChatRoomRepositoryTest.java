@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import shppingmall.commerce.chat.entity.ChatRoom;
+import shppingmall.commerce.message.repository.ChatRoomRepository;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
 import shppingmall.commerce.user.entity.User;

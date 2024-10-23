@@ -1,7 +1,6 @@
 package shppingmall.commerce;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -13,7 +12,7 @@ import shppingmall.commerce.category.controller.CategoryController;
 import shppingmall.commerce.category.service.CategoryService;
 import shppingmall.commerce.chat.controller.ChatController;
 import shppingmall.commerce.chat.service.ChatRoomService;
-import shppingmall.commerce.chat.service.MessageService;
+import shppingmall.commerce.message.service.MessageService;
 import shppingmall.commerce.order.controller.OrderController;
 import shppingmall.commerce.order.service.OrderService;
 import shppingmall.commerce.product.controller.ProductController;

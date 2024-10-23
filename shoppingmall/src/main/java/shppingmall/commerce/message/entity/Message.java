@@ -1,8 +1,9 @@
-package shppingmall.commerce.chat.entity;
+package shppingmall.commerce.message.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import shppingmall.commerce.chat.dto.ChatMessageResponseDto;
+import shppingmall.commerce.chat.entity.ChatRoom;
+import shppingmall.commerce.message.dto.ChatMessageResponseDto;
 import shppingmall.commerce.common.BaseEntity;
 import shppingmall.commerce.user.entity.User;
 

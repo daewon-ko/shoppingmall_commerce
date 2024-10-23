@@ -1,16 +1,15 @@
-package shppingmall.commerce.chat.service;
+package shppingmall.commerce.message.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import shppingmall.commerce.chat.dto.ChatMessageRequestDto;
-import shppingmall.commerce.chat.dto.ChatMessageResponseDto;
-import shppingmall.commerce.chat.dto.ChatRoomResponseDto;
+import shppingmall.commerce.message.dto.ChatMessageRequestDto;
+import shppingmall.commerce.message.dto.ChatMessageResponseDto;
 import shppingmall.commerce.chat.entity.ChatRoom;
-import shppingmall.commerce.chat.entity.Message;
-import shppingmall.commerce.chat.repository.ChatRoomRepository;
+import shppingmall.commerce.message.entity.Message;
+import shppingmall.commerce.message.repository.ChatRoomRepository;
 import shppingmall.commerce.chat.repository.MessageRepository;
 import shppingmall.commerce.global.exception.ApiException;
 import shppingmall.commerce.global.exception.domain.ChatErrorCode;
@@ -48,8 +47,8 @@ public class MessageService {
 
     }
 
-    public Page<ChatMessageResponseDto> getMessageByRoomId(String roomId, Pageable pageable) {
-        ChatRoom chatRoom = chatRoomRepository.findById(UUID.fromString(roomId)).orElseThrow(() -> new ApiException(ChatErrorCode.NO_EXIST_CHATROOM));
+    public Page<ChatMessageResponseDto> getMessageByRoomId(UUID roomId, Pageable pageable) {
+        ChatRoom chatRoom = chatRoomRepository.findById(roomId).orElseThrow(() -> new ApiException(ChatErrorCode.NO_EXIST_CHATROOM));
         return messageRepository.findByChatRoomOrderByCreatedAtDesc(chatRoom, pageable)
                 .map(ChatMessageResponseDto::from);
     }

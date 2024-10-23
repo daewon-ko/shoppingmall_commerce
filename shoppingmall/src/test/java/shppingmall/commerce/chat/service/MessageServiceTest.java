@@ -4,22 +4,21 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import shppingmall.commerce.chat.dto.ChatMessageRequestDto;
-import shppingmall.commerce.chat.dto.ChatMessageResponseDto;
+import shppingmall.commerce.message.dto.ChatMessageRequestDto;
+import shppingmall.commerce.message.dto.ChatMessageResponseDto;
 import shppingmall.commerce.chat.dto.ChatRoomCreateDto;
 import shppingmall.commerce.chat.dto.ChatRoomResponseDto;
 import shppingmall.commerce.chat.entity.ChatRoom;
-import shppingmall.commerce.chat.entity.Message;
-import shppingmall.commerce.chat.entity.MessageType;
-import shppingmall.commerce.chat.repository.ChatRoomRepository;
+import shppingmall.commerce.message.entity.Message;
+import shppingmall.commerce.message.entity.MessageType;
+import shppingmall.commerce.message.repository.ChatRoomRepository;
 import shppingmall.commerce.chat.repository.MessageRepository;
+import shppingmall.commerce.message.service.MessageService;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
 import shppingmall.commerce.support.IntegrationTestSupport;
-import shppingmall.commerce.support.TestFixture;
 import shppingmall.commerce.user.entity.User;
 import shppingmall.commerce.user.entity.UserRole;
 import shppingmall.commerce.user.repository.UserRepository;
@@ -111,7 +110,7 @@ class MessageServiceTest extends IntegrationTestSupport {
         Pageable pageRequest = PageRequest.of(0, 10);
 
         //when
-        List<ChatMessageResponseDto> content = messageService.getMessageByRoomId(chatRoom.getId().toString(), pageRequest).getContent();
+        List<ChatMessageResponseDto> content = messageService.getMessageByRoomId(chatRoom.getId(), pageRequest).getContent();
 
         //then
         assertThat(content).hasSize(3)

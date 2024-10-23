@@ -4,9 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import shppingmall.commerce.chat.entity.ChatRoom;
-import shppingmall.commerce.chat.entity.Message;
-
-import java.util.List;
+import shppingmall.commerce.message.entity.Message;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
