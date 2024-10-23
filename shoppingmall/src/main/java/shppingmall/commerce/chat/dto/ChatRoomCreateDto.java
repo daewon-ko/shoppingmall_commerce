@@ -1,12 +1,17 @@
 package shppingmall.commerce.chat.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
-
+@NoArgsConstructor
+@Setter
+//@JsonDeserialize(builder = ChatRoomCreateDto.ChatRoomCreateDtoBuilder.class)
 public class ChatRoomCreateDto {
     @NotNull(message = "상품번호를 반드시 입력해주세요.")
     private Long productId;
@@ -16,9 +21,12 @@ public class ChatRoomCreateDto {
     private Long sellerId;
 
     @Builder
-    private ChatRoomCreateDto(Long productId, Long buyerId, Long sellerId) {
+    public ChatRoomCreateDto(Long productId, Long buyerId, Long sellerId) {
         this.productId = productId;
         this.buyerId = buyerId;
         this.sellerId = sellerId;
     }
+
+
+
 }

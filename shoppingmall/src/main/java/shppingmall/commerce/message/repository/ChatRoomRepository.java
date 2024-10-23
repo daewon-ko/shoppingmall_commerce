@@ -1,4 +1,4 @@
-package shppingmall.commerce.chat.repository;
+package shppingmall.commerce.message.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -7,7 +7,6 @@ import shppingmall.commerce.chat.entity.ChatRoom;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.user.entity.User;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
