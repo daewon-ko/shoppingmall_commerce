@@ -9,8 +9,16 @@
 <body>
 <div class="container">
     <h1>Welcome to Shopping Mall</h1>
-    <button id="loginButton" class="action-button" onclick="location.href='/login'">로그인하기</button>
-    <button id="singUpButton" th:method="GET" class="action-button" onclick="location.href='/auth/register'">회원가입하기</button>
+    <form action="/api/login">
+        <button id="loginButton" class="action-button" onclick="location.href='/login'">로그인하기</button>
+    </form>
+    <form action="/api/auth/register">
+        <button id="singUpButton" th:method="GET" class="action-button" onclick="location.href='/auth/register'">
+            회원가입하기
+        </button>
+    </form>
+
+
     <button id="inquiryButton" class="action-button">문의하기</button>
 </div>
 <script th:src="@{/js/index.js}"></script>

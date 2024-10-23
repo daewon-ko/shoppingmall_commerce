@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import shppingmall.commerce.chat.dto.ChatRoomCreateDto;
 import shppingmall.commerce.chat.dto.ChatRoomResponseDto;
 import shppingmall.commerce.chat.entity.ChatRoom;
-import shppingmall.commerce.chat.repository.ChatRoomRepository;
+import shppingmall.commerce.message.repository.ChatRoomRepository;
 import shppingmall.commerce.global.exception.ApiException;
 import shppingmall.commerce.global.exception.domain.ChatErrorCode;
 import shppingmall.commerce.global.exception.domain.ProductErrorCode;
@@ -17,7 +17,6 @@ import shppingmall.commerce.user.entity.User;
 import shppingmall.commerce.user.entity.UserRole;
 import shppingmall.commerce.user.repository.UserRepository;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -51,6 +50,7 @@ public class ChatRoomService {
 
         // 아래와 같이 로직을 작성하면 Optional 안에 null이 아닌 빈 객체를 담고 있을 수도 있지 않을까?
         Optional<ChatRoom> existingChatRoom = chatRoomRepository.findByBuyerAndSellerAndProduct(buyer, seller, product);
+
 
         // TODO: 로직 변경 필요.
         if (existingChatRoom.isPresent()) {  // existingChatRoom이 null이 아니라면

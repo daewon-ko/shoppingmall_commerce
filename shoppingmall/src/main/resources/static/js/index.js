@@ -4,9 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     inquiryButton.addEventListener("click", () => {
         const chatRoomCreateDto = {
-            sellerId: '1',  // 예시로 적절한 sellerId를 설정하세요.
-            buyerId: '2',    // 예시로 적절한 buyerId를 설정하세요.
-            productId: '1' // 예시로 적절한 productId를 설정하세요.
+            productId: '2', // 예시로 적절한 productId를 설정하세요.
+            buyerId: '115',    // 예시로 적절한 buyerId를 설정하세요.
+            sellerId: '2'  // 예시로 적절한 sellerId를 설정하세요.
         };
 
         fetch('/chat/chatRoom', {

@@ -10,7 +10,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import shppingmall.commerce.chat.dto.ChatRoomCreateDto;
 import shppingmall.commerce.chat.dto.ChatRoomResponseDto;
-import shppingmall.commerce.chat.repository.ChatRoomRepository;
+import shppingmall.commerce.message.repository.ChatRoomRepository;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
 import shppingmall.commerce.support.IntegrationTestSupport;

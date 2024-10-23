@@ -9,9 +9,9 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import shppingmall.commerce.chat.dto.ChatMessageRequestDto;
-import shppingmall.commerce.chat.entity.MessageType;
-import shppingmall.commerce.chat.service.MessageService;
+import shppingmall.commerce.message.dto.ChatMessageRequestDto;
+import shppingmall.commerce.message.entity.MessageType;
+import shppingmall.commerce.message.service.MessageService;
 
 import java.net.URI;
 import java.util.Map;
