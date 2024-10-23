@@ -1,5 +1,6 @@
 package shppingmall.commerce.support;
 
+import shppingmall.commerce.category.entity.Category;
 import shppingmall.commerce.image.entity.FileType;
 import shppingmall.commerce.image.entity.Image;
 import shppingmall.commerce.order.OrderStatus;
@@ -27,6 +28,15 @@ public class TestFixture {
                 .build();
         return product;
     }
+
+    public static Product createProduct(Category category, int price, String name) {
+        return Product.builder()
+                .category(category)
+                .price(price)
+                .name(name)
+                .build();
+    }
+
     public static Order createOrder(User userA, OrderStatus orderStatus, String detailAddress, String zipCode) {
         return Order.builder()
                 .orderStatus(orderStatus)
@@ -45,6 +55,7 @@ public class TestFixture {
                 .build();
         return orderProduct2;
     }
+
     public static Image createImage(String uploadName, Product savedProduct, FileType fileType) {
         Image image = Image.builder()
                 .fileType(fileType)
@@ -53,5 +64,11 @@ public class TestFixture {
                 .targetId(savedProduct.getId())
                 .build();
         return image;
+    }
+
+    public static Category createCategory(String name) {
+        return Category.builder()
+                .name(name)
+                .build();
     }
 }

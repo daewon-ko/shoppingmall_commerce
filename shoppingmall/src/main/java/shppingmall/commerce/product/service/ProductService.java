@@ -1,24 +1,34 @@
 package shppingmall.commerce.product.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import shppingmall.commerce.category.entity.Category;
 import shppingmall.commerce.category.repository.CategoryRepository;
+import shppingmall.commerce.global.exception.ApiException;
+import shppingmall.commerce.global.exception.domain.ProductErrorCode;
+import shppingmall.commerce.image.dto.response.ImageResponseDto;
 import shppingmall.commerce.image.entity.FileType;
 import shppingmall.commerce.image.entity.Image;
 import shppingmall.commerce.image.repository.ImageRepository;
 import shppingmall.commerce.image.service.ImageService;
+import shppingmall.commerce.product.ProductSearchCondition;
 import shppingmall.commerce.product.dto.request.ProductUpdateRequestDto;
 import shppingmall.commerce.product.dto.request.ProductCreateRequestDto;
 import shppingmall.commerce.product.dto.response.ProductCreateResponseDto;
+import shppingmall.commerce.product.dto.response.ProductQueryResponseDto;
 import shppingmall.commerce.product.dto.response.ProductUpdateResponseDto;
 import shppingmall.commerce.product.entity.Product;
+import shppingmall.commerce.product.repository.ProductQueryRepository;
 import shppingmall.commerce.product.repository.ProductRepository;
 import shppingmall.commerce.user.entity.User;
 import shppingmall.commerce.user.service.UserService;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,6 +43,7 @@ public class ProductService {
     private final ImageService imageService;
     private final UserService userService;
     private final ImageRepository imageRepository;
+    private final ProductQueryRepository productQueryRepository;
 
     @Transactional
     public ProductCreateResponseDto createProduct(final ProductCreateRequestDto requestDto, List<MultipartFile> images) {
@@ -49,31 +60,68 @@ public class ProductService {
 
         Product savedProduct = productRepository.save(product);
 
+        // 이미지를 파일 타입에 맞춰 저장
+        List<Image> thumbnailImages = new ArrayList<>();
+        List<Image> detailImages = new ArrayList<>();
 
-        List<Image> imageList = imageService.saveImage(images, savedProduct.getId(), FileType.PRODUCT_IMAGE);
+        // 첫 번째 이미지는 썸네일로 처리
+        if (!images.isEmpty()) {
+            MultipartFile thumbnailImage = images.get(0);
+            thumbnailImages = imageService.saveImage(List.of(thumbnailImage), savedProduct.getId(), FileType.PRODUCT_THUMBNAIL);
 
-        List<Long> imageIds = imageList.stream()
-                .map(image -> image.getId())
-                .collect(Collectors.toList());
+            // 나머지 이미지는 상세 이미지로 처리
+            List<MultipartFile> detailImageFiles = images.subList(1, images.size());
+            if (!detailImageFiles.isEmpty()) {
+                detailImages = imageService.saveImage(detailImageFiles, savedProduct.getId(), FileType.PRODUCT_DETAIL_IMAGE);
+            }
+        }
+
+
+        // 저장된 이미지 ID 리스트를 생성
+        List<Long> imageIds = new ArrayList<>();
+        imageIds.addAll(thumbnailImages.stream().map(Image::getId).collect(Collectors.toList()));
+        imageIds.addAll(detailImages.stream().map(Image::getId).collect(Collectors.toList()));
 
         return ProductCreateResponseDto.of(product, category.getId(), imageIds);
 
     }
 
 
-    public List<ProductCreateResponseDto> getAllProductList() {
-        List<ProductCreateResponseDto> list = new ArrayList<>();
-        List<Product> productList = productRepository.findAll();
+    public Slice<ProductQueryResponseDto> getAllProductList(ProductSearchCondition productSearchCond, Pageable pageable) {
+        // 1. 상품조회 -> lazy loading이므로 Category도 함께 조회 필요.
+        Slice<Product> products = productQueryRepository.findProductsByCond(productSearchCond, pageable);
 
-        for (Product product : productList) {
-            list.add(product.toDto());
+        List<ProductQueryResponseDto> productDtos = new ArrayList<>();
+
+        for (Product product : products) {
+            List<ImageResponseDto> images = imageService.getImages(product.getId(), productSearchCond.getFileTypes());
+            ProductQueryResponseDto productQueryResponseDto = ProductQueryResponseDto.of(product, images);
+            productDtos.add(productQueryResponseDto);
         }
-        return list;
+
+        return new SliceImpl<>(productDtos, pageable, products.hasNext());
+
+
+
+        // 2. 상품과 연관된 이미지 조회
+        // targetId와 저장된 Image 중 첫번째로 저장된 이미지가 thumbNailImage
+
+
+
+//        return productQueryRepository.findAllByProductId(productSearchCond, pageable);
+
+
     }
 
+    // 상품 전체 이미지 조회 기능의 메서드
+
+
     @Transactional
-    public ProductUpdateResponseDto updateProduct(Long id, ProductUpdateRequestDto requestDto, List<MultipartFile> images) {
-        Product product = productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당하는 상품이 존재하지 않습니다."));
+    public ProductUpdateResponseDto updateProduct(Long id,
+                                                  ProductUpdateRequestDto requestDto,
+                                                  MultipartFile thumbnailImage,
+                                                  List<MultipartFile> detailImages) {
+        Product product = productRepository.findById(id).orElseThrow(() -> new ApiException(ProductErrorCode.PRODUCT_NOT_FOUND));
         Product changedProduct = product.updateDetails(requestDto.getName(), requestDto.getPrice());
         // productRepository를 통하여 Image 객체 조회
         List<Long> imageIds = new ArrayList<>();
@@ -87,16 +135,22 @@ public class ProductService {
 
         // 삭제할 이미지가 존재한다면, 이미지를 삭제한다.
         if (!requestDto.getImagesToDelete().isEmpty()) {
-            imageService.deleteImages(product.getId(), FileType.PRODUCT_IMAGE);
+            List<FileType> filetypes = List.of(FileType.PRODUCT_THUMBNAIL, FileType.PRODUCT_DETAIL_IMAGE);
+            imageService.deleteImages(product.getId(), filetypes);
         }
 
-        // 이미지를 추가한다.(저장한다.)
-        if (images != null) {
-            List<Image> savedImages = imageService.saveImage(images, product.getId(), FileType.PRODUCT_IMAGE);
-             imageIds = savedImages.stream()
+        // 썸네일 이미지가 있으면, 추가한다.
+        if (thumbnailImage != null && !thumbnailImage.isEmpty()) {
+            List<Image> savedImages = imageService.saveImage(List.of(thumbnailImage), product.getId(), FileType.PRODUCT_THUMBNAIL);
+            imageIds = savedImages.stream()
                     .map(i -> i.getId())
                     .collect(Collectors.toList());
+        }
 
+        // 상세이미지가 있으면, 추가한다.
+        if (detailImages != null && !detailImages.isEmpty()) {
+            List<Image> savedImages = imageService.saveImage(detailImages, product.getId(), FileType.PRODUCT_DETAIL_IMAGE);
+            imageIds.addAll(savedImages.stream().map(Image::getId).collect(Collectors.toList()));
         }
 
         return ProductUpdateResponseDto.builder()
@@ -109,15 +163,16 @@ public class ProductService {
 
     }
 
-    // TODO : 상품을 삭제할때, 상품과 연관된 Image들도 삭제해주는게 맞을까?
+    //TODO : 상품을 삭제할때, 상품과 연관된 Image들도 삭제해주는게 맞을까?
     @Transactional
     public void deleteProduct(Long id) {
         // 상품 삭제
         productRepository.deleteById(id);
-        List<Image> images = imageRepository.findImagesByTargetIdAndFileType(FileType.PRODUCT_IMAGE, id);
-        // 연관된 이미지 삭제
+        List<Image> images = imageRepository.findImagesByTargetIdAndFileType(List.of(FileType.PRODUCT_THUMBNAIL, FileType.PRODUCT_DETAIL_IMAGE), id);
+
+        // Soft-Delete
         for (Image image : images) {
-            imageRepository.deleteById(image.getId());
+            image.deleteImage(LocalDateTime.now());
         }
     }
 }

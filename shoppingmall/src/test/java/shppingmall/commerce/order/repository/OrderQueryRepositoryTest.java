@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.*;
 import static shppingmall.commerce.support.TestFixture.*;
 
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)    // DB 교
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)    // 실제 DB 이용
 @Import({JpaConfig.class, OrderQueryRepository.class})
 class OrderQueryRepositoryTest {
 

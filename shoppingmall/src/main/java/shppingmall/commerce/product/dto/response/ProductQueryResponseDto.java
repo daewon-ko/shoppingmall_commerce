@@ -1,41 +1,42 @@
 package shppingmall.commerce.product.dto.response;
 
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Getter;
+import shppingmall.commerce.image.dto.response.ImageResponseDto;
 import shppingmall.commerce.product.entity.Product;
 
 import java.util.List;
 
 @Getter
-public class ProductCreateResponseDto {
+public class ProductQueryResponseDto {
     private Long id;
     private String name;
     private int price;
     private Long categoryId;
     private String categoryName;
-    private List<Long> imageIds;
+    private List<ImageResponseDto> imageResponseDtos;
 
     @Builder
-    private ProductCreateResponseDto(Long id, String name, int price, Long categoryId, String categoryName, List<Long> imageIds) {
+    @QueryProjection
+    public ProductQueryResponseDto(Long id, String name, int price, Long categoryId, String categoryName, List<ImageResponseDto> imageResponseDtos) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.categoryId = categoryId;
         this.categoryName = categoryName;
-        this.imageIds = imageIds;
+        this.imageResponseDtos = imageResponseDtos;
     }
 
 
-
-    public static ProductCreateResponseDto of(Product product, Long categoryId, List<Long> imageIds) {
-        return ProductCreateResponseDto.builder()
+    public static ProductQueryResponseDto of(Product product, List<ImageResponseDto> imageResponseDtos) {
+        return ProductQueryResponseDto.builder()
                 .id(product.getId())
                 .name(product.getName())
                 .price(product.getPrice())
-                .categoryId(categoryId)
+                .categoryId(product.getCategory().getId())
                 .categoryName(product.getCategory().getName())
-                .imageIds(imageIds)
+                .imageResponseDtos(imageResponseDtos)
                 .build();
-
     }
 }
