@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import shppingmall.commerce.ControllerTestSupport;
 import shppingmall.commerce.chat.dto.ChatRoomCreateDto;
 import shppingmall.commerce.chat.dto.ChatRoomResponseDto;
+import shppingmall.commerce.global.exception.ApiException;
+import shppingmall.commerce.global.exception.domain.ChatErrorCode;
 import shppingmall.commerce.user.entity.UserRole;
 
 import java.util.UUID;
@@ -137,7 +139,7 @@ class ChatControllerTest extends ControllerTestSupport {
         UUID wrongChatRoomId = UUID.randomUUID();
 
         Mockito.when(chatRoomService.getChatRoom(eq(wrongChatRoomId), any(HttpSession.class)))
-                .thenThrow(new IllegalArgumentException("잘못된 채팅방 번호입니다."));
+                .thenThrow(new ApiException(ChatErrorCode.INVALID_CHATROOM_NUMBER));
 
 
         //when, then

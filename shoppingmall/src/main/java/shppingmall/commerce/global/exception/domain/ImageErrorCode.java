@@ -4,12 +4,13 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import shppingmall.commerce.global.exception.ErrorCode;
+
+
 @Getter
 @RequiredArgsConstructor
-public enum ProductErrorCode implements ErrorCode {
-    PRODUCT_NOT_FOUND(HttpStatus.BAD_REQUEST, "해당하는 상품이 없습니다.");
+public enum ImageErrorCode implements ErrorCode {
 
+    NO_EXIST_IMAGE(HttpStatus.BAD_REQUEST, "해당하는 이미지가 없습니다");
     private final HttpStatus httpStatus;
     private final String message;
-
 }

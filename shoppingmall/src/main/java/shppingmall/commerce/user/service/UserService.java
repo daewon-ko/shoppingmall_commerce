@@ -4,6 +4,8 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import shppingmall.commerce.global.exception.ApiException;
+import shppingmall.commerce.global.exception.domain.UserErrorCode;
 import shppingmall.commerce.user.dto.CreateUserRequestDto;
 import shppingmall.commerce.user.dto.LoginUserRequestDto;
 import shppingmall.commerce.user.dto.LoginUserResponseDto;
@@ -44,9 +46,9 @@ public class UserService {
     }
 
     public User findUserByIdAndSeller(Long userId) {
-        User findUser = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당하는 회원이 없습니다."));
+        User findUser = userRepository.findById(userId).orElseThrow(() -> new ApiException(UserErrorCode.NO_EXIST_USER));
         if (!findUser.getUserRole().equals(UserRole.SELLER)) {
-            throw new IllegalStateException("해당 회원은 판매자가 아닙니다. 판매자만이 상품을 생성할수 있습니다.");
+            throw new ApiException(UserErrorCode.USER_NOT_SELLER);
         }
         return findUser;
     }

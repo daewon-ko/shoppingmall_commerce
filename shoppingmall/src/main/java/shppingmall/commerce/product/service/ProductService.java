@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import shppingmall.commerce.category.entity.Category;
 import shppingmall.commerce.category.repository.CategoryRepository;
 import shppingmall.commerce.global.exception.ApiException;
+import shppingmall.commerce.global.exception.domain.CategoryErrorCode;
 import shppingmall.commerce.global.exception.domain.ProductErrorCode;
 import shppingmall.commerce.image.dto.response.ImageResponseDto;
 import shppingmall.commerce.image.entity.FileType;
@@ -33,6 +34,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.*;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -49,9 +52,7 @@ public class ProductService {
     public ProductCreateResponseDto createProduct(final ProductCreateRequestDto requestDto, List<MultipartFile> images) {
         // 1. requestDTO의 imageURL을 변환 및 저장과정
 
-
-        // TODO : 예외정의(?) 필요
-        Category category = categoryRepository.findById(requestDto.getCategoryId()).orElseThrow(() -> new IllegalArgumentException("해당하는 카테고리가 없습니다."));
+        Category category = categoryRepository.findById(requestDto.getCategoryId()).orElseThrow(() -> new ApiException(CategoryErrorCode.NO_EXIST_CATEGORY));
 
         // dto -> product entity 변환 필요
         User seller = userService.findUserByIdAndSeller(requestDto.getSellerId());
@@ -79,8 +80,8 @@ public class ProductService {
 
         // 저장된 이미지 ID 리스트를 생성
         List<Long> imageIds = new ArrayList<>();
-        imageIds.addAll(thumbnailImages.stream().map(Image::getId).collect(Collectors.toList()));
-        imageIds.addAll(detailImages.stream().map(Image::getId).collect(Collectors.toList()));
+        imageIds.addAll(thumbnailImages.stream().map(Image::getId).toList());
+        imageIds.addAll(detailImages.stream().map(Image::getId).toList());
 
         return ProductCreateResponseDto.of(product, category.getId(), imageIds);
 
@@ -144,13 +145,13 @@ public class ProductService {
             List<Image> savedImages = imageService.saveImage(List.of(thumbnailImage), product.getId(), FileType.PRODUCT_THUMBNAIL);
             imageIds = savedImages.stream()
                     .map(i -> i.getId())
-                    .collect(Collectors.toList());
+                    .collect(toList());
         }
 
         // 상세이미지가 있으면, 추가한다.
         if (detailImages != null && !detailImages.isEmpty()) {
             List<Image> savedImages = imageService.saveImage(detailImages, product.getId(), FileType.PRODUCT_DETAIL_IMAGE);
-            imageIds.addAll(savedImages.stream().map(Image::getId).collect(Collectors.toList()));
+            imageIds.addAll(savedImages.stream().map(Image::getId).collect(toList()));
         }
 
         return ProductUpdateResponseDto.builder()

@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import shppingmall.commerce.common.FileStore;
+import shppingmall.commerce.global.exception.ApiException;
+import shppingmall.commerce.global.exception.domain.ImageErrorCode;
 import shppingmall.commerce.image.dto.response.ImageResponseDto;
 import shppingmall.commerce.image.entity.FileType;
 import shppingmall.commerce.image.repository.ImageRepository;
@@ -70,7 +72,7 @@ public class ImageService {
 
 
         return imageRepository.findImagesBySearchCond(targetId, fileTypes).filter(images -> !images.isEmpty())
-                .orElseThrow(() -> new IllegalArgumentException("조건에 해당하는 이미지가 없습니다."))
+                .orElseThrow(() -> new ApiException(ImageErrorCode.NO_EXIST_IMAGE))
                 .stream().map(
 
                         i -> ImageResponseDto.builder()

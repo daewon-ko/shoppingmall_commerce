@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import shppingmall.commerce.cart.entity.Cart;
 import shppingmall.commerce.cart.repository.CartRepository;
+import shppingmall.commerce.global.exception.ApiException;
 import shppingmall.commerce.order.OrderStatus;
 import shppingmall.commerce.order.dto.request.*;
 import shppingmall.commerce.order.dto.response.OrderProductCreateResponseDto;
@@ -268,7 +269,7 @@ class OrderServiceTest extends IntegrationTestSupport {
         //when, then
         assertThatThrownBy(
                 () -> orderService.cancelOrder(savedOrder.getId())
-        ).isInstanceOf(IllegalStateException.class).hasMessage("주문을 취소할 수 없습니다.");
+        ).isInstanceOf(ApiException.class).hasMessage("주문을 수정할 수 없습니다.");
     }
 
     @DisplayName("하나의 주문과 연관된 주문상품 중 각 주문상품의 수량을 변경할수 있다.")
@@ -367,7 +368,7 @@ class OrderServiceTest extends IntegrationTestSupport {
         //when, then
         assertThatThrownBy(
                 () -> orderService.updateOrderProducts(savedOrder.getId(), orderUpdateRequest)
-        ).isInstanceOf(IllegalStateException.class).hasMessage("주문을 수정할 수 없습니다.");
+        ).isInstanceOf(ApiException.class).hasMessage("주문을 수정할 수 없습니다.");
 
 
 

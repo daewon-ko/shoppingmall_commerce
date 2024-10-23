@@ -10,6 +10,10 @@ import shppingmall.commerce.cart.entity.Cart;
 import shppingmall.commerce.cart.entity.CartProduct;
 import shppingmall.commerce.cart.repository.CartProductRepository;
 import shppingmall.commerce.cart.repository.CartRepository;
+import shppingmall.commerce.global.exception.ApiException;
+import shppingmall.commerce.global.exception.domain.CartErrorCode;
+import shppingmall.commerce.global.exception.domain.ProductErrorCode;
+import shppingmall.commerce.global.exception.domain.UserErrorCode;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
 import shppingmall.commerce.user.entity.User;
@@ -31,11 +35,11 @@ public class CartService {
     @Transactional
     public List<AddCartProductResponseDto> addProductToCart(final AddCartRequestDto cartRequestDto) {
         // TODO : 예외정의 필요
-        Cart cart = cartRepository.findById(cartRequestDto.getCartId()).orElseThrow(() -> new IllegalArgumentException("해당하는 카트가 존재하지 않습니다."));
+        Cart cart = cartRepository.findById(cartRequestDto.getCartId()).orElseThrow(() -> new ApiException(CartErrorCode.NO_EXIST_CART));
         return cartRequestDto.getCartProductRequestDtoList().stream()
                 .map(addCartProductRequestDto -> {
                     Product product = productRepository.findById(addCartProductRequestDto.getProductId())
-                            .orElseThrow(() -> new IllegalArgumentException("해당 상품은 존재하지 않습니다."));
+                            .orElseThrow(() -> new ApiException(ProductErrorCode.PRODUCT_NOT_FOUND));
                     int quantity = addCartProductRequestDto.getQuantity();
                     CartProduct cartProduct = cartRequestDto.toEntity(cart, product, quantity);
                     cartProductRepository.save(cartProduct);
@@ -51,7 +55,7 @@ public class CartService {
         Long userId = cartRequestDto.getUserId();
         Cart cart;
         if (userId != null) {
-            User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당하는 회원이 없습니다."));
+            User user = userRepository.findById(userId).orElseThrow(() -> new ApiException(UserErrorCode.NO_EXIST_USER));
             cart = cartRequestDto.toEntity(user);
         } else {
             cart = cartRequestDto.toEntity();

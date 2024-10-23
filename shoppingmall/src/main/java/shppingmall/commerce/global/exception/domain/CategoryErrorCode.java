@@ -4,10 +4,11 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import shppingmall.commerce.global.exception.ErrorCode;
+
 @Getter
 @RequiredArgsConstructor
-public enum ProductErrorCode implements ErrorCode {
-    PRODUCT_NOT_FOUND(HttpStatus.BAD_REQUEST, "해당하는 상품이 없습니다.");
+public enum CategoryErrorCode implements ErrorCode {
+    NO_EXIST_CATEGORY(HttpStatus.NOT_FOUND, "카테고리가 존재하지 않습니다.");
 
     private final HttpStatus httpStatus;
     private final String message;
