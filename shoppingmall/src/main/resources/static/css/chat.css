@@ -1,3 +1,4 @@
+/* body 스타일 */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -9,6 +10,7 @@ body {
     background-color: #f8f9fa;
 }
 
+/* 채팅 컨테이너 스타일 */
 .chat-container {
     width: 400px;
     background-color: #fff;
@@ -17,19 +19,23 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* 채팅 창 스타일 */
 .chat-window {
-    height: 300px;
-    overflow-y: scroll;
     padding: 10px;
     border-bottom: 1px solid #ccc;
+    height: 400px; /* 적당한 높이 설정 */
+    overflow-y: auto; /* 스크롤 활성화 */
+    background-color: #f9f9f9; /* 배경색 추가 */
 }
 
+/* 메시지 박스 스타일 */
 .message-box {
     display: flex;
     align-items: center;
     padding: 10px;
 }
 
+/* 메시지 입력 필드 스타일 */
 .message-input {
     flex: 1;
     padding: 8px;
@@ -38,6 +44,7 @@ body {
     margin-right: 10px;
 }
 
+/* 전송 버튼 스타일 */
 .send-button {
     padding: 8px 16px;
     border: none;
@@ -50,7 +57,6 @@ body {
 .send-button:hover {
     background-color: #0056b3;
 }
-
 
 /* 기본 메시지 스타일 */
 .message {
@@ -87,12 +93,4 @@ body {
 .seller-message {
     background-color: #f0f8ff;
     color: #000;
-}
-
-/* 채팅 창 스타일 */
-#chatWindow {
-    overflow-y: scroll;
-    height: 400px;
-    border: 1px solid #ccc;
-    padding: 10px;
 }
