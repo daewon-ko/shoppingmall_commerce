@@ -17,15 +17,14 @@ import shppingmall.commerce.order.entity.Order;
 import shppingmall.commerce.order.entity.OrderProduct;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
+import shppingmall.commerce.support.RepositoryTestSupport;
 import shppingmall.commerce.support.TestFixture;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static shppingmall.commerce.support.TestFixture.*;
 
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)    // DB 교
-class OrderProductRepositoryTest {
+class OrderProductRepositoryTest extends RepositoryTestSupport {
 
     @Autowired
     private OrderProductRepository orderProductRepository;

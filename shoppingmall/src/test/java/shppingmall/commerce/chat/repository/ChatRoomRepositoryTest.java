@@ -10,6 +10,7 @@ import shppingmall.commerce.chat.entity.ChatRoom;
 import shppingmall.commerce.message.repository.ChatRoomRepository;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
+import shppingmall.commerce.support.RepositoryTestSupport;
 import shppingmall.commerce.user.entity.User;
 import shppingmall.commerce.user.entity.UserRole;
 import shppingmall.commerce.user.repository.UserRepository;
@@ -18,9 +19,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)    // DB 교체
-class ChatRoomRepositoryTest {
+class ChatRoomRepositoryTest extends RepositoryTestSupport {
     @Autowired
     private ChatRoomRepository chatRoomRepository;
     @Autowired

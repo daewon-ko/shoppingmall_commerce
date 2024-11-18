@@ -1,6 +1,7 @@
 package shppingmall.commerce.global.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -11,8 +12,9 @@ import shppingmall.commerce.global.ApiResponse;
 public class ApiControllerAdvice {
 
     @ExceptionHandler(ApiException.class)
-    public ApiResponse<Object> apiException(ApiException e) {
-        return ApiResponse.of(e.getHttpStatusCode(), e.getMessage(), null);
+    public ResponseEntity<ApiResponse<Object>> apiException(ApiException e) {
+        ApiResponse<Object> response = ApiResponse.of(e.getHttpStatusCode(), e.getMessage(), null);
+        return new ResponseEntity<>(response, e.getHttpStatusCode());
     }
 
 

@@ -8,10 +8,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import shppingmall.commerce.chat.repository.MessageRepository;
 import shppingmall.commerce.image.entity.FileType;
 import shppingmall.commerce.image.entity.Image;
+import shppingmall.commerce.message.repository.ChatRoomRepository;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
+import shppingmall.commerce.support.RepositoryTestSupport;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,9 +23,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.*;
 import static shppingmall.commerce.support.TestFixture.*;
 
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class ImageRepositoryTest {
+class ImageRepositoryTest extends RepositoryTestSupport {
     @Autowired
     private ImageRepository imageRepository;
 
@@ -30,12 +31,17 @@ class ImageRepositoryTest {
     private ProductRepository productRepository;
     @PersistenceContext
     private EntityManager em;
+    @Autowired
+    private ChatRoomRepository chatRoomRepository;
+    @Autowired
+    private MessageRepository messageRepository;
 
     @AfterEach
     void tearDown() {
         imageRepository.deleteAllInBatch();
+        messageRepository.deleteAllInBatch();
+        chatRoomRepository.deleteAllInBatch();
         productRepository.deleteAllInBatch();
-
     }
 
     @DisplayName("상품에 썸네일 이미지와 디테일 이미지를 저장후 썸네일 이미지만 조회할 수 있다.")

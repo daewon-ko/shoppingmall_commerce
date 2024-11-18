@@ -12,7 +12,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.transaction.annotation.Transactional;
+import shppingmall.commerce.chat.repository.MessageRepository;
 import shppingmall.commerce.config.JpaConfig;
+import shppingmall.commerce.message.repository.ChatRoomRepository;
 import shppingmall.commerce.order.OrderStatus;
 import shppingmall.commerce.order.dto.request.OrderSearchCondition;
 import shppingmall.commerce.order.dto.response.OrderProductResponseDto;
@@ -20,6 +22,7 @@ import shppingmall.commerce.order.entity.Order;
 import shppingmall.commerce.order.entity.OrderProduct;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
+import shppingmall.commerce.support.RepositoryTestSupport;
 import shppingmall.commerce.user.entity.User;
 import shppingmall.commerce.user.entity.UserRole;
 import shppingmall.commerce.user.repository.UserRepository;
@@ -29,10 +32,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 import static shppingmall.commerce.support.TestFixture.*;
 
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)    // 실제 DB 이용
 @Import({JpaConfig.class, OrderQueryRepository.class})
-class OrderQueryRepositoryTest {
+class OrderQueryRepositoryTest extends RepositoryTestSupport {
 
     @Autowired
     private ProductRepository productRepository;
@@ -44,10 +45,16 @@ class OrderQueryRepositoryTest {
     private UserRepository userRepository;
     @Autowired
     private OrderProductRepository orderProductRepository;
+    @Autowired
+    private MessageRepository messageRepository;
+    @Autowired
+    private ChatRoomRepository chatRoomRepository;
 
     @AfterEach
     void tearDown() {
 
+        messageRepository.deleteAllInBatch();
+        chatRoomRepository.deleteAllInBatch();
         orderProductRepository.deleteAllInBatch();
         orderRepository.deleteAllInBatch();
         productRepository.deleteAllInBatch();

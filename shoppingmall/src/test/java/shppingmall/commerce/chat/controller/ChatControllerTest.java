@@ -138,7 +138,7 @@ class ChatControllerTest extends ControllerTestSupport {
                 .build();
         UUID wrongChatRoomId = UUID.randomUUID();
 
-        Mockito.when(chatRoomService.getChatRoom(eq(wrongChatRoomId), any(HttpSession.class)))
+        Mockito.when(chatRoomService.getChatRoom(any(UUID.class), any(HttpSession.class)))
                 .thenThrow(new ApiException(ChatErrorCode.INVALID_CHATROOM_NUMBER));
 
 
@@ -146,7 +146,6 @@ class ChatControllerTest extends ControllerTestSupport {
         mockMvc.perform(get("/chat/chatRoom/" + wrongChatRoomId))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message").value("잘못된 채팅방 번호입니다."));
-
 
 
     }

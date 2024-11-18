@@ -7,12 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import shppingmall.commerce.category.entity.Category;
+import shppingmall.commerce.support.RepositoryTestSupport;
 
 import java.util.List;
 
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)    // DB 교체
-class CategoryRepositoryTest {
+class CategoryRepositoryTest extends RepositoryTestSupport {
 
     @Autowired
     private CategoryRepository categoryRepository;
