@@ -13,7 +13,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import shppingmall.commerce.category.entity.Category;
 import shppingmall.commerce.category.repository.CategoryRepository;
+import shppingmall.commerce.chat.repository.MessageRepository;
 import shppingmall.commerce.config.JpaConfig;
+import shppingmall.commerce.message.repository.ChatRoomRepository;
 import shppingmall.commerce.product.ProductSearchCondition;
 import shppingmall.commerce.product.entity.Product;
 
@@ -34,10 +36,16 @@ class ProductQueryRepositoryTest {
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductQueryRepository productQueryRepository;
+    @Autowired
+    private MessageRepository messageRepository;
+    @Autowired
+    private ChatRoomRepository chatRoomRepository;
 
 
     @AfterEach
     void tearDown() {
+        messageRepository.deleteAllInBatch();
+        chatRoomRepository.deleteAllInBatch();
         productRepository.deleteAllInBatch();
         categoryRepository.deleteAllInBatch();
 

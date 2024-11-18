@@ -12,7 +12,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.transaction.annotation.Transactional;
+import shppingmall.commerce.chat.repository.MessageRepository;
 import shppingmall.commerce.config.JpaConfig;
+import shppingmall.commerce.message.repository.ChatRoomRepository;
 import shppingmall.commerce.order.OrderStatus;
 import shppingmall.commerce.order.dto.request.OrderSearchCondition;
 import shppingmall.commerce.order.dto.response.OrderProductResponseDto;
@@ -44,10 +46,16 @@ class OrderQueryRepositoryTest {
     private UserRepository userRepository;
     @Autowired
     private OrderProductRepository orderProductRepository;
+    @Autowired
+    private MessageRepository messageRepository;
+    @Autowired
+    private ChatRoomRepository chatRoomRepository;
 
     @AfterEach
     void tearDown() {
 
+        messageRepository.deleteAllInBatch();
+        chatRoomRepository.deleteAllInBatch();
         orderProductRepository.deleteAllInBatch();
         orderRepository.deleteAllInBatch();
         productRepository.deleteAllInBatch();
