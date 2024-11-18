@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.test.context.ActiveProfiles;
 import shppingmall.commerce.category.entity.Category;
 import shppingmall.commerce.category.repository.CategoryRepository;
 import shppingmall.commerce.chat.repository.MessageRepository;
@@ -18,6 +19,7 @@ import shppingmall.commerce.config.JpaConfig;
 import shppingmall.commerce.message.repository.ChatRoomRepository;
 import shppingmall.commerce.product.ProductSearchCondition;
 import shppingmall.commerce.product.entity.Product;
+import shppingmall.commerce.support.RepositoryTestSupport;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,10 +27,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 import static shppingmall.commerce.support.TestFixture.*;
 
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)    // DB 교
+
 @Import({JpaConfig.class, ProductQueryRepository.class})
-class ProductQueryRepositoryTest {
+class ProductQueryRepositoryTest extends RepositoryTestSupport {
 
     @Autowired
     private ProductRepository productRepository;

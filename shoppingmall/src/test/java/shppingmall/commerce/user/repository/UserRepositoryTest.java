@@ -5,14 +5,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import shppingmall.commerce.support.RepositoryTestSupport;
 import shppingmall.commerce.user.entity.User;
 import shppingmall.commerce.user.entity.UserRole;
 
 import static org.assertj.core.api.Assertions.*;
 
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)    // DB 교체
-class UserRepositoryTest {
+class UserRepositoryTest extends RepositoryTestSupport {
     @Autowired
     private UserRepository userRepository;
 

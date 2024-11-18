@@ -14,6 +14,7 @@ import shppingmall.commerce.message.entity.Message;
 import shppingmall.commerce.message.repository.ChatRoomRepository;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
+import shppingmall.commerce.support.RepositoryTestSupport;
 import shppingmall.commerce.user.entity.User;
 import shppingmall.commerce.user.entity.UserRole;
 import shppingmall.commerce.user.repository.UserRepository;
@@ -24,9 +25,7 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.*;
 import static shppingmall.commerce.support.TestFixture.*;
 
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)    // DB 교체
-class MessageRepositoryTest {
+class MessageRepositoryTest extends RepositoryTestSupport {
 
     @Autowired
     private MessageRepository messageRepository;

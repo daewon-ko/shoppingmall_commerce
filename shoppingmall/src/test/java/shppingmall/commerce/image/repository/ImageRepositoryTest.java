@@ -14,6 +14,7 @@ import shppingmall.commerce.image.entity.Image;
 import shppingmall.commerce.message.repository.ChatRoomRepository;
 import shppingmall.commerce.product.entity.Product;
 import shppingmall.commerce.product.repository.ProductRepository;
+import shppingmall.commerce.support.RepositoryTestSupport;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,9 +23,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.*;
 import static shppingmall.commerce.support.TestFixture.*;
 
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class ImageRepositoryTest {
+class ImageRepositoryTest extends RepositoryTestSupport {
     @Autowired
     private ImageRepository imageRepository;
 
