@@ -24,7 +24,6 @@ import java.util.stream.IntStream;
 @Transactional(readOnly = true)
 public class ImageService {
     private final ImageRepository imageRepository;
-    private final LocalFileStore localFileStore;
     private final S3Uploader s3Uploader;
 
     // TODO : 예외정의 후 처리 예정(ControllerAdvice 등) - 재학습 필요
