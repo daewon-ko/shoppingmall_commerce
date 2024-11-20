@@ -1,6 +1,7 @@
 package shppingmall.commerce.common;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,7 +18,8 @@ import java.util.UUID;
  * TODO: S3이전 시 해당 메서드 동적테스트로 작성 필요
  */
 @Component
-public class FileStore {
+@Profile("local")
+public class LocalFileStore {
     @Value("${file.dir}")
     private String fileDir;
 

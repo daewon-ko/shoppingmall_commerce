@@ -4,9 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import shppingmall.commerce.common.FileStore;
+import shppingmall.commerce.common.LocalFileStore;
 import shppingmall.commerce.global.exception.ApiException;
 import shppingmall.commerce.global.exception.domain.ImageErrorCode;
+import shppingmall.commerce.global.exception.domain.S3UploaderErrorCode;
 import shppingmall.commerce.image.dto.response.ImageResponseDto;
 import shppingmall.commerce.image.entity.FileType;
 import shppingmall.commerce.image.repository.ImageRepository;
@@ -23,35 +24,36 @@ import java.util.stream.IntStream;
 @Transactional(readOnly = true)
 public class ImageService {
     private final ImageRepository imageRepository;
-    private final FileStore fileStore;
+    private final LocalFileStore localFileStore;
+    private final S3Uploader s3Uploader;
 
     // TODO : 예외정의 후 처리 예정(ControllerAdvice 등) - 재학습 필요
     @Transactional
     public List<Image> saveImage(List<MultipartFile> multipartFiles, Long targetId, FileType fileType) {
         // 파일 이름을 저장할 리스트
-        List<String> fileNames;
+        List<String> uploadUrls;
 
         try {
-            fileNames = fileStore.uploadFiles(multipartFiles);
+//            uploadUrls = localFileStore.uploadFiles(multipartFiles);
+            uploadUrls = s3Uploader.upload(multipartFiles);
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new ApiException(S3UploaderErrorCode.UNEXPECTED_GET_URL_FAIL);
         }
 
 
         // 파일 이름과 파일 타입을 stream을 이용하여 매칭하고 저장
-        return IntStream.range(0, fileNames.size())
+        return IntStream.range(0, uploadUrls.size())
                 .mapToObj(i -> {
-                    String uploadName = fileNames.get(i);
+                    String uploadName = uploadUrls.get(i);
 //                    FileType fileType = fileTypes.get(i);
 
-                    String fullPathUrl = fileStore.getFullPath(uploadName);
+//                    String fullPathUrl = localFileStore.getFullPath(uploadName);
 
                     // 이미지 객체 생성
                     Image image = Image.builder()
                             .uploadName(uploadName)
                             .targetId(targetId)
-                            .fullPathUrl(fullPathUrl)
+                            .fullPathUrl(uploadName)
                             .isDeleted(false)
                             .fileType(fileType)
                             .build();

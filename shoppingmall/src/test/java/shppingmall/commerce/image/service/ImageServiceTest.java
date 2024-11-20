@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockMultipartFile;
-import shppingmall.commerce.common.FileStore;
+import shppingmall.commerce.common.LocalFileStore;
 import shppingmall.commerce.global.exception.ApiException;
 import shppingmall.commerce.image.dto.response.ImageResponseDto;
 import shppingmall.commerce.image.entity.FileType;
@@ -48,7 +48,7 @@ class ImageServiceTest extends IntegrationTestSupport {
     private ProductRepository productRepository;
 
     @MockBean
-    private FileStore fileStore;
+    private LocalFileStore localFileStore;
 
     @Value("${file.test-dir}")
     private String testUploadDir;
@@ -56,16 +56,16 @@ class ImageServiceTest extends IntegrationTestSupport {
     @BeforeEach
     void setUp() throws IOException {
         // Mocking으로 처리할 메서드 정의
-        Mockito.when(fileStore.uploadFiles(Mockito.anyList()))
+        Mockito.when(localFileStore.uploadFiles(Mockito.anyList()))
                 .thenReturn(List.of("mocked-file-name.jpg")); // 파일 업로드 시 항상 이 이름을 반환
 
-        Mockito.when(fileStore.getFullPath(Mockito.anyString()))
+        Mockito.when(localFileStore.getFullPath(Mockito.anyString()))
                 .thenReturn(testUploadDir + "/mocked-file-name.jpg"); // 파일 경로 Mock 처리
 
-        Mockito.when(fileStore.getFileAsBytes(Mockito.anyString()))
+        Mockito.when(localFileStore.getFileAsBytes(Mockito.anyString()))
                 .thenReturn("test".getBytes()); // 파일 읽기 시 반환할 내용
 
-        Mockito.when(fileStore.getMimeType(Mockito.anyString()))
+        Mockito.when(localFileStore.getMimeType(Mockito.anyString()))
                 .thenReturn("image/jpeg"); // MIME 타입 반환
     }
 
