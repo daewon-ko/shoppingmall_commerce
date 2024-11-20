@@ -5,6 +5,9 @@ on:
   push:
     branches:
       - dev
+  pull_request:
+    bracnhes:
+      - dev
 
 env:
   AWS_REGION: ap-northeast-2
