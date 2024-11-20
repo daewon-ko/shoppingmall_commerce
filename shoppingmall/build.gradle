@@ -27,11 +27,22 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+
+	//AWS 관련 의존성
+	implementation platform("io.awspring.cloud:spring-cloud-aws-dependencies:3.1.0")
+	implementation 'io.awspring.cloud:spring-cloud-aws-starter-parameter-store'
+	implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3'
+
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// Spring Security 의존성 추가
+//	implementation "org.springframework.boot:spring-boot-starter-security"
+
 
 
 	// query-parameter 보기 위한 라이브러리 추가

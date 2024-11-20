@@ -5,6 +5,8 @@ spring:
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+
+
   jpa:
     hibernate:
       ddl-auto: none
@@ -13,6 +15,15 @@ spring:
       hibernate:
 #        dialect: "org.hibernate.dialect.MySQL5Dialect"
     show-sql: true
+  cloud:
+    aws:
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+      s3:
+        region: ap-northeast-2
+        bucket: ${AWS_BUCKET}
+
 
   servlet:
     multipart:
@@ -22,6 +33,7 @@ spring:
 
   thymeleaf:
     cache: false
+
 
 
 
