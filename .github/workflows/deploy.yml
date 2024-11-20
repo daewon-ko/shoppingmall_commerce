@@ -49,7 +49,7 @@ jobs:
         with:
           arguments: clean build -x test
           gradle-version: '8.7'
-#        working-directory: shoppingmall_commerce
+        working-directory: shoppingmall/shoppingmall
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
