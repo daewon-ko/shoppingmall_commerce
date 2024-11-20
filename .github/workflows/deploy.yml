@@ -53,6 +53,7 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
         working-directory: shoppingmall
 
+
       - name: Upload to AWS S3
         run: |
           aws deploy push \
