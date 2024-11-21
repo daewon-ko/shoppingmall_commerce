@@ -14,7 +14,7 @@ import shppingmall.commerce.category.service.CategoryService;
 import shppingmall.commerce.global.ApiResponse;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class CategoryController {
 

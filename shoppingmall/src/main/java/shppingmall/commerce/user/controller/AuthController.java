@@ -25,7 +25,7 @@ import shppingmall.commerce.user.service.UserService;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class AuthController {
     private final UserService userService;
     private final UserRepository userRepository;
