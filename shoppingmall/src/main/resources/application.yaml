@@ -46,7 +46,8 @@ spring:
   config:
     activate:
       on-profile: dev
-
+  server:
+    port: 9090
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${DB_URL}
@@ -65,6 +66,8 @@ spring:
   config:
     activate:
       on-profile: prod
+  server:
+      port: 8080
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
