@@ -20,6 +20,7 @@ import java.util.UUID;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/api")
 public class ChatController {
     private final ChatRoomService chatRoomService;
 
