@@ -1,19 +1,16 @@
 package shppingmall.commerce.order.repository;
 
 import com.querydsl.core.NonUniqueResultException;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.transaction.annotation.Transactional;
 import shppingmall.commerce.chat.repository.MessageRepository;
-import shppingmall.commerce.config.JpaConfig;
+import shppingmall.commerce.global.config.JpaConfig;
 import shppingmall.commerce.message.repository.ChatRoomRepository;
 import shppingmall.commerce.order.OrderStatus;
 import shppingmall.commerce.order.dto.request.OrderSearchCondition;
@@ -26,8 +23,6 @@ import shppingmall.commerce.support.RepositoryTestSupport;
 import shppingmall.commerce.user.entity.User;
 import shppingmall.commerce.user.entity.UserRole;
 import shppingmall.commerce.user.repository.UserRepository;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 import static shppingmall.commerce.support.TestFixture.*;
