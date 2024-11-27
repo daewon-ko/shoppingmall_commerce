@@ -17,4 +17,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 //    Optional<List<User>> findUserByChatRoom(@Param("chatRoomId") UUID chatRoomId);
 
     User findByNameAndPassword(String name, String password);
+
+    Optional<User> findByEmail(String email);
 }

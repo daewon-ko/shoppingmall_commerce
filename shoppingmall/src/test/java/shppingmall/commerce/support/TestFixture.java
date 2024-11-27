@@ -23,6 +23,16 @@ public class TestFixture {
         return user;
     }
 
+    public static User createUser(String email, String name, String password, UserRole userRole) {
+        User user = User.builder()
+                .email(email)
+                .name(name)
+                .password(password)
+                .userRole(userRole)
+                .build();
+        return user;
+    }
+
     public static Product createProduct(int price, String name) {
         Product product = Product.builder()
                 .price(price)

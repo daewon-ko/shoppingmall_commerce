@@ -6,10 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import shppingmall.commerce.support.RepositoryTestSupport;
+import shppingmall.commerce.support.TestFixture;
 import shppingmall.commerce.user.entity.User;
 import shppingmall.commerce.user.entity.UserRole;
 
+import java.util.IllformedLocaleException;
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.*;
+import static shppingmall.commerce.support.TestFixture.*;
 
 class UserRepositoryTest extends RepositoryTestSupport {
     @Autowired
@@ -29,16 +34,24 @@ class UserRepositoryTest extends RepositoryTestSupport {
 
     }
 
+    @DisplayName("email을 기반으로 User를 조회할 수 있다.")
+    @Test
+    void findUserByEmail() {
 
+        //given
+        User user = createUser("test@email.com", "test", "test", UserRole.BUYER);
 
-    private static User createUser(String name, String password, UserRole userRole) {
-        User user = User.builder()
-                .name(name)
-                .password(password)
-                .userRole(userRole)
-                .build();
-        return user;
+        userRepository.save(user);
+        //when
+        User findUser = userRepository.findByEmail("test@email.com").orElseThrow(() -> new IllegalStateException("해당하는 회원이 없습니다."));
+
+        //then
+        assertThat(findUser).isEqualTo(user);
+
     }
+
+
+
 
 
 }
