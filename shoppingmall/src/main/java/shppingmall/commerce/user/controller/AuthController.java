@@ -45,11 +45,11 @@ public class AuthController {
         return "index";
     }
 
-    @PostMapping("/auth/login")
-    public String login(@Valid LoginUserRequestDto loginUserRequestDto, HttpSession httpSession) {
-        userService.login(loginUserRequestDto, httpSession);
-        return "index";
-    }
+//    @PostMapping("/auth/login")
+//    public String login(@Valid LoginUserRequestDto loginUserRequestDto, HttpSession httpSession) {
+//        userService.login(loginUserRequestDto, httpSession);
+//        return "index";
+//    }
 
     @GetMapping("/auth/register")
     public String signUP(Model model) {
