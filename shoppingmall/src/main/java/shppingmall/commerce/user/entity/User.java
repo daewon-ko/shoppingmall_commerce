@@ -27,13 +27,19 @@ public class User {
 
     @Column(name = "user_name")
     private String name;
+
+    @Column(unique = true)
+    private String email;
+
     private String password;
+
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
 
     @Builder
-    private User(String name, String password, UserRole userRole) {
+    private User(String email, String name, String password, UserRole userRole) {
+        this.email = email;
         this.name = name;
         this.password = password;
         this.userRole = userRole;

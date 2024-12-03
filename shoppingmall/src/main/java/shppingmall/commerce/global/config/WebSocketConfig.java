@@ -1,4 +1,4 @@
-package shppingmall.commerce.config;
+package shppingmall.commerce.global.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
