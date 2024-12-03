@@ -34,7 +34,10 @@ spring:
   thymeleaf:
     cache: false
 
-
+payment:
+  secret-key: ${PAYMENT_SECRET_KEY}
+  base-url: https://api.tosspayments.com/v1/payments
+  confirm-endepoint: /confirm
 
 
 file:
