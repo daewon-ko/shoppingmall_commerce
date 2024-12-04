@@ -65,4 +65,11 @@ public class AuthController {
         userService.registerBuyer(createUserRequest);
         return "index";
     }
+
+    @PostMapping("/auth/seller/register")
+    public String singUpSeller(@Valid @RequestBody CreateUserRequestDto createUserRequest) {
+
+        userService.registerSeller(createUserRequest);
+        return "index";
+    }
 }

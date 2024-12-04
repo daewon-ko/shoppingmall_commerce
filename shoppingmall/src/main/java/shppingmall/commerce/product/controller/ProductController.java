@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import shppingmall.commerce.global.ApiResponse;
@@ -27,7 +28,7 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-    @PostMapping(value = "/product", consumes = "multipart/form-data")
+    @PostMapping(value = "/product", consumes ={MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ApiResponse<ProductCreateResponseDto> createProduct(@RequestPart @Valid ProductCreateRequestDto requestDto, @RequestPart List<MultipartFile> images) {
         ProductCreateResponseDto response = productService.createProduct(requestDto, images);
 
