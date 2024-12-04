@@ -78,7 +78,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/api/v1/auth/register").permitAll()
-                        .requestMatchers("/api/v1/auth/login", "/", "join").permitAll()
+                        .requestMatchers("/api/v1/auth/login", "/", "join", "/checkout").permitAll()
                         .requestMatchers("/api/v1/cart/**").authenticated()
                         .requestMatchers("/api/v1/admin").hasRole(UserRole.ADMIN.name())
                         .anyRequest().authenticated());

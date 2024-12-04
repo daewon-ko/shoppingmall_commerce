@@ -27,6 +27,11 @@ spring:
         region: ap-northeast-2
         bucket: ${AWS_BUCKET}
 
+  payment:
+    secret-key: ${PAYMENT_SECRET_KEY}
+    base-url: https://api.tosspayments.com/v1/payments
+    confirm-endepoint: /confirm
+
 
   servlet:
     multipart:
