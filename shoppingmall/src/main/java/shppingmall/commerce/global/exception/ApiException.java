@@ -3,7 +3,6 @@ package shppingmall.commerce.global.exception;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 
 @Getter
 @RequiredArgsConstructor

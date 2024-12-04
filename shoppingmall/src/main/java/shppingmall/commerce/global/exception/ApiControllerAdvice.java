@@ -3,6 +3,8 @@ package shppingmall.commerce.global.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
+import org.springframework.web.ErrorResponse;
+import org.springframework.web.ErrorResponseException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -15,6 +17,12 @@ public class ApiControllerAdvice {
     public ResponseEntity<ApiResponse<Object>> apiException(ApiException e) {
         ApiResponse<Object> response = ApiResponse.of(e.getHttpStatusCode(), e.getMessage(), null);
         return new ResponseEntity<>(response, e.getHttpStatusCode());
+    }
+
+    @ExceptionHandler(ExternalApiException.class)
+    public ResponseEntity<ApiResponse<Object>> handleExternalApiException(ExternalApiException ex) {
+        ApiResponse<Object> response = ApiResponse.of(ex.getHttpStatus(), ex.getMessage(), null);
+        return ResponseEntity.status(ex.getHttpStatus()).body(response);
     }
 
 
