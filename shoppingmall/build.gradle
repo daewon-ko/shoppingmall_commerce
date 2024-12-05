@@ -63,6 +63,10 @@ dependencies {
 	// OpenFeign Cleint 의존성 추가
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.0.3'
 
+	// Redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+
 
 	// query-parameter 보기 위한 라이브러리 추가
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
