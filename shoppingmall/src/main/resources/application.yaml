@@ -32,6 +32,11 @@ spring:
     base-url: https://api.tosspayments.com/v1/payments
     confirm-endepoint: /confirm
 
+  data:
+    redis:
+      port: ${REDIS_PORT}
+      host: ${REDIS_HOST}
+      password: ${REDIS_PASSWORD}
 
   servlet:
     multipart:
