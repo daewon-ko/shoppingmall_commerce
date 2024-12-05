@@ -3,12 +3,10 @@ package shppingmall.commerce.payment.dto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-import shppingmall.commerce.payment.entity.TossPaymentMethod;
-import shppingmall.commerce.payment.entity.TossPaymentStatus;
 
 @Getter
 @ToString
-public class PaymentConfirmResponse {
+public class TossPaymentConfirmResponse {
 
     private String orderId;
 
@@ -25,7 +23,7 @@ public class PaymentConfirmResponse {
     private String approvedAt;
 
     @Builder
-    private PaymentConfirmResponse(String orderId, String paymentKey, Long amount, String status, String method, String  requestedAt, String approvedAt) {
+    private TossPaymentConfirmResponse(String orderId, String paymentKey, Long amount, String status, String method, String  requestedAt, String approvedAt) {
         this.orderId = orderId;
         this.paymentKey = paymentKey;
         this.totalAmount = amount;
