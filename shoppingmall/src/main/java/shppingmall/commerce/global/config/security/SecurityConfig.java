@@ -1,10 +1,11 @@
-package shppingmall.commerce.global.config;
+package shppingmall.commerce.global.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -30,6 +32,13 @@ public class SecurityConfig {
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JwtUtil jwtUtil;
     private final ObjectMapper objectMapper;
+
+//    @Bean
+//    public DefaultWebSecurityExpressionHandler expressionHandler() {
+//        DefaultWebSecurityExpressionHandler handler = new DefaultWebSecurityExpressionHandler();
+//        handler.setDefaultRolePrefix(""); // ROLE_ 접두사 제거
+//        return handler;
+//    }
 
 
     @Bean
@@ -80,6 +89,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/auth/register").permitAll()
                         .requestMatchers("/api/v1/auth/login", "/", "join", "/checkout").permitAll()
                         .requestMatchers("/api/v1/cart/**").authenticated()
+                        .requestMatchers("/api/v1/product/**").hasRole(UserRole.SELLER.name())  // 판매자만 상품을 생성, 수정, 삭제할수 있게끔 인증
+                        .requestMatchers("/api/v1/payments/**").hasRole(UserRole.BUYER.name())  // 구매자만 구매할 수 있게끔 인증
                         .requestMatchers("/api/v1/admin").hasRole(UserRole.ADMIN.name())
                         .anyRequest().authenticated());
 
