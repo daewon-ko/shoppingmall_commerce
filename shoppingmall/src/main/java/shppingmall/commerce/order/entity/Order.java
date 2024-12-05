@@ -9,6 +9,9 @@ import shppingmall.commerce.common.BaseEntity;
 import shppingmall.commerce.order.OrderStatus;
 import shppingmall.commerce.user.entity.User;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 @Entity
 @Table(name = "orders")
 @Builder
@@ -16,7 +19,10 @@ import shppingmall.commerce.user.entity.User;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 
-public class Order extends BaseEntity {
+public class Order extends BaseEntity implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -4316946379860671944L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @Column(name = "orders_id")

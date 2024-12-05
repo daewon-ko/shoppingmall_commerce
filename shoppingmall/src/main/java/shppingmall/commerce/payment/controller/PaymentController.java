@@ -1,11 +1,11 @@
 package shppingmall.commerce.payment.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import shppingmall.commerce.payment.dto.PaymentConfirmRequest;
-import shppingmall.commerce.payment.dto.PaymentConfirmResponse;
+import shppingmall.commerce.payment.dto.PaymentResponse;
+import shppingmall.commerce.payment.dto.TossPaymentConfirmRequest;
 import shppingmall.commerce.payment.service.PaymentService;
 
 @RestController
@@ -16,11 +16,15 @@ public class PaymentController {
 
 
     @PostMapping("/confirm/{orderId}")
-    public ResponseEntity confirmPayment(@RequestBody PaymentConfirmRequest paymentConfirmRequest, @PathVariable("orderId") Long orderId) {
+    public ResponseEntity<PaymentResponse> confirmPayment(@RequestBody TossPaymentConfirmRequest tossPaymentConfirmRequest, @PathVariable("orderId") Long orderId) {
 
-        PaymentConfirmResponse paymentConfirmResponse = paymentService.confirm(paymentConfirmRequest, orderId);
-        return ResponseEntity.ok(paymentConfirmResponse);
+        PaymentResponse paymentResponse = paymentService.confirm(tossPaymentConfirmRequest, orderId);
+        return ResponseEntity.status(HttpStatus.OK).body(paymentResponse);
     }
 
-
+    @GetMapping("/{paymentId}")
+    public ResponseEntity<PaymentResponse> getPayment(@PathVariable("paymentId") Long paymentId) {
+        PaymentResponse paymentResponse = paymentService.getPayment(paymentId);
+        return ResponseEntity.status(HttpStatus.OK).body(paymentResponse);
+    }
 }

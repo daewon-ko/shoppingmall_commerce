@@ -3,16 +3,21 @@ package shppingmall.commerce.payment.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import shppingmall.commerce.order.entity.Order;
-import shppingmall.commerce.payment.dto.PaymentConfirmResponse;
+import shppingmall.commerce.payment.dto.TossPaymentConfirmResponse;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString
-public class TossPayment {
+//@ToString
+public class TossPayment implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = -3618019291381378495L;
 
     // TODO : Long형이 과연 적절할까? ID값으로?
     @Id
@@ -27,7 +32,7 @@ public class TossPayment {
     @Column
     private Long amount;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
@@ -61,16 +66,16 @@ public class TossPayment {
 
 
 
-    public static TossPayment of(final PaymentConfirmResponse paymentConfirmResponse, final Order order) {
+    public static TossPayment of(final TossPaymentConfirmResponse tossPaymentConfirmResponse, final Order order) {
         return TossPayment.builder()
                 .order(order)
-                .tossPaymentMethod(TossPaymentMethod.valueOf(paymentConfirmResponse.getMethod()))
-                .tossPaymentOrderId(paymentConfirmResponse.getOrderId())
-                .tossPaymentStatus(TossPaymentStatus.valueOf(paymentConfirmResponse.getStatus()))
-                .amount(paymentConfirmResponse.getTotalAmount())
-                .approvedAt(OffsetDateTime.parse(paymentConfirmResponse.getApprovedAt()).toLocalDateTime())
-                .requestedAt(OffsetDateTime.parse(paymentConfirmResponse.getRequestedAt()).toLocalDateTime())
-                .paymentKey(paymentConfirmResponse.getPaymentKey())
+                .tossPaymentMethod(TossPaymentMethod.valueOf(tossPaymentConfirmResponse.getMethod()))
+                .tossPaymentOrderId(tossPaymentConfirmResponse.getOrderId())
+                .tossPaymentStatus(TossPaymentStatus.valueOf(tossPaymentConfirmResponse.getStatus()))
+                .amount(tossPaymentConfirmResponse.getTotalAmount())
+                .approvedAt(OffsetDateTime.parse(tossPaymentConfirmResponse.getApprovedAt()).toLocalDateTime())
+                .requestedAt(OffsetDateTime.parse(tossPaymentConfirmResponse.getRequestedAt()).toLocalDateTime())
+                .paymentKey(tossPaymentConfirmResponse.getPaymentKey())
                 .build();
     }
 

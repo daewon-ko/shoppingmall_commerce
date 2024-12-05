@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PaymentConfirmRequest {
+public class TossPaymentConfirmRequest {
     private String orderId;
     private String amount;
     private  String paymentKey;
 
     @Builder
-    private PaymentConfirmRequest(String orderId, String amount, String paymentKey) {
+    private TossPaymentConfirmRequest(String orderId, String amount, String paymentKey) {
         this.orderId = orderId;
         this.amount = amount;
         this.paymentKey = paymentKey;

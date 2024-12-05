@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import shppingmall.commerce.user.entity.UserRole;
 
@@ -26,13 +27,7 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collection = new ArrayList<>();
-        collection.add(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return userRole.toString();
-            }
-
-        });
+        collection.add(new SimpleGrantedAuthority("ROLE_" + userRole.name())); // Spring Security의 표준 방식
         return collection;
     }
 
