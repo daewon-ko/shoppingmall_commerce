@@ -29,8 +29,8 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-    @PostMapping(value = "/product", consumes ={MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ApiResponse<ProductCreateResponseDto> createProduct(@RequestPart @Valid ProductCreateRequestDto requestDto, @RequestPart List<MultipartFile> images) {
+    @PostMapping(value = "/product", consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ApiResponse<ProductCreateResponseDto> createProduct(@RequestPart("requestDto") @Valid ProductCreateRequestDto requestDto, @RequestPart("images") List<MultipartFile> images) {
         ProductCreateResponseDto response = productService.createProduct(requestDto, images);
 
         return ApiResponse.ok(response);

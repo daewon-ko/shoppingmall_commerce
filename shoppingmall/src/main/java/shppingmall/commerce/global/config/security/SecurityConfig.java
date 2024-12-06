@@ -17,6 +17,7 @@ import org.springframework.security.web.access.expression.DefaultWebSecurityExpr
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import shppingmall.commerce.global.filter.ReqResLoggingFilter;
 import shppingmall.commerce.global.filter.jwt.JwtFilter;
 import shppingmall.commerce.global.filter.jwt.JwtUtil;
 import shppingmall.commerce.global.filter.jwt.LoginFilter;
@@ -39,6 +40,11 @@ public class SecurityConfig {
 //        handler.setDefaultRolePrefix(""); // ROLE_ 접두사 제거
 //        return handler;
 //    }
+
+    @Bean
+    public ReqResLoggingFilter reqResLoggingFilter() {
+        return new ReqResLoggingFilter();
+    }
 
 
     @Bean
@@ -95,6 +101,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated());
 
         http
+                .addFilterBefore(reqResLoggingFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JwtFilter(jwtUtil, objectMapper), LoginFilter.class);
 
         http
