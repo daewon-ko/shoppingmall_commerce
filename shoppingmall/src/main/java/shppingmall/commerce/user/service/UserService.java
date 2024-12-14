@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shppingmall.commerce.global.exception.ApiException;
+import shppingmall.commerce.global.exception.domain.AuthErrorCode;
 import shppingmall.commerce.global.exception.domain.UserErrorCode;
 import shppingmall.commerce.user.dto.CreateUserRequestDto;
 import shppingmall.commerce.user.dto.LoginUserRequestDto;
@@ -60,16 +61,11 @@ public class UserService {
     }
 
 
-    /**
-     * TODO : HttpSession 같은 웹계층에서 사용되는 것을 Service Layer에 끌고 오는 것이 적절할까?
-     * ResponseDto로 감싸서 Presentation Layer에 반환하고 싶었고, 동시에 Session을 해당 계층에서만 사용하는 경우엔
-     * Session 객체에 User 정보를 올바르게 담지 못한다고 생각해서 조금 이상하지만 Service Layer까지 끌고 들어옴.
-     */
-//    public LoginUserResponseDto login(LoginUserRequestDto loginUserRequestDto, HttpSession httpSession) {
-//        User findUser = userRepository.findByNameAndPassword(loginUserRequestDto.getName(), loginUserRequestDto.getPassword());
-//        httpSession.setAttribute("user", findUser);
-//        return LoginUserResponseDto.from(findUser);
-//    }
+
+
+    private boolean isPasswordMatch(LoginUserRequestDto loginUserRequestDto, String password) {
+        return bCryptPasswordEncoder.matches(loginUserRequestDto.getPassword(), password);
+    }
 
     public User findUserByIdAndSeller(Long userId) {
         User findUser = userRepository.findById(userId).orElseThrow(() -> new ApiException(UserErrorCode.NO_EXIST_USER));
