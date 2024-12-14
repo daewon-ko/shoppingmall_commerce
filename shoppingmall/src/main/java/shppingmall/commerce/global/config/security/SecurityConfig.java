@@ -11,16 +11,16 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import shppingmall.commerce.global.filter.ReqResLoggingFilter;
-import shppingmall.commerce.global.filter.jwt.JwtFilter;
-import shppingmall.commerce.global.filter.jwt.JwtUtil;
-import shppingmall.commerce.global.filter.jwt.LoginFilter;
+import shppingmall.commerce.global.filter.session.CustomLoginFilter;
 import shppingmall.commerce.user.entity.UserRole;
 
 import java.util.Collections;
@@ -31,20 +31,21 @@ import java.util.Collections;
 public class SecurityConfig {
 
     private final AuthenticationConfiguration authenticationConfiguration;
-    private final JwtUtil jwtUtil;
     private final ObjectMapper objectMapper;
 
-//    @Bean
-//    public DefaultWebSecurityExpressionHandler expressionHandler() {
-//        DefaultWebSecurityExpressionHandler handler = new DefaultWebSecurityExpressionHandler();
-//        handler.setDefaultRolePrefix(""); // ROLE_ 접두사 제거
-//        return handler;
-//    }
+
+    @Bean
+    public DefaultWebSecurityExpressionHandler expressionHandler() {
+        DefaultWebSecurityExpressionHandler handler = new DefaultWebSecurityExpressionHandler();
+        handler.setDefaultRolePrefix(""); // ROLE_ 접두사 제거
+        return handler;
+    }
 
     @Bean
     public ReqResLoggingFilter reqResLoggingFilter() {
         return new ReqResLoggingFilter();
     }
+
 
 
     @Bean
@@ -54,12 +55,18 @@ public class SecurityConfig {
 
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
+    public AuthenticationManager authenticationManager() throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public CustomLoginFilter customLoginFilter(AuthenticationManager authenticationManager) throws Exception {
+        return new CustomLoginFilter(authenticationManager, objectMapper);
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
+
 
         http
                 .cors((cors)
@@ -101,16 +108,13 @@ public class SecurityConfig {
                         .anyRequest().authenticated());
 
         http
-                .addFilterBefore(reqResLoggingFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new JwtFilter(jwtUtil, objectMapper), LoginFilter.class);
+                .addFilterAt(customLoginFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class);
 
-        http
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, objectMapper), UsernamePasswordAuthenticationFilter.class);
 
         //세션 설정
         http
                 .sessionManagement((session) -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
 
 
         return http.build();

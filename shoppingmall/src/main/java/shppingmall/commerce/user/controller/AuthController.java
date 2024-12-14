@@ -4,14 +4,14 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import shppingmall.commerce.cart.dto.request.CreateCartRequestDto;
 import shppingmall.commerce.user.dto.CreateUserRequestDto;
 import shppingmall.commerce.user.dto.LoginUserRequestDto;
-import shppingmall.commerce.user.entity.User;
+import shppingmall.commerce.user.dto.LoginUserResponseDto;
 import shppingmall.commerce.user.repository.UserRepository;
 import shppingmall.commerce.user.service.UserService;
 
@@ -45,11 +45,7 @@ public class AuthController {
         return "index";
     }
 
-//    @PostMapping("/auth/login")
-//    public String login(@Valid LoginUserRequestDto loginUserRequestDto, HttpSession httpSession) {
-//        userService.login(loginUserRequestDto, httpSession);
-//        return "index";
-//    }
+
 
     @GetMapping("/auth/register")
     public String signUP(Model model) {
@@ -60,10 +56,10 @@ public class AuthController {
     }
 
     @PostMapping("/auth/register")
-    public String singUp(@Valid @RequestBody CreateUserRequestDto createUserRequest) {
+    public ResponseEntity<Long> singUp(@Valid @RequestBody CreateUserRequestDto createUserRequest) {
 
-        userService.registerBuyer(createUserRequest);
-        return "index";
+        Long registeredUserId = userService.registerBuyer(createUserRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(registeredUserId);
     }
 
     @PostMapping("/auth/seller/register")
