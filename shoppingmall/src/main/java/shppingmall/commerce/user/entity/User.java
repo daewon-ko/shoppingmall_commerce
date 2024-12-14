@@ -5,10 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import shppingmall.commerce.cart.entity.Cart;
-import shppingmall.commerce.chat.entity.ChatRoom;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -19,7 +16,7 @@ import java.util.Objects;
 @Table
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+public class User  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -62,7 +59,6 @@ public class User {
     //// TODO : UserRepository에서 ChatRoom과 조인해서 User를 조회하기위해 양방향 관계를 만들었으나, 다른방법은 없을까?
 //    @OneToMany(mappedBy = "user")
 //    private List<ChatRoom> chatRooms;
-
 
 
 }
