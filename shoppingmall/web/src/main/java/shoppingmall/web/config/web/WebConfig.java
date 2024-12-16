@@ -1,4 +1,4 @@
-package shppingmall.commerce.global.config.web;
+package shoppingmall.web.config.web;
 
 
 import org.springframework.context.annotation.Configuration;

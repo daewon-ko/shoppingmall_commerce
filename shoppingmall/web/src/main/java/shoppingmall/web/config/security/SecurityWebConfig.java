@@ -1,33 +1,30 @@
-package shppingmall.commerce.global.config.security;
+package shoppingmall.web.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
-import shppingmall.commerce.global.filter.ReqResLoggingFilter;
-import shppingmall.commerce.global.filter.session.CustomLoginFilter;
+import shoppingmall.core.domain.user.entity.UserRole;
+import shoppingmall.web.filter.ReqResLoggingFilter;
+import shoppingmall.web.filter.session.CustomLoginFilter;
 
 import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig {
+public class SecurityWebConfig {
 
     private final AuthenticationConfiguration authenticationConfiguration;
     private final ObjectMapper objectMapper;
@@ -46,11 +43,6 @@ public class SecurityConfig {
     }
 
 
-
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
 
     @Bean
@@ -98,8 +90,8 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/api/v1/auth/register").permitAll()
-                        .requestMatchers("/api/v1/auth/login", "/", "join", "/checkout").permitAll()
+                        .requestMatchers("/api/v1/auth/register/**").permitAll()
+                        .requestMatchers("/api/v1/auth/login/**", "/", "join", "/checkout").permitAll()
                         .requestMatchers("/api/v1/cart/**").authenticated()
                         .requestMatchers("/api/v1/product/**").hasRole(UserRole.SELLER.name())  // 판매자만 상품을 생성, 수정, 삭제할수 있게끔 인증
                         .requestMatchers("/api/v1/payments/**").hasRole(UserRole.BUYER.name())  // 구매자만 구매할 수 있게끔 인증

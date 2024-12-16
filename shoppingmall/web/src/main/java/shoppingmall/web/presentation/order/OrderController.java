@@ -1,20 +1,21 @@
-package shppingmall.commerce.order.controller;
+package shoppingmall.web.presentation.order;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.*;
-import shppingmall.commerce.global.ApiResponse;
-import shppingmall.commerce.order.dto.request.OrderCreateRequestDto;
-import shppingmall.commerce.order.dto.request.OrderProductUpdateRequest;
-import shppingmall.commerce.order.dto.request.OrderSearchCondition;
-import shppingmall.commerce.order.dto.request.OrderUpdateRequest;
-import shppingmall.commerce.order.dto.response.OrderProductCreateResponseDto;
-import shppingmall.commerce.order.dto.response.OrderProductResponseDto;
-import shppingmall.commerce.order.service.OrderService;
+import shoppingmall.common.ApiResponse;
+import shoppingmall.core.domain.order.dto.request.OrderCreateRequestDto;
+import shoppingmall.core.domain.order.dto.request.OrderSearchCondition;
+import shoppingmall.core.domain.order.dto.request.OrderUpdateRequest;
+import shoppingmall.core.domain.order.dto.response.OrderProductCreateResponseDto;
+import shoppingmall.core.domain.order.dto.response.OrderProductResponseDto;
+import shoppingmall.core.domain.order.entity.OrderStatus;
+import shoppingmall.core.domain.order.service.OrderService;
 
 import java.util.List;
+
 
 @RestController
 @RequiredArgsConstructor

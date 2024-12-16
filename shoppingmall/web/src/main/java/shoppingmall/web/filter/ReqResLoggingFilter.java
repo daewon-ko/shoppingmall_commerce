@@ -1,4 +1,4 @@
-package shppingmall.commerce.global.filter;
+package shoppingmall.web.filter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

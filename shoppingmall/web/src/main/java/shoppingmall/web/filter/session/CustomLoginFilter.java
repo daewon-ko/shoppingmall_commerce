@@ -1,4 +1,4 @@
-package shppingmall.commerce.global.filter.session;
+package shoppingmall.web.filter.session;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
@@ -10,8 +10,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import shppingmall.commerce.global.exception.domain.AuthErrorCode;
-import shppingmall.commerce.user.dto.LoginUserRequestDto;
+import shoppingmall.common.exception.ApiException;
+import shoppingmall.common.exception.domain.AuthErrorCode;
+import shoppingmall.core.domain.user.dto.LoginUserRequestDto;
 
 import java.io.IOException;
 

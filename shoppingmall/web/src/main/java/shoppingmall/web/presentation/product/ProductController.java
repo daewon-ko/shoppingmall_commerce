@@ -1,23 +1,22 @@
-package shppingmall.commerce.product.controller;
+package shoppingmall.web.presentation.product;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import shppingmall.commerce.global.ApiResponse;
-import shppingmall.commerce.image.entity.FileType;
-import shppingmall.commerce.product.dto.request.ProductUpdateRequestDto;
-import shppingmall.commerce.product.dto.request.ProductCreateRequestDto;
-import shppingmall.commerce.product.dto.response.ProductCreateResponseDto;
-import shppingmall.commerce.product.dto.response.ProductQueryResponseDto;
-import shppingmall.commerce.product.dto.response.ProductUpdateResponseDto;
-import shppingmall.commerce.product.service.ProductService;
+import shoppingmall.common.ApiResponse;
+import shoppingmall.core.domain.image.entity.FileType;
+import shoppingmall.core.domain.product.dto.request.ProductCreateRequestDto;
+import shoppingmall.core.domain.product.dto.request.ProductUpdateRequestDto;
+import shoppingmall.core.domain.product.dto.response.ProductCreateResponseDto;
+import shoppingmall.core.domain.product.dto.response.ProductQueryResponseDto;
+import shoppingmall.core.domain.product.dto.response.ProductUpdateResponseDto;
+import shoppingmall.core.domain.product.entity.ProductSearchCondition;
+import shoppingmall.core.domain.product.service.ProductService;
 
 import java.time.LocalDateTime;
 import java.util.List;

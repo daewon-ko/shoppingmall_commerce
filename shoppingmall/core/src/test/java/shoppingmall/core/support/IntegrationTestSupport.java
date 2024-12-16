@@ -1,4 +1,4 @@
-package shppingmall.commerce.support;
+package shoppingmall.core.support;
 
 import jakarta.transaction.Transactional;
 import org.springframework.boot.test.context.SpringBootTest;
