@@ -1,4 +1,4 @@
-package shppingmall.commerce.global.exception;
+package shoppingmall.common.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,9 +1,9 @@
-package shppingmall.commerce.global.exception.domain;
+package shoppingmall.common.exception.domain;
 
+import shoppingmall.common.exception.ErrorCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import shppingmall.commerce.global.exception.ErrorCode;
 
 
 @Getter

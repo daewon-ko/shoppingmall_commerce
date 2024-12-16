@@ -1,4 +1,4 @@
-package shppingmall.commerce.common;
+package shoppingmall.core.common;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

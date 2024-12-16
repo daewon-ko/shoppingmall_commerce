@@ -1,4 +1,4 @@
-package shoppingmall.commerce;
+package shoppingmall.common;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
