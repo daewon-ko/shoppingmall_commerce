@@ -1,4 +1,4 @@
-package shppingmall.commerce.payment.entity;
+package shoppingmall.tosspayment.feign;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,8 +1,7 @@
-package shppingmall.commerce.payment.feign;
+package shoppingmall.tosspayment.feign;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
-import shppingmall.commerce.payment.entity.PaymentProperties;
 
 public class PaymentConfiguration {
 

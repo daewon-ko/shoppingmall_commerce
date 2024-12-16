@@ -1,9 +1,8 @@
-package shppingmall.commerce.payment.feign;
+package shoppingmall.tosspayment.feign;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
-import shppingmall.commerce.payment.entity.PaymentProperties;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;

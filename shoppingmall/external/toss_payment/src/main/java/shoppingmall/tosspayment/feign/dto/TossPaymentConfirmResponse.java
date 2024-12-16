@@ -1,4 +1,4 @@
-package shppingmall.commerce.payment.dto;
+package shoppingmall.tosspayment.feign.dto;
 
 import lombok.Builder;
 import lombok.Getter;
