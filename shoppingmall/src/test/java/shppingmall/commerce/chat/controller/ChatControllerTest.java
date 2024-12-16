@@ -9,9 +9,7 @@ import org.springframework.http.MediaType;
 import shppingmall.commerce.ControllerTestSupport;
 import shppingmall.commerce.chat.dto.ChatRoomCreateDto;
 import shppingmall.commerce.chat.dto.ChatRoomResponseDto;
-import shppingmall.commerce.global.exception.ApiException;
 import shppingmall.commerce.global.exception.domain.ChatErrorCode;
-import shppingmall.commerce.user.entity.UserRole;
 
 import java.util.UUID;
 
