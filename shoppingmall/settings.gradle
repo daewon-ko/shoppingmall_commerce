@@ -1,1 +1,10 @@
-rootProject.name = 'commerce'
+rootProject.name = 'shoppingmall'
+include 'common'
+include 'web'
+include 'external'
+include 'core'
+include 'external:toss_payment'
+findProject(':external:toss_payment')?.name = 'toss_payment'
+include 'infra'
+include 'app'
+

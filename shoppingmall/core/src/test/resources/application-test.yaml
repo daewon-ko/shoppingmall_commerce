@@ -1,0 +1,43 @@
+
+spring:
+  datasource:
+    url: ${TEST_DB_URL:jdbc:mysql://localhost:3306/ShoppingMallTest?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=UTC}
+    username: ${TEST_DB_USERNAME:root}
+    password: ${TEST_DB_PASSWORD:test1234}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate.format_sql: true
+#      hibernate.dialect: "org.hibernate.dialect.MySQL5Dialect"
+    show-sql: true
+
+  data:
+    redis:
+      port: ${REDIS_PORT}
+      host: ${REDIS_HOST}
+      password: ${REDIS_PASSWORD}
+  cloud:
+    aws:
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+      s3:
+        region: ap-northeast-2
+        bucket: ${AWS_BUCKET}
+
+
+  payment:
+    secret-key: ${PAYMENT_SECRET_KEY:test}
+
+
+  thymeleaf:
+    cache: false
+
+file:
+  test-dir: ${TEST_FILE_DIR:/Users/daewon/Study/file-test}
+  dir: ${FILE_DIR:/Users/daewon/Study/file-test/}

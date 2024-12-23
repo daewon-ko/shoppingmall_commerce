@@ -1,0 +1,16 @@
+spring:
+  profiles:
+    active: dev
+
+  payment:
+    secret-key: ${PAYMENT_SECRET_KEY}
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+
+  payment:
+    secret-key: test

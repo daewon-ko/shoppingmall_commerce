@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Page</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Welcome to Shopping Mall</h1>
+    <form action="/api/v1/auth/login">
+        <button id="loginButton" class="action-button" onclick="location.href='/login'">로그인하기</button>
+    </form>
+    <form action="/api/v1/auth/register">
+        <button id="singUpButton" th:method="GET" class="action-button" onclick="location.href='/auth/register'">
+            회원가입하기
+        </button>
+    </form>
+
+
+    <button id="inquiryButton" class="action-button">문의하기</button>
+</div>
+<script th:src="@{/js/index.js}"></script>
+</body>
+</html>
