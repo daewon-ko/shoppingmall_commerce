@@ -17,6 +17,7 @@ import shoppingmall.core.domain.product.dto.response.ProductQueryResponseDto;
 import shoppingmall.core.domain.product.dto.response.ProductUpdateResponseDto;
 import shoppingmall.core.domain.product.entity.ProductSearchCondition;
 import shoppingmall.core.domain.product.service.ProductService;
+import shoppingmall.web.argument.Login;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,7 +29,7 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping(value = "/product", consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ApiResponse<ProductCreateResponseDto> createProduct(@RequestPart("requestDto") @Valid ProductCreateRequestDto requestDto, @RequestPart("images") List<MultipartFile> images) {
+    public ApiResponse<ProductCreateResponseDto> createProduct(@Login String email,  @RequestPart("requestDto") @Valid ProductCreateRequestDto requestDto, @RequestPart("images") List<MultipartFile> images) {
         ProductCreateResponseDto response = productService.createProduct(requestDto, images);
 
         return ApiResponse.ok(response);

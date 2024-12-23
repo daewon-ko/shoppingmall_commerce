@@ -65,12 +65,13 @@ public class SecurityWebConfig {
                     @Override
                     public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                         CorsConfiguration configuration = new CorsConfiguration();
-//                        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3030"));
+                        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3030"));
                         configuration.setAllowedMethods(Collections.singletonList("*"));
                         configuration.setAllowCredentials(true);
                         configuration.setAllowedHeaders(Collections.singletonList("*"));
                         configuration.setMaxAge(3600L);
                         configuration.setExposedHeaders(Collections.singletonList("Authorization"));
+
 
                         return configuration;
                     }
@@ -90,14 +91,17 @@ public class SecurityWebConfig {
 
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/api/v1/auth/register/**").permitAll()
-                        .requestMatchers("/api/v1/auth/login/**", "/", "join", "/checkout").permitAll()
+                        .requestMatchers("/api/v1/auth/register").permitAll()
+                        .requestMatchers("/api/v1/auth/login", "/", "join", "/checkout").permitAll()
                         .requestMatchers("/api/v1/cart/**").authenticated()
-                        .requestMatchers("/api/v1/product/**").hasRole(UserRole.SELLER.name())  // 판매자만 상품을 생성, 수정, 삭제할수 있게끔 인증
+                        .requestMatchers("/api/v1/product/**").hasAuthority("SELLER")  // 판매자만 상품을 생성, 수정, 삭제할수 있게끔 인증
                         .requestMatchers("/api/v1/payments/**").hasRole(UserRole.BUYER.name())  // 구매자만 구매할 수 있게끔 인증
                         .requestMatchers("/api/v1/admin").hasRole(UserRole.ADMIN.name())
                         .anyRequest().authenticated());
 
+
+
+        http.addFilterBefore(customLoginFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class);
         http
                 .addFilterAt(customLoginFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class);
 

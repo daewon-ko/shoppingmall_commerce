@@ -1,4 +1,4 @@
-package shppingmall.commerce.support;
+package shoppingmall.core.support;
 
 
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

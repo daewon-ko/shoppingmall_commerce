@@ -27,7 +27,7 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collection = new ArrayList<>();
-        collection.add(new SimpleGrantedAuthority("ROLE_" + userRole.name())); // Spring Security의 표준 방식
+        collection.add(new SimpleGrantedAuthority(userRole.name())); // Spring Security의 표준 방식
         return collection;
     }
 

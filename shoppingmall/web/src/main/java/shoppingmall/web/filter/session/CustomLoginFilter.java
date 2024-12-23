@@ -42,7 +42,8 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        request.getSession().setAttribute("loginUser", authResult.getPrincipal());
+        super.successfulAuthentication(request, response, chain, authResult);
+        request.getSession().setAttribute(SessionConst.LOGIN_USER, authResult.getPrincipal());
         response.getWriter().write("Login Success");
         response.getWriter().write(objectMapper.writeValueAsString(authResult.getName()));
     }
