@@ -7,4 +7,5 @@ include 'external:toss_payment'
 findProject(':external:toss_payment')?.name = 'toss_payment'
 include 'infra'
 include 'app'
+include 'app'
 
