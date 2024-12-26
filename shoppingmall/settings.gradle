@@ -1,15 +1,16 @@
 rootProject.name = 'shoppingmall'
 include 'common'
-include 'web'
-include 'external'
-include 'core'
-include 'external:toss_payment'
-findProject(':external:toss_payment')?.name = 'toss_payment'
+
+include 'infra:toss_payment'
+findProject(':infra:toss_payment')?.name = 'toss_payment'
+
 include 'infra'
+
 include 'app'
-include 'app'
-include 'domain:domain-service'
+
+include 'domain'
 findProject(':domain:domain-service')?.name = 'domain-service'
+
 include 'app:web'
 findProject(':app:web')?.name = 'web'
 

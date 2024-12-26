@@ -27,7 +27,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
     private final MessageService messageService;
 
     @Override
-    public void afterConnectionEstablished(final WebSockeebtSession session) throws Exception {
+    public void afterConnectionEstablished(final WebSocketSession session) throws Exception {
         String roomId = getRoomId(session.getUri());
         sessions.put(session.getId(), session);
         session.getAttributes().put("roomId", roomId);
