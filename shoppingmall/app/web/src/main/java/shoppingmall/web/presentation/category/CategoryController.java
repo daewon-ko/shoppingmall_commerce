@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import shoppingmall.common.ApiResponse;
-import shoppingmall.core.domain.category.dto.request.CategoryRequestDto;
-import shoppingmall.core.domain.category.service.CategoryService;
+import shoppingmall.domain.domain.category.dto.request.CategoryRequestDto;
+import shoppingmall.domain.domain.category.service.CategoryService;
 
 @RestController
 @RequestMapping("/api/v1")

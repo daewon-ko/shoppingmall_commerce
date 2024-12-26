@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import shoppingmall.common.ApiResponse;
-import shoppingmall.core.domain.cart.dto.dto.request.AddCartRequestDto;
-import shoppingmall.core.domain.cart.dto.dto.request.CreateCartRequestDto;
-import shoppingmall.core.domain.cart.dto.dto.response.AddCartProductResponseDto;
-import shoppingmall.core.domain.cart.service.CartService;
+import shoppingmall.domain.domain.cart.dto.dto.request.AddCartRequestDto;
+import shoppingmall.domain.domain.cart.dto.dto.request.CreateCartRequestDto;
+import shoppingmall.domain.domain.cart.dto.dto.response.AddCartProductResponseDto;
+import shoppingmall.domain.domain.cart.service.CartService;
 
 import java.util.List;
 

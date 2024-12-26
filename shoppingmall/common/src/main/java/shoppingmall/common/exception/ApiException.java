@@ -7,13 +7,9 @@ import org.springframework.http.HttpStatus;
 @Getter
 @RequiredArgsConstructor
 public class ApiException extends RuntimeException {
-    private final ErrorCode errorCode;
+    private final CommonError errorCode;
 
 
-    public ApiException(ErrorCode errorCode, Throwable cause) {
-        super(errorCode.getMessage(), cause);
-        this.errorCode = errorCode;
-    }
 
     public HttpStatus getHttpStatusCode() {
         return errorCode.getHttpStatus();
@@ -26,5 +22,8 @@ public class ApiException extends RuntimeException {
     public String getName() {
         return errorCode.name();
     }
+
+
+
 
 }

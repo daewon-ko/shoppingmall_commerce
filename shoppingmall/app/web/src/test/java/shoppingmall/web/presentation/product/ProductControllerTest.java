@@ -10,12 +10,12 @@ import org.springframework.data.domain.SliceImpl;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
-import shoppingmall.core.domain.product.dto.request.ProductCreateRequestDto;
-import shoppingmall.core.domain.product.dto.request.ProductUpdateRequestDto;
-import shoppingmall.core.domain.product.dto.response.ProductCreateResponseDto;
-import shoppingmall.core.domain.product.dto.response.ProductQueryResponseDto;
-import shoppingmall.core.domain.product.dto.response.ProductUpdateResponseDto;
-import shoppingmall.core.domain.product.entity.ProductSearchCondition;
+import shoppingmall.domain.domain.product.dto.request.ProductCreateRequestDto;
+import shoppingmall.domain.domain.product.dto.request.ProductUpdateRequestDto;
+import shoppingmall.domain.domain.product.dto.response.ProductCreateResponseDto;
+import shoppingmall.domain.domain.product.dto.response.ProductQueryResponseDto;
+import shoppingmall.domain.domain.product.dto.response.ProductUpdateResponseDto;
+import shoppingmall.domain.domain.product.entity.ProductSearchCondition;
 import shoppingmall.web.presentation.support.ControllerTestSupport;
 
 import java.nio.charset.StandardCharsets;

@@ -6,13 +6,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.*;
 import shoppingmall.common.ApiResponse;
-import shoppingmall.core.domain.order.dto.request.OrderCreateRequestDto;
-import shoppingmall.core.domain.order.dto.request.OrderSearchCondition;
-import shoppingmall.core.domain.order.dto.request.OrderUpdateRequest;
-import shoppingmall.core.domain.order.dto.response.OrderProductCreateResponseDto;
-import shoppingmall.core.domain.order.dto.response.OrderProductResponseDto;
-import shoppingmall.core.domain.order.entity.OrderStatus;
-import shoppingmall.core.domain.order.service.OrderService;
+import shoppingmall.domain.domain.order.dto.request.OrderCreateRequestDto;
+import shoppingmall.domain.domain.order.dto.request.OrderSearchCondition;
+import shoppingmall.domain.domain.order.dto.request.OrderUpdateRequest;
+import shoppingmall.domain.domain.order.dto.response.OrderProductCreateResponseDto;
+import shoppingmall.domain.domain.order.dto.response.OrderProductResponseDto;
+import shoppingmall.domain.domain.order.entity.OrderStatus;
+import shoppingmall.domain.domain.order.service.OrderService;
 
 import java.util.List;
 

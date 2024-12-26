@@ -12,7 +12,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import shoppingmall.common.exception.ApiException;
 import shoppingmall.common.exception.domain.AuthErrorCode;
-import shoppingmall.core.domain.user.dto.LoginUserRequestDto;
+import shoppingmall.domain.domain.user.dto.LoginUserRequestDto;
 
 import java.io.IOException;
 

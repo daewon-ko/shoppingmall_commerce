@@ -9,9 +9,9 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import shoppingmall.core.domain.message.dto.ChatMessageRequestDto;
-import shoppingmall.core.domain.message.entity.MessageType;
-import shoppingmall.core.domain.message.service.MessageService;
+import shoppingmall.domain.domain.message.dto.ChatMessageRequestDto;
+import shoppingmall.domain.domain.message.entity.MessageType;
+import shoppingmall.domain.domain.message.service.MessageService;
 
 import java.net.URI;
 import java.util.Map;
@@ -27,7 +27,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
     private final MessageService messageService;
 
     @Override
-    public void afterConnectionEstablished(final WebSocketSession session) throws Exception {
+    public void afterConnectionEstablished(final WebSockeebtSession session) throws Exception {
         String roomId = getRoomId(session.getUri());
         sessions.put(session.getId(), session);
         session.getAttributes().put("roomId", roomId);

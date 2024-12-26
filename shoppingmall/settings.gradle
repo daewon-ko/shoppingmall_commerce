@@ -8,4 +8,8 @@ findProject(':external:toss_payment')?.name = 'toss_payment'
 include 'infra'
 include 'app'
 include 'app'
+include 'domain:domain-service'
+findProject(':domain:domain-service')?.name = 'domain-service'
+include 'app:web'
+findProject(':app:web')?.name = 'web'
 

@@ -15,7 +15,7 @@ import org.springframework.security.web.access.expression.DefaultWebSecurityExpr
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
-import shoppingmall.core.domain.user.entity.UserRole;
+import shoppingmall.domain.domain.user.entity.UserRole;
 import shoppingmall.web.filter.ReqResLoggingFilter;
 import shoppingmall.web.filter.session.CustomLoginFilter;
 

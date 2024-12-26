@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import shoppingmall.core.domain.user.dto.CreateUserRequestDto;
-import shoppingmall.core.domain.user.dto.LoginUserRequestDto;
-import shoppingmall.core.domain.user.repository.UserRepository;
-import shoppingmall.core.domain.user.service.UserService;
+import shoppingmall.domain.domain.user.dto.CreateUserRequestDto;
+import shoppingmall.domain.domain.user.dto.LoginUserRequestDto;
+import shoppingmall.domain.domain.user.repository.UserRepository;
+import shoppingmall.domain.domain.user.service.UserService;
 
 
 @Controller

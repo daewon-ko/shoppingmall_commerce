@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import shoppingmall.core.domain.payment.dto.PaymentResponse;
-import shoppingmall.core.domain.payment.service.PaymentService;
-import shoppingmall.tosspayment.feign.dto.TossPaymentConfirmRequest;
+
 
 @RestController
 @RequestMapping("/api/v1/payments")

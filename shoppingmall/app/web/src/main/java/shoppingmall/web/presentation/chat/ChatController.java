@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-import shoppingmall.core.domain.chat.dto.ChatRoomCreateDto;
-import shoppingmall.core.domain.chat.dto.ChatRoomResponseDto;
-import shoppingmall.core.domain.chat.service.ChatRoomService;
+import shoppingmall.domain.domain.chat.dto.ChatRoomCreateDto;
+import shoppingmall.domain.domain.chat.dto.ChatRoomResponseDto;
+import shoppingmall.domain.domain.chat.service.ChatRoomService;
 
 import java.net.URI;
 import java.util.UUID;
