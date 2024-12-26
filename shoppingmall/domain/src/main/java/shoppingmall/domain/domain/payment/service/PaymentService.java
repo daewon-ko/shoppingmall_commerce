@@ -1,11 +1,14 @@
 package shoppingmall.domain.domain.payment.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shoppingmall.domain.domain.order.entity.Order;
 import shoppingmall.domain.domain.order.repository.OrderRepository;
+import shoppingmall.domain.domain.payment.TossPaymentCancelEvent;
 import shoppingmall.domain.domain.payment.repository.PaymentRepository;
 import shoppingmall.domain.domain.payment.dto.PaymentResponse;
 import shoppingmall.domain.domain.payment.entity.TossPayment;
@@ -21,6 +24,7 @@ import java.time.Duration;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class PaymentService {
 
     private final PaymentClient paymentClient;
@@ -28,17 +32,45 @@ public class PaymentService {
     private final PaymentRepository paymentRepository;
     private final RedisTemplate<String, Object> redisTemplate;
 
+    private final ApplicationEventPublisher eventPublisher;
+
+
     private static final String REDIS_PAYMENT_PREFIX = "payment_order";
 
     //TODO : 결제에서의 트랜잭션 처리는 어떻게?
     // 외부 API를 연동하는데 트랜잭션 처리를 어떻게 해주는게 적절할까?
-    @Transactional
+
+    /**
+     * 외부 API 호출 후 DB 저장시에 예외 발생시 보상 API 호출 가능하게끔 보상 트랜잭션 적용
+     *
+     * TossPaymentCancelEvent정의하여 paymentKey, cancelReason을 넘겨준다.
+     *
+     *
+     * @param request
+     * @param orderId
+     * @return
+     */
     public PaymentResponse confirm(final TossPaymentConfirmRequest request, final Long orderId) {
         Order findOrder = orderRepository.findById(orderId).orElseThrow(() -> new ApiException(OrderErrorCode.NOT_EXIST_ORDER));
 
         // 외부 API 호출
         final TossPaymentConfirmResponse tossPaymentConfirmResponse = paymentClient.confirmPayment(request);
 
+
+        try {
+            return executeTransactionalPayment(tossPaymentConfirmResponse, findOrder);
+        } catch (Exception e) {
+            TossPaymentCancelEvent cancelEvent = new TossPaymentCancelEvent(request.getPaymentKey(), "DB 오류");
+            eventPublisher.publishEvent(cancelEvent);
+            log.debug("결제 취소 수행", e);
+            throw new ApiException(PaymentErrorCode.FAIL_PAYMENT);
+
+        }
+
+    }
+
+    @Transactional
+    protected PaymentResponse executeTransactionalPayment(TossPaymentConfirmResponse tossPaymentConfirmResponse, Order findOrder) {
         // TossPayment 객체 생성 및 저장
         TossPayment tossPayment = TossPayment.of(tossPaymentConfirmResponse, findOrder);
         paymentRepository.save(tossPayment);
@@ -55,7 +87,6 @@ public class PaymentService {
         PaymentResponse paymentResponse = PaymentResponse.from(tossPayment);
 
         return paymentResponse;
-
     }
 
     public PaymentResponse getPayment(Long orderId) {
