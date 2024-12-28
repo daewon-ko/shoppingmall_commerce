@@ -1,0 +1,9 @@
+jar.enabled = true
+
+dependencies {
+    // Redis를 데이터 저장소 목적으로 이용하기 위한 의존성
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+    // Redis를 세션 저장소로 사용하기 위한 의존성
+    implementation 'org.springframework.session:spring-session-data-redis'
+}

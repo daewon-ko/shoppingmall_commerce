@@ -1,0 +1,136 @@
+[2024-12-16 11:40:07:348 ] [32m[background-preinit][0;39m [] [34mINFO [0;39m o.h.v.i.u.Version - HV000001: Hibernate Validator 8.0.1.Final
+[2024-12-16 11:40:07:370 ] [32m[main][0;39m [] [34mINFO [0;39m s.w.WebApplication - Starting WebApplication using Java 21.0.4 with PID 4576 (/Users/daewon/Study/Project/ShoppingMall_Commerce/shoppingmall/web/build/classes/java/main started by daewon in /Users/daewon/Study/Project/ShoppingMall_Commerce/shoppingmall)
+[2024-12-16 11:40:07:370 ] [32m[main][0;39m [] [34mINFO [0;39m s.w.WebApplication - The following 1 profile is active: "dev"
+[2024-12-16 11:40:08:770 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+[2024-12-16 11:40:08:771 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2024-12-16 11:40:08:865 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 90 ms. Found 11 JPA repository interfaces.
+[2024-12-16 11:40:08:874 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+[2024-12-16 11:40:08:875 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+[2024-12-16 11:40:08:883 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface shoppingmall.domain.domain.cart.repository.CartProductRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-12-16 11:40:08:883 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface shoppingmall.domain.domain.cart.repository.CartRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-12-16 11:40:08:884 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface shoppingmall.domain.domain.category.repository.CategoryRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-12-16 11:40:08:884 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface shoppingmall.domain.domain.chat.repository.ChatRoomRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-12-16 11:40:08:884 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface shoppingmall.domain.domain.image.repository.ImageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-12-16 11:40:08:884 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface shoppingmall.domain.domain.message.repository.MessageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-12-16 11:40:08:884 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface shoppingmall.domain.domain.order.repository.OrderProductRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-12-16 11:40:08:884 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface shoppingmall.domain.domain.order.repository.OrderRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-12-16 11:40:08:884 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface shoppingmall.domain.domain.payment.repository.PaymentRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-12-16 11:40:08:885 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface shoppingmall.domain.domain.product.repository.ProductRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-12-16 11:40:08:885 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface shoppingmall.domain.domain.user.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-12-16 11:40:08:886 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 7 ms. Found 0 Redis repository interfaces.
+[2024-12-16 11:40:08:998 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.c.c.s.GenericScope - BeanFactory id=dd9f7ac9-ed17-3c42-a956-81c54e4c0f52
+[2024-12-16 11:40:08:1193] [32m[main][0;39m [] [34mINFO [0;39m o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 9090 (http)
+[2024-12-16 11:40:08:1199] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-9090"]
+[2024-12-16 11:40:08:1200] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.c.StandardService - Starting service [Tomcat]
+[2024-12-16 11:40:08:1200] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.18]
+[2024-12-16 11:40:08:1229] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext
+[2024-12-16 11:40:08:1230] [32m[main][0;39m [] [34mINFO [0;39m o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 842 ms
+[2024-12-16 11:40:09:1615] [32m[main][0;39m [] [34mINFO [0;39m o.h.j.i.u.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+[2024-12-16 11:40:09:1643] [32m[main][0;39m [] [34mINFO [0;39m o.h.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+[2024-12-16 11:40:09:1658] [32m[main][0;39m [] [34mINFO [0;39m o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+[2024-12-16 11:40:09:1771] [32m[main][0;39m [] [34mINFO [0;39m o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+[2024-12-16 11:40:09:1785] [32m[main][0;39m [] [34mINFO [0;39m c.z.h.HikariDataSource - HikariPool-1 - Starting...
+[2024-12-16 11:40:09:1792] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.c.StandardService - Stopping service [Tomcat]
+[2024-12-16 11:40:09:1798] [32m[main][0;39m [] [34mINFO [0;39m o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2024-12-16 15:42:01:251 ] [32m[background-preinit][0;39m [] [34mINFO [0;39m o.h.v.i.u.Version - HV000001: Hibernate Validator 8.0.1.Final
+[2024-12-16 15:42:01:268 ] [32m[main][0;39m [] [34mINFO [0;39m s.w.WebApplication - Starting WebApplication using Java 21.0.4 with PID 11384 (/Users/daewon/Study/Project/ShoppingMall_Commerce/shoppingmall/web/build/classes/java/main started by daewon in /Users/daewon/Study/Project/ShoppingMall_Commerce/shoppingmall)
+[2024-12-16 15:42:01:268 ] [32m[main][0;39m [] [34mINFO [0;39m s.w.WebApplication - The following 1 profile is active: "dev"
+[2024-12-16 15:42:01:538 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+[2024-12-16 15:42:01:538 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2024-12-16 15:42:01:611 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 69 ms. Found 11 JPA repository interfaces.
+[2024-12-16 15:42:01:719 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+[2024-12-16 15:42:01:720 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+[2024-12-16 15:42:01:729 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+[2024-12-16 15:42:01:842 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.c.c.s.GenericScope - BeanFactory id=81a30ff7-ef18-3664-94a9-d57bae0113ad
+[2024-12-16 15:42:02:1025] [32m[main][0;39m [] [34mINFO [0;39m o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 9090 (http)
+[2024-12-16 15:42:02:1029] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-9090"]
+[2024-12-16 15:42:02:1030] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.c.StandardService - Starting service [Tomcat]
+[2024-12-16 15:42:02:1030] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.18]
+[2024-12-16 15:42:02:1055] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext
+[2024-12-16 15:42:02:1055] [32m[main][0;39m [] [34mINFO [0;39m o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 771 ms
+[2024-12-16 15:42:02:1431] [32m[main][0;39m [] [34mINFO [0;39m o.h.j.i.u.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+[2024-12-16 15:42:02:1453] [32m[main][0;39m [] [34mINFO [0;39m o.h.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+[2024-12-16 15:42:02:1467] [32m[main][0;39m [] [34mINFO [0;39m o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+[2024-12-16 15:42:02:1575] [32m[main][0;39m [] [34mINFO [0;39m o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+[2024-12-16 15:42:02:1587] [32m[main][0;39m [] [34mINFO [0;39m c.z.h.HikariDataSource - HikariPool-1 - Starting...
+[2024-12-16 15:42:02:1604] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.c.StandardService - Stopping service [Tomcat]
+[2024-12-16 15:42:02:1612] [32m[main][0;39m [] [34mINFO [0;39m o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2024-12-16 15:42:06:255 ] [32m[background-preinit][0;39m [] [34mINFO [0;39m o.h.v.i.u.Version - HV000001: Hibernate Validator 8.0.1.Final
+[2024-12-16 15:42:06:273 ] [32m[main][0;39m [] [34mINFO [0;39m s.w.WebApplication - Starting WebApplication using Java 21.0.4 with PID 11391 (/Users/daewon/Study/Project/ShoppingMall_Commerce/shoppingmall/web/build/classes/java/main started by daewon in /Users/daewon/Study/Project/ShoppingMall_Commerce/shoppingmall)
+[2024-12-16 15:42:06:273 ] [32m[main][0;39m [] [34mINFO [0;39m s.w.WebApplication - The following 1 profile is active: "dev"
+[2024-12-16 15:42:07:539 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+[2024-12-16 15:42:07:539 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2024-12-16 15:42:07:610 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 68 ms. Found 11 JPA repository interfaces.
+[2024-12-16 15:42:07:717 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+[2024-12-16 15:42:07:717 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+[2024-12-16 15:42:07:726 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 5 ms. Found 0 Redis repository interfaces.
+[2024-12-16 15:42:07:833 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.c.c.s.GenericScope - BeanFactory id=81a30ff7-ef18-3664-94a9-d57bae0113ad
+[2024-12-16 15:42:07:1009] [32m[main][0;39m [] [34mINFO [0;39m o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 9090 (http)
+[2024-12-16 15:42:07:1013] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-9090"]
+[2024-12-16 15:42:07:1014] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.c.StandardService - Starting service [Tomcat]
+[2024-12-16 15:42:07:1014] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.18]
+[2024-12-16 15:42:07:1039] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext
+[2024-12-16 15:42:07:1040] [32m[main][0;39m [] [34mINFO [0;39m o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 750 ms
+[2024-12-16 15:42:08:1405] [32m[main][0;39m [] [34mINFO [0;39m o.h.j.i.u.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+[2024-12-16 15:42:08:1425] [32m[main][0;39m [] [34mINFO [0;39m o.h.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+[2024-12-16 15:42:08:1437] [32m[main][0;39m [] [34mINFO [0;39m o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+[2024-12-16 15:42:08:1540] [32m[main][0;39m [] [34mINFO [0;39m o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+[2024-12-16 15:42:08:1553] [32m[main][0;39m [] [34mINFO [0;39m c.z.h.HikariDataSource - HikariPool-1 - Starting...
+[2024-12-16 15:42:08:1569] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.c.StandardService - Stopping service [Tomcat]
+[2024-12-16 15:42:08:1576] [32m[main][0;39m [] [34mINFO [0;39m o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2024-12-16 15:42:17:252 ] [32m[background-preinit][0;39m [] [34mINFO [0;39m o.h.v.i.u.Version - HV000001: Hibernate Validator 8.0.1.Final
+[2024-12-16 15:42:17:270 ] [32m[main][0;39m [] [34mINFO [0;39m s.w.WebApplication - Starting WebApplication using Java 21.0.4 with PID 11396 (/Users/daewon/Study/Project/ShoppingMall_Commerce/shoppingmall/web/build/classes/java/main started by daewon in /Users/daewon/Study/Project/ShoppingMall_Commerce/shoppingmall)
+[2024-12-16 15:42:17:270 ] [32m[main][0;39m [] [34mINFO [0;39m s.w.WebApplication - The following 1 profile is active: "dev"
+[2024-12-16 15:42:17:535 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+[2024-12-16 15:42:17:535 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2024-12-16 15:42:17:609 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 70 ms. Found 11 JPA repository interfaces.
+[2024-12-16 15:42:17:714 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+[2024-12-16 15:42:17:715 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+[2024-12-16 15:42:17:724 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 5 ms. Found 0 Redis repository interfaces.
+[2024-12-16 15:42:17:836 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.c.c.s.GenericScope - BeanFactory id=81a30ff7-ef18-3664-94a9-d57bae0113ad
+[2024-12-16 15:42:17:1015] [32m[main][0;39m [] [34mINFO [0;39m o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 9090 (http)
+[2024-12-16 15:42:17:1020] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-9090"]
+[2024-12-16 15:42:17:1020] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.c.StandardService - Starting service [Tomcat]
+[2024-12-16 15:42:17:1020] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.18]
+[2024-12-16 15:42:17:1046] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext
+[2024-12-16 15:42:17:1046] [32m[main][0;39m [] [34mINFO [0;39m o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 760 ms
+[2024-12-16 15:42:18:1428] [32m[main][0;39m [] [34mINFO [0;39m o.h.j.i.u.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+[2024-12-16 15:42:18:1449] [32m[main][0;39m [] [34mINFO [0;39m o.h.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+[2024-12-16 15:42:18:1462] [32m[main][0;39m [] [34mINFO [0;39m o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+[2024-12-16 15:42:18:1559] [32m[main][0;39m [] [34mINFO [0;39m o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+[2024-12-16 15:42:18:1572] [32m[main][0;39m [] [34mINFO [0;39m c.z.h.HikariDataSource - HikariPool-1 - Starting...
+[2024-12-16 15:42:18:1587] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.c.StandardService - Stopping service [Tomcat]
+[2024-12-16 15:42:18:1595] [32m[main][0;39m [] [34mINFO [0;39m o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+[2024-12-16 15:42:35:259 ] [32m[background-preinit][0;39m [] [34mINFO [0;39m o.h.v.i.u.Version - HV000001: Hibernate Validator 8.0.1.Final
+[2024-12-16 15:42:35:277 ] [32m[main][0;39m [] [34mINFO [0;39m s.w.WebApplication - Starting WebApplication using Java 21.0.4 with PID 11403 (/Users/daewon/Study/Project/ShoppingMall_Commerce/shoppingmall/web/build/classes/java/main started by daewon in /Users/daewon/Study/Project/ShoppingMall_Commerce/shoppingmall)
+[2024-12-16 15:42:35:277 ] [32m[main][0;39m [] [34mINFO [0;39m s.w.WebApplication - The following 1 profile is active: "dev"
+[2024-12-16 15:42:35:542 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+[2024-12-16 15:42:35:543 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2024-12-16 15:42:35:616 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 70 ms. Found 11 JPA repository interfaces.
+[2024-12-16 15:42:35:721 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+[2024-12-16 15:42:35:722 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+[2024-12-16 15:42:35:731 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 5 ms. Found 0 Redis repository interfaces.
+[2024-12-16 15:42:35:839 ] [32m[main][0;39m [] [34mINFO [0;39m o.s.c.c.s.GenericScope - BeanFactory id=81a30ff7-ef18-3664-94a9-d57bae0113ad
+[2024-12-16 15:42:35:1018] [32m[main][0;39m [] [34mINFO [0;39m o.s.b.w.e.t.TomcatWebServer - Tomcat initialized with port 9090 (http)
+[2024-12-16 15:42:35:1023] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.h.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-9090"]
+[2024-12-16 15:42:35:1024] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.c.StandardService - Starting service [Tomcat]
+[2024-12-16 15:42:35:1024] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.c.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.18]
+[2024-12-16 15:42:35:1051] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.c.C.[.[.[/] - Initializing Spring embedded WebApplicationContext
+[2024-12-16 15:42:35:1051] [32m[main][0;39m [] [34mINFO [0;39m o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 758 ms
+[2024-12-16 15:42:36:1428] [32m[main][0;39m [] [34mINFO [0;39m o.h.j.i.u.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+[2024-12-16 15:42:36:1449] [32m[main][0;39m [] [34mINFO [0;39m o.h.Version - HHH000412: Hibernate ORM core version 6.4.1.Final
+[2024-12-16 15:42:36:1462] [32m[main][0;39m [] [34mINFO [0;39m o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+[2024-12-16 15:42:36:1559] [32m[main][0;39m [] [34mINFO [0;39m o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+[2024-12-16 15:42:36:1572] [32m[main][0;39m [] [34mINFO [0;39m c.z.h.HikariDataSource - HikariPool-1 - Starting...
+[2024-12-16 15:42:36:1588] [32m[main][0;39m [] [34mINFO [0;39m o.a.c.c.StandardService - Stopping service [Tomcat]
+[2024-12-16 15:42:36:1595] [32m[main][0;39m [] [34mINFO [0;39m o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.

@@ -2,13 +2,8 @@ package shoppingmall.common.exception;
 
 import org.springframework.http.HttpStatus;
 
-public interface ErrorCode {
+public interface ErrorCode extends CommonError{
 
 
-    HttpStatus getHttpStatus();
-
-    String getMessage();
-
-    String name();
 
 }

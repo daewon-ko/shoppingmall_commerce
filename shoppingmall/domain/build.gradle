@@ -1,0 +1,24 @@
+jar.enabled = true
+//bootJar.enabled = true
+
+dependencies {
+    implementation project(':common')
+    implementation project(':infra:toss_payment')
+    implementation project(':infra')
+
+    //Querydsl 추가
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+
+
+    // Spring Security 의존성 추가
+    implementation "org.springframework.boot:spring-boot-starter-security"
+
+    // Redis를 데이터 저장소 목적으로 이용하기 위한 의존성
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+    //feign 관련 설정
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+}
