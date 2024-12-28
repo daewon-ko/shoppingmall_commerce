@@ -1,4 +1,4 @@
-package shoppingmall.tosspayment.feign.dto;
+package shoppingmall.common.dto;
 
 import lombok.AccessLevel;
 import lombok.Builder;
