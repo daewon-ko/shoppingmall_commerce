@@ -6,6 +6,8 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import shoppingmall.common.dto.TossPaymentConfirmRequest;
+import shoppingmall.common.dto.TossPaymentConfirmResponse;
 import shoppingmall.domain.domain.order.entity.Order;
 import shoppingmall.domain.domain.order.repository.OrderRepository;
 import shoppingmall.domain.domain.payment.TossPaymentCancelEvent;
@@ -16,8 +18,6 @@ import shoppingmall.common.exception.ApiException;
 import shoppingmall.common.exception.domain.OrderErrorCode;
 import shoppingmall.common.exception.domain.PaymentErrorCode;
 import shoppingmall.tosspayment.feign.PaymentClient;
-import shoppingmall.tosspayment.feign.dto.TossPaymentConfirmRequest;
-import shoppingmall.tosspayment.feign.dto.TossPaymentConfirmResponse;
 
 import java.time.Duration;
 
