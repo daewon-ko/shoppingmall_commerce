@@ -3,10 +3,25 @@ spring:
     active: dev
 
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    master:
+      hikari:
+        jdbc_url: ${MASTER_DB_URL}
+        username: ${MASTER_DB_USERNAME}
+        password: ${MASTER_DB_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+    slave:
+      hikari:
+        jdbc_url: ${SLAVE_DB_URL}
+        username: ${SLAVE_DB_USERNAME}
+        password: ${SLAVE_DB_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+#    url: ${DB_URL}
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}
+
 #  jwt:
 #    secret_key: ${JWT_SECRET}
 
@@ -16,7 +31,7 @@ spring:
     properties:
       hibernate.format_sql: true
       hibernate:
-#        dialect: "org.hibernate.dialect.MySQL5Dialect"
+        dialect: "org.hibernate.dialect.MySQL8Dialect"
     show-sql: true
   cloud:
     aws:
@@ -73,10 +88,24 @@ spring:
       on-profile: local
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    master:
+      hikari:
+        jdbc_url: ${MASTER_DB_URL}
+        username: ${MASTER_DB_USERNAME}
+        password: ${MASTER_DB_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+    slave:
+      hikari:
+        jdbc_url: ${SLAVE_DB_URL}
+        username: ${SLAVE_DB_USERNAME}
+        password: ${SLAVE_DB_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: ${DB_URL}
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}
 
   jpa:
     hibernate:
@@ -89,14 +118,28 @@ spring:
       on-profile: dev
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    master:
+      hikari:
+        jdbc_url: ${MASTER_DB_URL}
+        username: ${MASTER_DB_USERNAME}
+        password: ${MASTER_DB_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+    slave:
+      hikari:
+        jdbc_url: ${SLAVE_DB_URL}
+        username: ${SLAVE_DB_USERNAME}
+        password: ${SLAVE_DB_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: ${DB_URL}
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
 server:
   port: 9090
 
@@ -110,10 +153,25 @@ spring:
 
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    master:
+      hikari:
+        jdbc_url: ${MASTER_DB_URL}
+        username: ${MASTER_DB_USERNAME}
+        password: ${MASTER_DB_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+    slave:
+      hikari:
+        jdbc_url: ${SLAVE_DB_URL}
+        username: ${SLAVE_DB_USERNAME}
+        password: ${SLAVE_DB_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: ${DB_URL}
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}
 
   jpa:
     hibernate:
