@@ -1,14 +1,154 @@
+#spring:
+#  profiles:
+#    active: dev
+#
+#  datasource:
+#    url: ${DB_URL}
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  jwt:
+#    secret_key: ${JWT_SECRET}
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: none
+#    properties:
+#      hibernate.format_sql: true
+#      hibernate:
+##        dialect: "org.hibernate.dialect.MySQL5Dialect"
+#    show-sql: true
+#  cloud:
+#    aws:
+#      credentials:
+#        access-key: ${AWS_ACCESS_KEY}
+#        secret-key: ${AWS_SECRET_KEY}
+#      s3:
+#        region: ap-northeast-2
+#        bucket: ${AWS_BUCKET}
+#
+#  payment:
+#    secret-key: ${PAYMENT_SECRET_KEY}
+#    base-url: https://api.tosspayments.com/v1/payments
+#    confirm-endepoint: /confirm
+#
+#  data:
+#    redis:
+#      port: ${REDIS_PORT}
+#      host: ${REDIS_HOST}
+#      password: ${REDIS_PASSWORD}
+#
+#  session:
+#    store-type: redis
+#    redis:
+#      namespace: shoppingmall:session
+#    timeout: 1800s # 세션 TTL 30분 설정
+#
+#  servlet:
+#    multipart:
+#      enabled: true
+#      max-file-size: 10MB
+#      max-request-size: 10MB
+#
+#  thymeleaf:
+#    cache: false
+#
+#server:
+#  servlet:
+#    session:
+#      cookie:
+#        name: JSESSIONID
+#
+#
+#
+#
+#file:
+#  dir: ${FILE_DIR}
+#
+#
+#---
+#spring:
+#  config:
+#    activate:
+#      on-profile: local
+#
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: ${DB_URL}
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#
+#---
+#spring:
+#  config:
+#    activate:
+#      on-profile: dev
+#
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: ${DB_URL}
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#server:
+#  port: 9090
+#
+#
+#---
+#
+#spring:
+#  config:
+#    activate:
+#      on-profile: prod
+#
+#
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: ${DB_URL}
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: create
+#
+#server:
+#  port: 8080
+
+
 spring:
   profiles:
     active: dev
 
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jwt:
-    secret_key: ${JWT_SECRET}
+    master:
+      hikari:
+        jdbc_url: ${MASTER_DB_URL}
+        username: ${MASTER_DB_USERNAME}
+        password: ${MASTER_DB_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+    slave:
+      hikari:
+        jdbc_url: ${SLAVE_DB_URL}
+        username: ${SLAVE_DB_USERNAME}
+        password: ${SLAVE_DB_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+  #    url: ${DB_URL}
+  #    username: ${DB_USERNAME}
+  #    password: ${DB_PASSWORD}
+
+  #  jwt:
+  #    secret_key: ${JWT_SECRET}
 
   jpa:
     hibernate:
@@ -16,7 +156,7 @@ spring:
     properties:
       hibernate.format_sql: true
       hibernate:
-#        dialect: "org.hibernate.dialect.MySQL5Dialect"
+        dialect: "org.hibernate.dialect.MySQL8Dialect"
     show-sql: true
   cloud:
     aws:
@@ -73,10 +213,24 @@ spring:
       on-profile: local
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    master:
+      hikari:
+        jdbc_url: ${MASTER_DB_URL}
+        username: ${MASTER_DB_USERNAME}
+        password: ${MASTER_DB_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+    slave:
+      hikari:
+        jdbc_url: ${SLAVE_DB_URL}
+        username: ${SLAVE_DB_USERNAME}
+        password: ${SLAVE_DB_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+  #    driver-class-name: com.mysql.cj.jdbc.Driver
+  #    url: ${DB_URL}
+  #    username: ${DB_USERNAME}
+  #    password: ${DB_PASSWORD}
 
   jpa:
     hibernate:
@@ -89,10 +243,24 @@ spring:
       on-profile: dev
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    master:
+      hikari:
+        jdbc_url: ${MASTER_DB_URL}
+        username: ${MASTER_DB_USERNAME}
+        password: ${MASTER_DB_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+    slave:
+      hikari:
+        jdbc_url: ${SLAVE_DB_URL}
+        username: ${SLAVE_DB_USERNAME}
+        password: ${SLAVE_DB_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+  #    driver-class-name: com.mysql.cj.jdbc.Driver
+  #    url: ${DB_URL}
+  #    username: ${DB_USERNAME}
+  #    password: ${DB_PASSWORD}
 
   jpa:
     hibernate:
@@ -110,10 +278,25 @@ spring:
 
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    master:
+      hikari:
+        jdbc_url: ${MASTER_DB_URL}
+        username: ${MASTER_DB_USERNAME}
+        password: ${MASTER_DB_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+    slave:
+      hikari:
+        jdbc_url: ${SLAVE_DB_URL}
+        username: ${SLAVE_DB_USERNAME}
+        password: ${SLAVE_DB_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+  #  datasource:
+  #    driver-class-name: com.mysql.cj.jdbc.Driver
+  #    url: ${DB_URL}
+  #    username: ${DB_USERNAME}
+  #    password: ${DB_PASSWORD}
 
   jpa:
     hibernate:
