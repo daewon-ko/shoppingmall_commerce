@@ -1,0 +1,34 @@
+services:
+  mysql-master:
+    image: mysql:8.0
+    container_name: mysql_master
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+      - ./master_data:/var/lib/mysql
+      - ./master_conf/master.cnf:/etc/mysql/conf.d/master.cnf
+    ports:
+      - "3307:3306"
+    networks:
+      - db-net
+
+  mysql-slave:
+    image: mysql:8.0
+    container_name: mysql_slave
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+      - ./slave_data:/var/lib/mysql
+      - ./slave_conf/slave.cnf:/etc/mysql/conf.d/slave.cnf
+    ports:
+      - "3308:3306"
+    networks:
+      - db-net
+    depends_on:
+      - mysql-master
+
+networks:
+  db-net:
+    driver: bridge

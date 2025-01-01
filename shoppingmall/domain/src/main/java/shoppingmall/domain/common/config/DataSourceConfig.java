@@ -21,14 +21,14 @@ public class DataSourceConfig {
 
     @Bean
     @Qualifier(MASTER_DB)
-    @ConfigurationProperties(prefix = "spring.datasource.master")
+    @ConfigurationProperties(prefix = "spring.datasource.master.hikari")
     public DataSource masterDataSource() {
         return DataSourceBuilder.create().build();
     }
 
     @Bean
     @Qualifier(SLAVE_DB)
-    @ConfigurationProperties(prefix = "spring.datasource.slave")
+    @ConfigurationProperties(prefix = "spring.datasource.slave.hikari")
     public DataSource slaveDataSource() {
         return DataSourceBuilder.create().build();
     }
