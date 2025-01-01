@@ -1,2 +1,7 @@
 # .idea 파일 제외
-.idea
+.idea/
+out/
+shoppingmall/master_conf/
+shoppingmall/master_data/
+shoppingmall/slave_conf/
+shoppingmall/slave_data/
