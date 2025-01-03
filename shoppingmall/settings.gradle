@@ -21,4 +21,6 @@ include 'domain:domain-rdb'
 findProject(':domain:domain-rdb')?.name = 'domain-rdb'
 include 'domain:domain-redis'
 findProject(':domain:domain-redis')?.name = 'domain-redis'
+include 'infra:aws'
+findProject(':infra:aws')?.name = 'aws'
 

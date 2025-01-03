@@ -1,4 +1,4 @@
-package shoppingmall.domainrdb.image.service;
+package shoppingmall.aws.s3;
 
 import io.awspring.cloud.s3.ObjectMetadata;
 import io.awspring.cloud.s3.S3Template;
