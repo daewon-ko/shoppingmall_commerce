@@ -5,7 +5,9 @@ import org.springframework.boot.SpringApplication;
 
 @SpringBootApplication(scanBasePackages = {
         "shoppingmall.common",
-        "shoppingmall.domain",
+        "shoppingmall.domainrdb",
+        "shoppingmall.domainservice",
+        "shoppingmall.domainredis",
         "shoppingmall.web",
         "shoppingmall.tosspayment"
 })

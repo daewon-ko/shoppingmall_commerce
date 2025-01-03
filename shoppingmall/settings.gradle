@@ -13,4 +13,12 @@ findProject(':domain:domain-service')?.name = 'domain-service'
 
 include 'app:web'
 findProject(':app:web')?.name = 'web'
+include 'domain:domain-service'
+findProject(':domain:domain-service')?.name = 'domain-service'
+include 'domain:domain-rds'
+findProject(':domain:domain-rds')?.name = 'domain-rds'
+include 'domain:domain-rdb'
+findProject(':domain:domain-rdb')?.name = 'domain-rdb'
+include 'domain:domain-redis'
+findProject(':domain:domain-redis')?.name = 'domain-redis'
 
