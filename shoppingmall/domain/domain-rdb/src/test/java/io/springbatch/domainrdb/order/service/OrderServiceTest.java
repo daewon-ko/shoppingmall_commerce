@@ -1,4 +1,4 @@
-package shoppingmall.domainrdb.domain.order.service;
+package io.springbatch.domainrdb.order.service;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
+import shoppingmall.common.exception.ApiException;
 import shoppingmall.domainrdb.domain.cart.entity.Cart;
 import shoppingmall.domainrdb.domain.cart.repository.CartRepository;
 import shoppingmall.domainrdb.domain.order.dto.response.OrderProductCreateResponseDto;
@@ -20,14 +21,11 @@ import shoppingmall.domainrdb.domain.product.repository.ProductRepository;
 import shoppingmall.domainrdb.domain.user.entity.User;
 import shoppingmall.domainrdb.domain.user.entity.UserRole;
 import shoppingmall.domainrdb.domain.user.repository.UserRepository;
-import shoppingmall.common.exception.ApiException;
 import shoppingmall.domainrdb.support.IntegrationTestSupport;
-
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
-
 import static shoppingmall.domainrdb.support.TestFixture.*;
 class OrderServiceTest extends IntegrationTestSupport {
 
