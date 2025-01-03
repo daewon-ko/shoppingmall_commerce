@@ -2,9 +2,9 @@ package shoppingmall.domainrdb.category.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import shoppingmall.common.annotation.DomainService;
 import shoppingmall.domainrdb.category.entity.Category;
 import shoppingmall.domainrdb.category.repository.CategoryRepository;
+import shoppingmall.domainrdb.common.annotation.DomainService;
 
 @DomainService
 @RequiredArgsConstructor

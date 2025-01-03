@@ -7,18 +7,17 @@ import shoppingmall.web.api.cart.dto.request.CreateCartRequestDto;
 import shoppingmall.domainrdb.cart.service.CartService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import shoppingmall.common.annotation.Usecase;
 import shoppingmall.web.api.cart.dto.response.AddCartProductResponseDto;
+import shoppingmall.web.common.annotataion.Usecase;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 
-
 @Slf4j
-@Usecase
 @RequiredArgsConstructor
+@Usecase
 public class CartUseCase {
     private final CartService cartService;
 

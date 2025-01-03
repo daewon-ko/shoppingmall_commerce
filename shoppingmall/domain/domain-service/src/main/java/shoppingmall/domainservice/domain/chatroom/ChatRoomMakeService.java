@@ -1,8 +1,8 @@
 package shoppingmall.domainservice.domain.chatroom;
 
 import lombok.RequiredArgsConstructor;
-import shoppingmall.common.annotation.DomainService;
 import shoppingmall.domainrdb.chat.service.ChatRoomService;
+import shoppingmall.domainrdb.common.annotation.DomainService;
 
 import java.util.UUID;
 

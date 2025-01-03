@@ -1,17 +1,17 @@
 package shoppingmall.web.api.chat.usecase;
 
 import lombok.RequiredArgsConstructor;
-import shoppingmall.common.annotation.Usecase;
 import shoppingmall.domainrdb.chat.entity.ChatRoom;
 import shoppingmall.domainrdb.domain.chat.dto.ChatRoomCreateDto;
 import shoppingmall.domainrdb.domain.chat.dto.ChatRoomResponseDto;
 import shoppingmall.domainservice.domain.chatroom.ChatRoomMakeService;
 import shoppingmall.domainservice.domain.chatroom.ChatRoomSearchService;
+import shoppingmall.web.common.annotataion.Usecase;
 
 import java.util.UUID;
 
-@Usecase
 @RequiredArgsConstructor
+@Usecase
 public class ChatRoomUsecase {
 
     private final ChatRoomMakeService chatRoomMakeService;

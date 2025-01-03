@@ -1,4 +1,4 @@
-package shoppingmall.common.annotation;
+package shoppingmall.web.common.annotataion;
 
 import org.springframework.stereotype.Component;
 

@@ -2,13 +2,13 @@ package shoppingmall.domainrdb.chat.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import shoppingmall.common.annotation.DomainService;
 import shoppingmall.common.exception.ApiException;
 import shoppingmall.common.exception.domain.ChatErrorCode;
 import shoppingmall.common.exception.domain.ProductErrorCode;
 import shoppingmall.common.exception.domain.UserErrorCode;
 import shoppingmall.domainrdb.chat.entity.ChatRoom;
 import shoppingmall.domainrdb.chat.repository.ChatRoomRepository;
+import shoppingmall.domainrdb.common.annotation.DomainService;
 import shoppingmall.domainrdb.product.entity.Product;
 import shoppingmall.domainrdb.product.repository.ProductRepository;
 import shoppingmall.domainrdb.user.entity.User;

@@ -1,4 +1,4 @@
-package shoppingmall.common.annotation;
+package shoppingmall.domainrdb.common.annotation;
 
 import org.springframework.stereotype.Component;
 
