@@ -1,26 +1,26 @@
-package shoppingmall.domainrdb.domain.message.service;
+package shoppingmall.domainrdb.message.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import shoppingmall.domainrdb.domain.chat.entity.ChatRoom;
-import shoppingmall.domainrdb.domain.message.repository.MessageRepository;
-import shoppingmall.domainrdb.domain.chat.repository.ChatRoomRepository;
-import shoppingmall.domainrdb.domain.message.dto.ChatMessageRequestDto;
-import shoppingmall.domainrdb.domain.message.dto.ChatMessageResponseDto;
-import shoppingmall.domainrdb.domain.message.entity.Message;
-import shoppingmall.domainrdb.domain.user.entity.User;
-import shoppingmall.domainrdb.domain.user.repository.UserRepository;
 import shoppingmall.common.exception.ApiException;
 import shoppingmall.common.exception.domain.ChatErrorCode;
 import shoppingmall.common.exception.domain.UserErrorCode;
+import shoppingmall.domainrdb.chat.entity.ChatRoom;
+import shoppingmall.domainrdb.chat.repository.ChatRoomRepository;
 
+import shoppingmall.domainrdb.common.annotation.DomainService;
+import shoppingmall.domainrdb.message.dto.ChatMessageRequestDto;
+import shoppingmall.domainrdb.message.dto.ChatMessageResponseDto;
+import shoppingmall.domainrdb.message.entity.Message;
+import shoppingmall.domainrdb.message.repository.MessageRepository;
+import shoppingmall.domainrdb.user.entity.User;
+import shoppingmall.domainrdb.user.repository.UserRepository;
 
 import java.util.UUID;
 
-@Service
+@DomainService
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class MessageService {

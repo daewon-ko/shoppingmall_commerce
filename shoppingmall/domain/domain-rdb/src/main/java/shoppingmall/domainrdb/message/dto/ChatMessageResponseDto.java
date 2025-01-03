@@ -1,10 +1,10 @@
-package shoppingmall.domainrdb.domain.message.dto;
+package shoppingmall.domainrdb.message.dto;
 
 
 import lombok.Builder;
 import lombok.Getter;
-import shoppingmall.domainrdb.domain.message.entity.Message;
-import shoppingmall.domainrdb.domain.user.entity.UserRole;
+import shoppingmall.domainrdb.message.entity.Message;
+import shoppingmall.domainrdb.user.entity.UserRole;
 
 import java.util.UUID;
 

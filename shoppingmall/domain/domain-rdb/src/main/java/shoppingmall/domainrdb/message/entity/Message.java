@@ -1,10 +1,13 @@
-package shoppingmall.domainrdb.domain.message.entity;
+package shoppingmall.domainrdb.message.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import shoppingmall.domainrdb.chat.entity.ChatRoom;
 import shoppingmall.domainrdb.common.BaseEntity;
-import shoppingmall.domainrdb.domain.chat.entity.ChatRoom;
-import shoppingmall.domainrdb.domain.user.entity.User;
+import shoppingmall.domainrdb.user.entity.User;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

@@ -1,4 +1,4 @@
-package shoppingmall.web.api.message;
+package shoppingmall.web.api.message.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import shoppingmall.common.ApiResponse;
-import shoppingmall.domainrdb.domain.message.dto.ChatMessageResponseDto;
-import shoppingmall.domainrdb.domain.message.service.MessageService;
+import shoppingmall.domainrdb.message.dto.ChatMessageResponseDto;
+import shoppingmall.web.api.message.usecase.MessageUsecase;
 
 import java.util.UUID;
 
@@ -18,9 +18,10 @@ import java.util.UUID;
 @RequestMapping("/api/v1")
 public class MessageController {
 
-    private final MessageService messageService;
+    private final MessageUsecase messageUsecase;
+
     @GetMapping("/chat/chatRoom/{roomId}/messages")
     public ApiResponse<Page<ChatMessageResponseDto>> chatMessages(@PathVariable(name = "roomId") UUID roomId, Pageable pageable) {
-        return ApiResponse.ok(messageService.getMessageByRoomId(roomId, pageable));
+        return ApiResponse.ok(messageUsecase.getMessageByRoomId(roomId, pageable));
     }
 }

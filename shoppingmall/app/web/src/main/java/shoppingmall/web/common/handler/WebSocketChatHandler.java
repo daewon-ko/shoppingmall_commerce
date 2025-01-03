@@ -9,9 +9,10 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import shoppingmall.domainrdb.domain.message.dto.ChatMessageRequestDto;
-import shoppingmall.domainrdb.domain.message.entity.MessageType;
-import shoppingmall.domainrdb.domain.message.service.MessageService;
+import shoppingmall.domainrdb.message.dto.ChatMessageRequestDto;
+import shoppingmall.domainrdb.message.entity.MessageType;
+import shoppingmall.domainrdb.message.service.MessageService;
+import shoppingmall.web.api.message.usecase.MessageUsecase;
 
 import java.net.URI;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
 
     private final Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final MessageService messageService;
+    private final MessageUsecase messageUsecase;
 
     @Override
     public void afterConnectionEstablished(final WebSocketSession session) throws Exception {
@@ -44,7 +45,7 @@ public class WebSocketChatHandler extends TextWebSocketHandler {
 
         ChatMessageRequestDto chatMessage = objectMapper.readValue(payload, ChatMessageRequestDto.class);
         if (chatMessage.getMessageType().equals(MessageType.TALK)) {
-            messageService.saveMessage(chatMessage, roomId);
+            messageUsecase.saveMessage(chatMessage, roomId);
 
         }
         sendMessageToRoom(roomId, chatMessage);
