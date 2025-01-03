@@ -479,7 +479,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:36:53:1675] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@511a307e]
+[2024-12-23 13:36:53:1675] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@511a307e]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -574,7 +574,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:36:53:1677] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@11939a9f]
+[2024-12-23 13:36:53:1677] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@11939a9f]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -669,7 +669,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:36:53:1679] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@7a75183d]
+[2024-12-23 13:36:53:1679] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@7a75183d]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -764,7 +764,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:36:53:1682] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@69356aca]
+[2024-12-23 13:36:53:1682] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@69356aca]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -2385,7 +2385,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:43:04:1542] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@16890f00]
+[2024-12-23 13:43:04:1542] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@16890f00]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -2480,7 +2480,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:43:04:1547] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@6bf77ee]
+[2024-12-23 13:43:04:1547] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@6bf77ee]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -2575,7 +2575,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:43:04:1549] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@3ec62141]
+[2024-12-23 13:43:04:1549] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@3ec62141]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -2670,7 +2670,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:43:04:1551] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@1ca0aa40]
+[2024-12-23 13:43:04:1551] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@1ca0aa40]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -4291,7 +4291,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:43:27:1565] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@22b3b5d0]
+[2024-12-23 13:43:27:1565] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@22b3b5d0]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -4386,7 +4386,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:43:27:1569] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@1e27bb89]
+[2024-12-23 13:43:27:1569] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@1e27bb89]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -4481,7 +4481,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:43:27:1572] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@1c5fd813]
+[2024-12-23 13:43:27:1572] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@1c5fd813]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -4576,7 +4576,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:43:27:1575] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@3a45308f]
+[2024-12-23 13:43:27:1575] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@3a45308f]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -6197,7 +6197,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:44:28:1534] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@8e8ceb3]
+[2024-12-23 13:44:28:1534] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@8e8ceb3]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -6292,7 +6292,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:44:28:1540] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@20d65767]
+[2024-12-23 13:44:28:1540] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@20d65767]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -6387,7 +6387,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:44:28:1545] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@3da61af2]
+[2024-12-23 13:44:28:1545] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@3da61af2]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -6482,7 +6482,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:44:28:1549] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@526fc044]
+[2024-12-23 13:44:28:1549] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@526fc044]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -8103,7 +8103,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:45:52:1579] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@3a17acd4]
+[2024-12-23 13:45:52:1579] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@3a17acd4]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -8198,7 +8198,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:45:52:1581] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@257b6c58]
+[2024-12-23 13:45:52:1581] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@257b6c58]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -8293,7 +8293,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:45:52:1584] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@690677de]
+[2024-12-23 13:45:52:1584] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@690677de]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -8388,7 +8388,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:45:52:1588] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@372841d2]
+[2024-12-23 13:45:52:1588] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@372841d2]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -10009,7 +10009,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:46:00:1669] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@1d7af82]
+[2024-12-23 13:46:00:1669] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@1d7af82]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -10104,7 +10104,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:46:00:1672] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@8b1bfdf]
+[2024-12-23 13:46:00:1672] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@8b1bfdf]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -10199,7 +10199,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:46:00:1675] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@779448b8]
+[2024-12-23 13:46:00:1675] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@779448b8]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)
@@ -10294,7 +10294,7 @@ Caused by: org.springframework.beans.factory.BeanNotOfRequiredTypeException: Bea
 	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:362)
 	... 86 common frames omitted
-[2024-12-23 13:46:00:1677] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatControllerTest@9c5d76b]
+[2024-12-23 13:46:00:1677] [32m[Test worker][0;39m [] [31mWARN [0;39m o.s.t.c.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener] to prepare test instance [shoppingmall.web.api.chat.ChatRoomControllerTest@9c5d76b]
 org.springframework.beans.factory.BeanCreationException: Could not inject field: protected org.springframework.test.web.servlet.MockMvc shoppingmall.web.api.support.ControllerTestSupport.mockMvc
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:371)
 	at org.springframework.boot.test.mock.mockito.MockitoPostProcessor.inject(MockitoPostProcessor.java:355)

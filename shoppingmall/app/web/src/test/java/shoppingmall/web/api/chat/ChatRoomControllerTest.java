@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-class ChatControllerTest extends ControllerTestSupport {
+class ChatRoomControllerTest extends ControllerTestSupport {
 
 
     @DisplayName("채팅방을 생성한후, 채팅방ID를 포함한 경로로 HTTP 302 요청을 보낸다.")
