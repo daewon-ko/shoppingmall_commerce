@@ -12,16 +12,18 @@ import org.springframework.web.bind.annotation.RestController;
 import shoppingmall.common.ApiResponse;
 import shoppingmall.web.api.category.dto.request.CategoryRequestDto;
 import shoppingmall.domainrdb.category.service.CategoryService;
+import shoppingmall.web.api.category.usecase.CategoryUsecase;
 
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class CategoryController {
 
-    private final CategoryService categoryService;
+    private final CategoryUsecase categoryUsecase;
+
     @PostMapping("/category")
     public ResponseEntity<ApiResponse<String>> createCategory(@RequestBody @Valid CategoryRequestDto categoryRequestDto) {
-        categoryService.createCategory(categoryRequestDto);
+        categoryUsecase.createCategory(categoryRequestDto);
         ApiResponse<String> response = ApiResponse.of(HttpStatus.CREATED, "CREATED");
         return new ResponseEntity<>(response, HttpStatus.CREATED);
 

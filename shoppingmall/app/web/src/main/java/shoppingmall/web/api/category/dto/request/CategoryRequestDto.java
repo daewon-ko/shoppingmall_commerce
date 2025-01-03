@@ -1,6 +1,5 @@
 package shoppingmall.web.api.category.dto.request;
 
-import shoppingmall.domainrdb.category.entity.Category;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -19,12 +18,6 @@ public class CategoryRequestDto {
         this.categoryName = categoryName;
     }
 
-//    public CategoryRequestDto() {
-//    }
 
-    public Category toEntity() {
-        return Category.builder()
-                .name(getCategoryName())
-                .build();
-    }
+
 }
