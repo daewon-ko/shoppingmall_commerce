@@ -27,7 +27,7 @@ public class S3Uploader {
     private String bucket;
 
 
-    public List<String> upload(List<MultipartFile> files) throws IOException{
+    public List<String> upload(List<MultipartFile> files) throws IOException {
 
         List<String> uploadUrls = new ArrayList<>();
 
@@ -35,13 +35,11 @@ public class S3Uploader {
             validFile(file);
             String fileName = validAndGetFileName(file.getOriginalFilename());
             String fileKey = getFileKey(fileName);
-            try {
-                ObjectMetadata objectMetadata = generateObjectMetadata(
-                        extractExt(fileName), file.getSize());
-                uploadUrls.add(s3Template.upload(bucket, fileKey, file.getInputStream(), objectMetadata).getURL().toString());
-            } catch (IOException ex) {
 
-            }
+            ObjectMetadata objectMetadata = generateObjectMetadata(
+                    extractExt(fileName), file.getSize());
+            uploadUrls.add(s3Template.upload(bucket, fileKey, file.getInputStream(), objectMetadata).getURL().toString());
+
         }
 
         return uploadUrls;
