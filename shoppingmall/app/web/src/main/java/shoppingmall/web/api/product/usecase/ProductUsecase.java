@@ -9,7 +9,7 @@ import shoppingmall.domainservice.domain.product.service.ProductCreateService;
 import shoppingmall.domainservice.domain.product.service.ProductImageService;
 import shoppingmall.web.api.product.dto.request.ProductCreateRequestDto;
 import shoppingmall.web.api.product.dto.response.ProductCreateResponseDto;
-import shoppingmall.web.api.product.mapper.ProductMapper;
+import shoppingmall.web.common.mapper.ProductMapper;
 import shoppingmall.web.common.annotataion.Usecase;
 
 import java.util.List;
@@ -36,13 +36,7 @@ public class ProductUsecase {
 
         final List<Long> imageIds = productImageService.saveProductImages(multipartFiles, productId);
 
-        return ProductCreateResponseDto.builder()
-                .id(productId)
-                .categoryName(productDomain.getCategoryDomain().getName())
-                .price(productDomain.getPrice())
-                .name(productDomain.getName())
-                .imageIds(imageIds)
-                .build();
+        return ProductMapper.toResponseDto(productDomain, productId, imageIds);
 
     }
 

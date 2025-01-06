@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import shoppingmall.common.ApiResponse;
 import shoppingmall.domainrdb.image.entity.FileType;
-import shoppingmall.domainrdb.product.dto.response.ProductCreateResponseDto;
 import shoppingmall.domainrdb.product.dto.response.ProductQueryResponse;
 import shoppingmall.domainrdb.product.dto.response.ProductUpdateResponseDto;
 import shoppingmall.web.api.product.dto.request.ProductCreateRequestDto;
 import shoppingmall.web.api.product.dto.request.ProductSearchCondition;
+import shoppingmall.web.api.product.dto.response.ProductCreateResponseDto;
 import shoppingmall.web.api.product.usecase.ProductUsecase;
 import shoppingmall.web.common.argument.Login;
 
