@@ -2,10 +2,9 @@ package shoppingmall.domainrdb.product.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import shoppingmall.domainrdb.domain.product.dto.response.ProductCreateResponseDto;
+import shoppingmall.domainrdb.category.entity.Category;
 import shoppingmall.domainrdb.common.BaseEntity;
-import shoppingmall.domainrdb.domain.category.entity.Category;
-import shoppingmall.domainrdb.domain.user.entity.User;
+import shoppingmall.domainrdb.user.entity.User;
 
 
 @Entity
@@ -18,7 +17,7 @@ public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
-    Long id;
+    private Long id;
 
     @Column(name = "product_name")
     private String name;
@@ -43,16 +42,6 @@ public class Product extends BaseEntity {
         this.category = category;
     }
 
-
-    public ProductCreateResponseDto toDto() {
-        return ProductCreateResponseDto.builder()
-                .id(getId())
-                .name(getName())
-                .price(getPrice())
-                .categoryId(getCategory().getId())
-                .categoryName(getCategory().getName())
-                .build();
-    }
 
     public Product updateDetails(String name, int price) {
         this.name = name;

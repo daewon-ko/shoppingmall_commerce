@@ -1,5 +1,6 @@
 package shoppingmall.domainrdb.cart.service;
 
+import org.springframework.stereotype.Service;
 import shoppingmall.domainrdb.cart.entity.Cart;
 import shoppingmall.domainrdb.cart.entity.CartProduct;
 import shoppingmall.domainrdb.cart.repository.CartProductRepository;

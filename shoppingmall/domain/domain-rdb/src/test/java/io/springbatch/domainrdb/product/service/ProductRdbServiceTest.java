@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.tuple;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyLong;
 
-class ProductServiceTest extends IntegrationTestSupport {
+class ProductRdbServiceTest extends IntegrationTestSupport {
 
     @Autowired
     @InjectMocks

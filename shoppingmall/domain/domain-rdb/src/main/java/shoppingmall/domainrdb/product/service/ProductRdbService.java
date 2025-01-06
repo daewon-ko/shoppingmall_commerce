@@ -4,30 +4,25 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-import shoppingmall.domainrdb.domain.product.dto.request.ProductCreateRequestDto;
-import shoppingmall.domainrdb.domain.product.dto.response.ProductCreateResponseDto;
-import shoppingmall.domainrdb.domain.product.dto.response.ProductUpdateResponseDto;
+import shoppingmall.domainrdb.category.CategoryDomain;
+import shoppingmall.domainrdb.category.entity.Category;
+import shoppingmall.domainrdb.category.repository.CategoryRepository;
+import shoppingmall.domainrdb.common.annotation.DomainService;
+import shoppingmall.domainrdb.image.entity.Image;
+import shoppingmall.domainrdb.image.repository.ImageRepository;
+import shoppingmall.domainrdb.image.service.ImageRdbService;
+import shoppingmall.domainrdb.mapper.ProductEntityMapper;
+import shoppingmall.domainrdb.product.ProductDomain;
 import shoppingmall.domainrdb.product.repository.ProductQueryRepository;
 import shoppingmall.domainrdb.product.repository.ProductRepository;
-import shoppingmall.domainrdb.domain.category.entity.Category;
-import shoppingmall.domainrdb.domain.category.repository.CategoryRepository;
-import shoppingmall.domainrdb.domain.image.dto.response.ImageResponseDto;
-import shoppingmall.domainrdb.domain.image.entity.FileType;
-import shoppingmall.domainrdb.domain.image.entity.Image;
-import shoppingmall.domainrdb.domain.image.repository.ImageRepository;
-import shoppingmall.domainrdb.domain.image.service.ImageService;
-import shoppingmall.domainrdb.domain.product.dto.request.ProductUpdateRequestDto;
-import shoppingmall.domainrdb.domain.product.dto.response.ProductQueryResponseDto;
 import shoppingmall.domainrdb.product.entity.Product;
-import shoppingmall.domainrdb.product.entity.ProductSearchCondition;
-import shoppingmall.domainrdb.domain.user.entity.User;
-import shoppingmall.domainrdb.domain.user.service.UserService;
 import shoppingmall.common.exception.ApiException;
 import shoppingmall.common.exception.domain.CategoryErrorCode;
 import shoppingmall.common.exception.domain.ProductErrorCode;
+import shoppingmall.domainrdb.user.UserDomain;
+import shoppingmall.domainrdb.user.entity.User;
+import shoppingmall.domainrdb.user.service.UserRdbService;
 
 
 import java.time.LocalDateTime;
@@ -36,54 +31,24 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-@Service
+@DomainService
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class ProductService {
+public class ProductRdbService {
     private final ProductRepository productRepository;
     // TODO : Service Layer에서 타 도메인 Repository를 참고하는게 적절한가?
     private final CategoryRepository categoryRepository;
-    private final ImageService imageService;
-    private final UserService userService;
+    private final ImageRdbService imageRdbService;
+    private final UserRdbService userRdbService;
     private final ImageRepository imageRepository;
     private final ProductQueryRepository productQueryRepository;
 
+
     @Transactional
-    public ProductCreateResponseDto createProduct(final ProductCreateRequestDto requestDto, List<MultipartFile> images) {
-        // 1. requestDTO의 imageURL을 변환 및 저장과정
+    public Long createProduct(final ProductDomain productDomain) {
 
-        Category category = categoryRepository.findById(requestDto.getCategoryId()).orElseThrow(() -> new ApiException(CategoryErrorCode.NO_EXIST_CATEGORY));
-
-        // dto -> product entity 변환 필요
-        User seller = userService.findUserByIdAndSeller(requestDto.getSellerId());
-
-        Product product = requestDto.toEntity(category, seller);
-
-        Product savedProduct = productRepository.save(product);
-
-        // 이미지를 파일 타입에 맞춰 저장
-        List<Image> thumbnailImages = new ArrayList<>();
-        List<Image> detailImages = new ArrayList<>();
-
-        // 첫 번째 이미지는 썸네일로 처리
-        if (!images.isEmpty()) {
-            MultipartFile thumbnailImage = images.get(0);
-            thumbnailImages = imageService.saveImage(List.of(thumbnailImage), savedProduct.getId(), FileType.PRODUCT_THUMBNAIL);
-
-            // 나머지 이미지는 상세 이미지로 처리
-            List<MultipartFile> detailImageFiles = images.subList(1, images.size());
-            if (!detailImageFiles.isEmpty()) {
-                detailImages = imageService.saveImage(detailImageFiles, savedProduct.getId(), FileType.PRODUCT_DETAIL_IMAGE);
-            }
-        }
-
-
-        // 저장된 이미지 ID 리스트를 생성
-        List<Long> imageIds = new ArrayList<>();
-        imageIds.addAll(thumbnailImages.stream().map(Image::getId).toList());
-        imageIds.addAll(detailImages.stream().map(Image::getId).toList());
-
-        return ProductCreateResponseDto.of(product, category.getId(), imageIds);
+        Product savedProduct = productRepository.save(ProductEntityMapper.createProductEntity(productDomain));
+        return savedProduct.getId();
 
     }
 
@@ -95,7 +60,7 @@ public class ProductService {
         List<ProductQueryResponseDto> productDtos = new ArrayList<>();
 
         for (Product product : products) {
-            List<ImageResponseDto> images = imageService.getImages(product.getId(), productSearchCond.getFileTypes());
+            List<ImageResponseDto> images = imageRdbService.getImages(product.getId(), productSearchCond.getFileTypes());
             ProductQueryResponseDto productQueryResponseDto = ProductQueryResponseDto.of(product, images);
             productDtos.add(productQueryResponseDto);
         }
@@ -137,12 +102,12 @@ public class ProductService {
         // 삭제할 이미지가 존재한다면, 이미지를 삭제한다.
         if (!requestDto.getImagesToDelete().isEmpty()) {
             List<FileType> filetypes = List.of(FileType.PRODUCT_THUMBNAIL, FileType.PRODUCT_DETAIL_IMAGE);
-            imageService.deleteImages(product.getId(), filetypes);
+            imageRdbService.deleteImages(product.getId(), filetypes);
         }
 
         // 썸네일 이미지가 있으면, 추가한다.
         if (thumbnailImage != null && !thumbnailImage.isEmpty()) {
-            List<Image> savedImages = imageService.saveImage(List.of(thumbnailImage), product.getId(), FileType.PRODUCT_THUMBNAIL);
+            List<Image> savedImages = imageRdbService.saveImage(List.of(thumbnailImage), product.getId(), FileType.PRODUCT_THUMBNAIL);
             imageIds = savedImages.stream()
                     .map(i -> i.getId())
                     .collect(toList());
@@ -150,7 +115,7 @@ public class ProductService {
 
         // 상세이미지가 있으면, 추가한다.
         if (detailImages != null && !detailImages.isEmpty()) {
-            List<Image> savedImages = imageService.saveImage(detailImages, product.getId(), FileType.PRODUCT_DETAIL_IMAGE);
+            List<Image> savedImages = imageRdbService.saveImage(detailImages, product.getId(), FileType.PRODUCT_DETAIL_IMAGE);
             imageIds.addAll(savedImages.stream().map(Image::getId).collect(toList()));
         }
 

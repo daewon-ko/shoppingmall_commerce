@@ -1,10 +1,10 @@
-package shoppingmall.domainrdb.product.entity;
+package shoppingmall.web.api.product.dto.request;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.Builder;
 import lombok.Getter;
-import shoppingmall.domainrdb.domain.image.entity.FileType;
+import shoppingmall.domainrdb.image.entity.FileType;
 
 import java.time.LocalDateTime;
 import java.util.List;

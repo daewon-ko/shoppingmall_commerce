@@ -3,8 +3,8 @@ package shoppingmall.domainrdb.image.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import shoppingmall.domainrdb.domain.image.entity.FileType;
-import shoppingmall.domainrdb.domain.image.entity.Image;
+import shoppingmall.domainrdb.image.entity.FileType;
+import shoppingmall.domainrdb.image.entity.Image;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,10 +1,9 @@
-package shoppingmall.domainrdb.product.dto.response;
+package shoppingmall.web.api.product.dto.response;
 
-import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Getter;
-import shoppingmall.domainrdb.domain.image.dto.response.ImageResponseDto;
-import shoppingmall.domainrdb.domain.product.entity.Product;
+import shoppingmall.domainrdb.image.dto.response.ImageResponseDto;
+import shoppingmall.domainrdb.product.entity.Product;
 
 import java.util.List;
 
@@ -18,7 +17,6 @@ public class ProductQueryResponseDto {
     private List<ImageResponseDto> imageResponseDtos;
 
     @Builder
-    @QueryProjection
     public ProductQueryResponseDto(Long id, String name, int price, Long categoryId, String categoryName, List<ImageResponseDto> imageResponseDtos) {
         this.id = id;
         this.name = name;

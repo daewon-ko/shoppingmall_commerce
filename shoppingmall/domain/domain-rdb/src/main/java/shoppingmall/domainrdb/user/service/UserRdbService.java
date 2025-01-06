@@ -2,9 +2,9 @@ package shoppingmall.domainrdb.user.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shoppingmall.common.annotation.DomainService;
+import shoppingmall.domainrdb.common.annotation.DomainService;
 import shoppingmall.domainrdb.user.dto.CreateUserRequestDto;
 import shoppingmall.domainrdb.user.dto.LoginUserRequestDto;
 import shoppingmall.domainrdb.user.entity.User;
@@ -16,7 +16,7 @@ import shoppingmall.common.exception.domain.UserErrorCode;
 @DomainService
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class UserService {
+public class UserRdbService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -56,6 +56,10 @@ public class UserService {
                 .build();
         user = userRepository.save(user);
         return user.getId();
+    }
+
+    public Boolean isExistEmail(String email) {
+        return userRepository.existsByEmail(email);
     }
 
 

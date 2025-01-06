@@ -9,7 +9,6 @@ import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 import shoppingmall.domainrdb.product.entity.Product;
-import shoppingmall.domainrdb.product.entity.ProductSearchCondition;
 
 import java.time.LocalDateTime;
 import java.util.List;

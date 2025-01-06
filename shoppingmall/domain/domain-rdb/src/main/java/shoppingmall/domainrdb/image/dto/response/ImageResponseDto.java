@@ -2,7 +2,7 @@ package shoppingmall.domainrdb.image.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import shoppingmall.domainrdb.domain.image.entity.FileType;
+import shoppingmall.domainrdb.image.entity.FileType;
 
 @Getter
 public class ImageResponseDto {

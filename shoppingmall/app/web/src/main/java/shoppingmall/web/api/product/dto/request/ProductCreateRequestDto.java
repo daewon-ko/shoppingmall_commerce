@@ -1,4 +1,4 @@
-package shoppingmall.domainrdb.product.dto.request;
+package shoppingmall.web.api.product.dto.request;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
@@ -6,15 +6,15 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Builder;
 import lombok.Getter;
-import shoppingmall.domainrdb.domain.category.entity.Category;
-import shoppingmall.domainrdb.domain.product.entity.Product;
-import shoppingmall.domainrdb.domain.user.entity.User;
+import shoppingmall.domainrdb.category.entity.Category;
+import shoppingmall.domainrdb.product.entity.Product;
+import shoppingmall.domainrdb.user.entity.User;
 
 /**
  * 상품을 생성을 요청하는 DTO입니다.
  */
-@Getter
 @Builder
+@Getter
 public class ProductCreateRequestDto {
     @NotBlank(message = "이름은 공백이 될 수 없습니다.")
     private String name;
@@ -23,10 +23,9 @@ public class ProductCreateRequestDto {
     private int price;
 
     @NotNull(message = "카테고리 번호를 입력해주세요.")
-    private Long categoryId;
+    private String cagegoryName;
 
-    @NotNull(message = "판매자의 id를 입력해주세요.")
-    private Long sellerId;
+    private String sellerEmail;
 
 
     public Product toEntity(final Category category, User user) {

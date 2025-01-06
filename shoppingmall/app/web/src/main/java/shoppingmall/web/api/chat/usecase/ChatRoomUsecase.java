@@ -2,10 +2,10 @@ package shoppingmall.web.api.chat.usecase;
 
 import lombok.RequiredArgsConstructor;
 import shoppingmall.domainrdb.chat.entity.ChatRoom;
-import shoppingmall.domainrdb.domain.chat.dto.ChatRoomCreateDto;
-import shoppingmall.domainrdb.domain.chat.dto.ChatRoomResponseDto;
 import shoppingmall.domainservice.domain.chatroom.ChatRoomMakeService;
 import shoppingmall.domainservice.domain.chatroom.ChatRoomSearchService;
+import shoppingmall.web.api.chat.dto.ChatRoomCreateDto;
+import shoppingmall.web.api.chat.dto.ChatRoomResponseDto;
 import shoppingmall.web.common.annotataion.Usecase;
 
 import java.util.UUID;

@@ -11,9 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-import shoppingmall.domainrdb.domain.chat.dto.ChatRoomCreateDto;
-import shoppingmall.domainrdb.domain.chat.dto.ChatRoomResponseDto;
-import shoppingmall.domainrdb.domain.chat.service.ChatRoomService;
+
+import shoppingmall.web.api.chat.dto.ChatRoomCreateDto;
+import shoppingmall.web.api.chat.dto.ChatRoomResponseDto;
 import shoppingmall.web.api.chat.usecase.ChatRoomUsecase;
 
 import java.net.URI;

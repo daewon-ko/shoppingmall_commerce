@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import shoppingmall.domainrdb.user.dto.CreateUserRequestDto;
 import shoppingmall.domainrdb.user.dto.LoginUserRequestDto;
 import shoppingmall.domainrdb.user.repository.UserRepository;
-import shoppingmall.domainrdb.user.service.UserService;
+import shoppingmall.domainrdb.user.service.UserRdbService;
 
 
 @Controller
@@ -22,7 +22,7 @@ import shoppingmall.domainrdb.user.service.UserService;
 @Slf4j
 @RequestMapping("/api/v1")
 public class AuthController {
-    private final UserService userService;
+    private final UserRdbService userRdbService;
     private final UserRepository userRepository;
 
     @GetMapping("/auth/login")
@@ -49,14 +49,14 @@ public class AuthController {
     @PostMapping("/auth/register")
     public ResponseEntity<Long> singUp(@Valid @RequestBody CreateUserRequestDto createUserRequest) {
 
-        Long registeredUserId = userService.registerBuyer(createUserRequest);
+        Long registeredUserId = userRdbService.registerBuyer(createUserRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(registeredUserId);
     }
 
     @PostMapping("/auth/seller/register")
     public String singUpSeller(@Valid @RequestBody CreateUserRequestDto createUserRequest) {
 
-        userService.registerSeller(createUserRequest);
+        userRdbService.registerSeller(createUserRequest);
         return "index";
     }
 }

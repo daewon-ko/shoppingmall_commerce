@@ -11,8 +11,6 @@ import shoppingmall.domainrdb.chat.entity.ChatRoom;
 import shoppingmall.domainrdb.chat.repository.ChatRoomRepository;
 
 import shoppingmall.domainrdb.common.annotation.DomainService;
-import shoppingmall.domainrdb.message.dto.ChatMessageRequestDto;
-import shoppingmall.domainrdb.message.dto.ChatMessageResponseDto;
 import shoppingmall.domainrdb.message.entity.Message;
 import shoppingmall.domainrdb.message.repository.MessageRepository;
 import shoppingmall.domainrdb.user.entity.User;
@@ -29,13 +27,11 @@ public class MessageService {
     private final UserRepository userRepository;
 
     @Transactional
-    public ChatMessageResponseDto saveMessage(ChatMessageRequestDto messageDto, String roomId) {
-        String content = messageDto.getContent();
+    public void  saveMessage(final String content, final Long senderId, final String roomId) {
         ChatRoom chatRoom = chatRoomRepository.findById(UUID.fromString(roomId))
                 .orElseThrow(() -> new ApiException(ChatErrorCode.NO_EXIST_CHATROOM));
 
 
-        Long senderId = messageDto.getSenderId();
         User user = userRepository.findById(senderId).orElseThrow(() -> new ApiException(UserErrorCode.NO_EXIST_USER));
         Message message = Message.builder()
                 .chatRoom(chatRoom)
@@ -44,13 +40,12 @@ public class MessageService {
                 .build();
 
         Message savedMessage = messageRepository.save(message);
-        return ChatMessageResponseDto.from(savedMessage);
+
 
     }
 
-    public Page<ChatMessageResponseDto> getMessageByRoomId(UUID roomId, Pageable pageable) {
+    public Page<Message> getMessageByRoomId(UUID roomId, Pageable pageable) {
         ChatRoom chatRoom = chatRoomRepository.findById(roomId).orElseThrow(() -> new ApiException(ChatErrorCode.NO_EXIST_CHATROOM));
-        return messageRepository.findByChatRoomOrderByCreatedAtDesc(chatRoom, pageable)
-                .map(ChatMessageResponseDto::from);
+        return messageRepository.findByChatRoomOrderByCreatedAtDesc(chatRoom, pageable);
     }
 }

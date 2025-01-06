@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import shoppingmall.common.ApiResponse;
-import shoppingmall.domainrdb.message.dto.ChatMessageResponseDto;
+import shoppingmall.web.api.message.dto.ChatMessageResponseDto;
 import shoppingmall.web.api.message.usecase.MessageUsecase;
 
 import java.util.UUID;

@@ -9,9 +9,8 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import shoppingmall.domainrdb.message.dto.ChatMessageRequestDto;
 import shoppingmall.domainrdb.message.entity.MessageType;
-import shoppingmall.domainrdb.message.service.MessageService;
+import shoppingmall.web.api.message.dto.ChatMessageRequestDto;
 import shoppingmall.web.api.message.usecase.MessageUsecase;
 
 import java.net.URI;

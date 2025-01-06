@@ -8,7 +8,7 @@ import shoppingmall.domainrdb.domain.category.repository.CategoryRepository;
 import shoppingmall.domainrdb.support.IntegrationTestSupport;
 
 
-class CategoryServiceTest extends IntegrationTestSupport {
+class CategoryRdbServiceTest extends IntegrationTestSupport {
 
     @Autowired
     CategoryService categoryService;

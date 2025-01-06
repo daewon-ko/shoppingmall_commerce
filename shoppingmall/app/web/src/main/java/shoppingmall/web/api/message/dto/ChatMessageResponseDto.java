@@ -1,4 +1,4 @@
-package shoppingmall.domainrdb.message.dto;
+package shoppingmall.web.api.message.dto;
 
 
 import lombok.Builder;

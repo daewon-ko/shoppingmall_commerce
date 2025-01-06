@@ -1,4 +1,4 @@
-package shoppingmall.web.api.product;
+package shoppingmall.web.api.product.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -9,14 +9,13 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import shoppingmall.common.ApiResponse;
-import shoppingmall.domainrdb.domain.image.entity.FileType;
-import shoppingmall.domainrdb.product.dto.request.ProductCreateRequestDto;
-import shoppingmall.domainrdb.product.dto.request.ProductUpdateRequestDto;
+import shoppingmall.domainrdb.image.entity.FileType;
 import shoppingmall.domainrdb.product.dto.response.ProductCreateResponseDto;
-import shoppingmall.domainrdb.product.dto.response.ProductQueryResponseDto;
+import shoppingmall.domainrdb.product.dto.response.ProductQueryResponse;
 import shoppingmall.domainrdb.product.dto.response.ProductUpdateResponseDto;
-import shoppingmall.domainrdb.product.entity.ProductSearchCondition;
-import shoppingmall.domainrdb.product.service.ProductService;
+import shoppingmall.web.api.product.dto.request.ProductCreateRequestDto;
+import shoppingmall.web.api.product.dto.request.ProductSearchCondition;
+import shoppingmall.web.api.product.usecase.ProductUsecase;
 import shoppingmall.web.common.argument.Login;
 
 import java.time.LocalDateTime;
@@ -26,17 +25,17 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
 public class ProductController {
-    private final ProductService productService;
+    private final ProductUsecase productUsecase;
 
     @PostMapping(value = "/product", consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ApiResponse<ProductCreateResponseDto> createProduct(@Login String email,  @RequestPart("requestDto") @Valid ProductCreateRequestDto requestDto, @RequestPart("images") List<MultipartFile> images) {
-        ProductCreateResponseDto response = productService.createProduct(requestDto, images);
+    public ApiResponse<ProductCreateResponseDto> createProduct(@Login String email, @RequestPart("requestDto") @Valid ProductCreateRequestDto requestDto, @RequestPart("images") List<MultipartFile> images) {
+        ProductCreateResponseDto response = productUsecase.createProduct(requestDto, images);
 
         return ApiResponse.ok(response);
     }
 
     @GetMapping("/products")
-    public ApiResponse<Slice<ProductQueryResponseDto>> getAllProductList
+    public ApiResponse<Slice<ProductQueryResponse>> getAllProductList
             (@RequestParam(required = false)Long categoryId,
              @RequestParam(required = false)Integer minPrice,
              @RequestParam(required = false)Integer maxPrice,
@@ -58,7 +57,7 @@ public class ProductController {
 
 
 
-        Slice<ProductQueryResponseDto> result = productService.getAllProductList(searchCond, pageable);
+        Slice<ProductQueryResponse> result = productService.getAllProductList(searchCond, pageable);
         return ApiResponse.of(HttpStatus.OK, result);
     }
 

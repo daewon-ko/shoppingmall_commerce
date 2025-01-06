@@ -23,7 +23,7 @@ class CategoryControllerTest extends ControllerTestSupport {
                 .categoryName("test")
                 .build();
 
-        Mockito.when(categoryService.createCategory(any(CategoryRequestDto.class)))
+        Mockito.when(categoryRdbService.createCategory(any(CategoryRequestDto.class)))
                 .thenReturn(1L);
 
 
@@ -50,7 +50,7 @@ class CategoryControllerTest extends ControllerTestSupport {
         CategoryRequestDto createCategoryRequest = CategoryRequestDto.builder()
                 .build();
 
-        Mockito.when(categoryService.createCategory(any(CategoryRequestDto.class)))
+        Mockito.when(categoryRdbService.createCategory(any(CategoryRequestDto.class)))
                 .thenReturn(1L);
 
 

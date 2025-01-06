@@ -26,6 +26,23 @@ public class CartUseCase {
         cartService.createCart(cartRequestDto.getUserId());
     }
 
+    /**
+     * AddcartProductResposnePresentation
+     * -> Controller (User에게 나갈 응답 객체구나)
+     *
+     *
+     * POJO를 domain rdb 혹은 domain-service에서 받아서
+     *
+     * Controller에게 응답할 DTO를 컨버팅(?)을 이 Layer에서 해준다?
+     *
+     * Usecase의 응답값은 Presentation
+     *
+     *
+     * Service 끼리 메서드를 호출할 수도 있는데, 이 메서드 호출하는 것을 POJO를 넘기는건 별로
+     * domain-ser
+     * @param cartRequestDto
+     * @return
+     */
     @Transactional
     public List<AddCartProductResponseDto> addProductsToCart(final AddCartRequestDto cartRequestDto) {
         Long cartId = cartRequestDto.getCartId();

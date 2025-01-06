@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import shoppingmall.common.ApiResponse;
 import shoppingmall.web.api.category.dto.request.CategoryRequestDto;
-import shoppingmall.domainrdb.category.service.CategoryService;
 import shoppingmall.web.api.category.usecase.CategoryUsecase;
 
 @RestController

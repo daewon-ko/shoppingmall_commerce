@@ -13,9 +13,8 @@ import org.springframework.mock.web.MockMultipartFile;
 import shoppingmall.domainrdb.product.dto.request.ProductCreateRequestDto;
 import shoppingmall.domainrdb.product.dto.request.ProductUpdateRequestDto;
 import shoppingmall.domainrdb.product.dto.response.ProductCreateResponseDto;
-import shoppingmall.domainrdb.product.dto.response.ProductQueryResponseDto;
+import shoppingmall.domainrdb.product.dto.response.ProductQueryResponse;
 import shoppingmall.domainrdb.product.dto.response.ProductUpdateResponseDto;
-import shoppingmall.domainrdb.product.entity.ProductSearchCondition;
 import shoppingmall.web.api.support.ControllerTestSupport;
 
 import java.nio.charset.StandardCharsets;
@@ -155,14 +154,14 @@ class ProductControllerTest extends ControllerTestSupport {
     void getAllProducts() throws Exception {
 
         //given
-        ProductQueryResponseDto response1 = ProductQueryResponseDto.builder()
+        ProductQueryResponse response1 = ProductQueryResponse.builder()
                 .name("상품A")
                 .categoryId(1L)
                 .price(10000)
                 .categoryName("카테고리A")
                 .build();
 
-        ProductQueryResponseDto response2 = ProductQueryResponseDto.builder()
+        ProductQueryResponse response2 = ProductQueryResponse.builder()
                 .name("상품B")
                 .categoryId(1L)
                 .price(5000)
@@ -172,7 +171,7 @@ class ProductControllerTest extends ControllerTestSupport {
 
         Pageable pageRequest = PageRequest.of(0, 10);
 
-        Mockito.when(productService.getAllProductList(Mockito.any(ProductSearchCondition.class), Mockito.any(PageRequest.class)))
+        Mockito.when(productRdbService.getAllProductList(Mockito.any(ProductSearchCondition.class), Mockito.any(PageRequest.class)))
                 .thenReturn(new SliceImpl<>(List.of(response1, response2), pageRequest, false));
 
         //when, then
@@ -211,7 +210,7 @@ class ProductControllerTest extends ControllerTestSupport {
                 .images(List.of(2L, 3L))
                 .build();
 
-        Mockito.when(productService.updateProduct(Mockito.anyLong(), Mockito.any(ProductUpdateRequestDto.class), Mockito.any(), Mockito.anyList()))
+        Mockito.when(productRdbService.updateProduct(Mockito.anyLong(), Mockito.any(ProductUpdateRequestDto.class), Mockito.any(), Mockito.anyList()))
                 .thenReturn(updateResponseDto);
 
 
@@ -243,7 +242,7 @@ class ProductControllerTest extends ControllerTestSupport {
 
         //given
         Long productId = 1L;
-        Mockito.doNothing().when(productService).deleteProduct(productId);
+        Mockito.doNothing().when(productRdbService).deleteProduct(productId);
 
         //when, then
         mockMvc.perform(

@@ -6,9 +6,12 @@ import shoppingmall.domainrdb.category.entity.Category;
 import shoppingmall.domainrdb.category.repository.CategoryRepository;
 import shoppingmall.domainrdb.common.annotation.DomainService;
 
+import java.util.Optional;
+
 @DomainService
 @RequiredArgsConstructor
-public class CategoryService {
+@Transactional(readOnly = true)
+public class CategoryRdbService {
     private final CategoryRepository categoryRepository;
 
     @Transactional
@@ -20,4 +23,12 @@ public class CategoryService {
         return savedCategory.getId();
 
     }
+
+    public Boolean findByCategoryName(final String categoryName) {
+
+        return categoryRepository.existsByName(categoryName);
+    }
+
+
+
 }

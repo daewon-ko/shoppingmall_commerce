@@ -21,7 +21,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static shoppingmall.domainrdb.support.TestFixture.createUser;
 
-class UserServiceTest extends IntegrationTestSupport {
+class UserRdbServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private UserService userService;

@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.*;
 import static shoppingmall.domainrdb.support.TestFixture.*;
 
 
-class ImageServiceTest extends IntegrationTestSupport {
+class ImageRdbServiceTest extends IntegrationTestSupport {
 
     //TODO : IntegrationTest를 상속받는 이유가 없어짐
     /**

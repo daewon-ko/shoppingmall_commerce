@@ -29,5 +29,11 @@ public class Category extends BaseEntity {
                 .name(name).build();
 
     }
+
+    public void validateCategoryName(String name) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("카테고리 이름은 null이거나 빈 문자열이 될 수 없습니다.");
+        }
+    }
 }
 
