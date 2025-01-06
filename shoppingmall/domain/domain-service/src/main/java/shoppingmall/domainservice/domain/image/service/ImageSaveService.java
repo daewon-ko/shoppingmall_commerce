@@ -8,9 +8,7 @@ import shoppingmall.common.exception.infra.StorageErrorCode;
 import shoppingmall.domainrdb.common.annotation.DomainService;
 import shoppingmall.domainrdb.image.ImageDomain;
 import shoppingmall.domainrdb.image.entity.FileType;
-import shoppingmall.domainrdb.image.entity.Image;
 import shoppingmall.domainrdb.image.service.ImageRdbService;
-import shoppingmall.domainservice.mapper.ImageEntityMapper;
 
 import java.io.IOException;
 import java.util.List;

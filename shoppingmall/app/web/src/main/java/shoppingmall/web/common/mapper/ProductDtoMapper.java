@@ -6,11 +6,11 @@ import shoppingmall.web.api.product.dto.response.ProductCreateResponseDto;
 
 import java.util.List;
 
-public abstract class ProductMapper {
+public abstract class ProductDtoMapper {
 
 
     public static ProductDomain toProduct(final ProductCreateRequestDto requestDto) {
-        return new ProductDomain(requestDto.getName(), requestDto.getPrice(), CategoryMapper.toCategoryDomain(requestDto.getCagegoryName()), UserMapper.toUserDomain(requestDto.getSellerEmail()));
+        return new ProductDomain(requestDto.getName(), requestDto.getPrice(), CategoryDtoMapper.toCategoryDomain(requestDto.getCagegoryName()), UserDtoMapper.toUserDomain(requestDto.getSellerEmail()));
     }
 
 

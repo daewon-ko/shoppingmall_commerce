@@ -11,7 +11,6 @@ import shoppingmall.domainrdb.category.service.CategoryRdbService;
 import shoppingmall.domainrdb.common.annotation.DomainService;
 import shoppingmall.domainrdb.product.service.ProductRdbService;
 import shoppingmall.domainrdb.user.service.UserRdbService;
-import shoppingmall.domainservice.mapper.ProductEntityMapper;
 
 @DomainService
 @RequiredArgsConstructor
