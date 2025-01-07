@@ -62,24 +62,26 @@ public class ProductController {
     }
 
     @PutMapping("/product/{id}")
-    public ApiResponse<ProductUpdateResponseDto> updateProduct(@PathVariable("id") Long id,
+    public ApiResponse<Void> updateProduct(@PathVariable("id") Long id,
                                                                @RequestPart("requestDto") @Valid ProductUpdateRequestDto requestDto,
                                                                @RequestPart(value = "detailImages", required = false) List<MultipartFile> detailImages,
                                                                @RequestPart(value = "thumbnailImage", required = false) MultipartFile thumbnailImage) { // 상세 이미지들
 
-
-        ProductUpdateResponseDto productUpdateResponseDto = productService.updateProduct(id, requestDto, thumbnailImage, detailImages);
-        return ApiResponse.of(HttpStatus.OK, productUpdateResponseDto);
+        productUsecase.updateProducts(id, requestDto, thumbnailImage, detailImages);
+        return ApiResponse.of(HttpStatus.OK, null);
 
     }
 
     // TODO : Data를 넘겨줄떄 jsonIncldude로 null을 무시한다고해도 아래와 같은 방식이 적합할까?
     @DeleteMapping("/product/{id}")
     public ApiResponse<Void> deleteProduct(@PathVariable("id") Long id) {
-        productService.deleteProduct(id);
+        productUsecase.deleteProduct(id);
         return ApiResponse.of(HttpStatus.OK, null);
     }
 
+    /**
+     * 썸네일 이미지
+     */
 //    @GetMapping("/product/{id}/image")
 
 }

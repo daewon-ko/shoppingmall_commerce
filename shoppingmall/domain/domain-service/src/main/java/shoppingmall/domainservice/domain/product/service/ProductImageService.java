@@ -5,12 +5,16 @@ import org.springframework.web.multipart.MultipartFile;
 import shoppingmall.domainrdb.common.annotation.DomainService;
 import shoppingmall.domainrdb.image.ImageDomain;
 import shoppingmall.domainrdb.image.entity.FileType;
+import shoppingmall.domainrdb.image.entity.Image;
 import shoppingmall.domainrdb.product.ProductDomain;
+import shoppingmall.domainservice.domain.image.service.ImageDeleteService;
 import shoppingmall.domainservice.domain.image.service.ImageSaveService;
 import shoppingmall.domainservice.domain.image.service.ImageSearchService;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @DomainService
 @RequiredArgsConstructor
@@ -20,6 +24,7 @@ public class ProductImageService {
     // Image
     private final ImageSaveService imageSaveService;
     private final ImageSearchService imageSearchService;
+    private final ImageDeleteService imageDeleteService;
 
     /**
      * 같은 Layer에서 호출 시에는 DTO로 왔다갔다 하게끔..하는게 좋다.
@@ -69,5 +74,44 @@ public class ProductImageService {
 
     public List<ImageDomain> searchProductImages(final Long productId, final List<FileType> fileTypes) {
         return imageSearchService.searchImage(productId, fileTypes);
+    }
+
+    public void updateImages(final MultipartFile thumbNailImage, final List<MultipartFile> detailImages, final List<Long> imagesToDelete) {
+
+//        List<Long> imageIds = new ArrayList<>();
+//        //
+//        /**
+//         * MultipartFile이 null이 아니라면, 기존에 존재하던 Image를 삭제한 후, 추가한다?
+//         * 위와 같은 로직으로 구성한다면, Image를 단순하게 하나를 추가하거나, 하나만 삭제하거나 하는 등과 같은
+//         * 로직은 따로 Service Layer에서 로직을 별도로 작성해줘야하나?
+//         *
+//         */
+//
+//        // 삭제할 이미지가 존재한다면, 이미지를 삭제한다.
+//        if (!imagesToDelete.isEmpty()) {
+//            List<FileType> filetypes = List.of(FileType.PRODUCT_THUMBNAIL, FileType.PRODUCT_DETAIL_IMAGE);
+//            imageDeleteService.deleteImage(, filetypes);
+//        }
+//
+//        // 썸네일 이미지가 있으면, 추가한다.
+//        if (thumbnailImage != null && !thumbnailImage.isEmpty()) {
+//            List<Image> savedImages = imageRdbService.saveImage(List.of(thumbnailImage), product.getId(), FileType.PRODUCT_THUMBNAIL);
+//            imageIds = savedImages.stream()
+//                    .map(i -> i.getId())
+//                    .collect(toList());
+//        }
+//
+//        // 상세이미지가 있으면, 추가한다.
+//        if (detailImages != null && !detailImages.isEmpty()) {
+//            List<Image> savedImages = imageRdbService.saveImage(detailImages, product.getId(), FileType.PRODUCT_DETAIL_IMAGE);
+//            imageIds.addAll(savedImages.stream().map(Image::getId).collect(toList()));
+//        }
+//
+//        return ProductUpdateResponseDto.builder()
+//                .productId(changedProduct.getId())
+//                .name(changedProduct.getName())
+//                .price(changedProduct.getPrice())
+//                .images(imageIds)
+//                .build();
     }
 }

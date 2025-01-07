@@ -8,6 +8,7 @@ import shoppingmall.domainrdb.user.UserDomain;
 import shoppingmall.web.api.image.dto.response.ImageResponseDto;
 import shoppingmall.web.api.product.dto.request.ProductCreateRequestDto;
 import shoppingmall.web.api.product.dto.request.ProductSearchConditionRequestDto;
+import shoppingmall.web.api.product.dto.request.ProductUpdateRequestDto;
 import shoppingmall.web.api.product.dto.response.ProductCreateResponseDto;
 import shoppingmall.web.api.product.dto.response.ProductQueryResponseDto;
 
@@ -19,6 +20,15 @@ public abstract class ProductDtoMapper {
     public static ProductDomain toProductDomain(final ProductCreateRequestDto requestDto) {
 
         return ProductDomain.createForWrite(requestDto.getName(), requestDto.getPrice(), new CategoryDomain(requestDto.getCagegoryName()), new UserDomain(null, requestDto.getSellerEmail()));
+    }
+
+    public static ProductDomain toProductDomain(final Long productId, final ProductUpdateRequestDto updateRequestDto) {
+        return ProductDomain.builder()
+                .id(productId)
+                .name(updateRequestDto.getName())
+                .price(updateRequestDto.getPrice())
+                .build();
+
     }
 
 

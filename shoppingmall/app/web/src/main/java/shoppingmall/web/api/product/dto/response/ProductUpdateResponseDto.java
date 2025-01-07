@@ -11,13 +11,13 @@ public class ProductUpdateResponseDto {
     private Long productId;
     private String name;
     private int price;
-    private List<Long> images;
+
 
     @Builder
-    private ProductUpdateResponseDto(Long productId, String name, int price, List<Long> images) {
+    private ProductUpdateResponseDto(Long productId, String name, int price) {
         this.productId = productId;
         this.name = name;
         this.price = price;
-        this.images = images;
+
     }
 }

@@ -33,9 +33,7 @@ import static java.util.stream.Collectors.toList;
 public class ProductRdbService {
     private final ProductRepository productRepository;
     // TODO : Service Layer에서 타 도메인 Repository를 참고하는게 적절한가?
-    private final CategoryRepository categoryRepository;
-    private final ImageRdbService imageRdbService;
-    private final UserRdbService userRdbService;
+
     private final ImageRepository imageRepository;
     private final ProductQueryRepository productQueryRepository;
 
@@ -85,48 +83,10 @@ public class ProductRdbService {
 //        return productQueryRepository.findAllByProductId(productSearchCond, pageable);
 
     @Transactional
-    public ProductUpdateResponseDto updateProduct(Long id,
-                                                  ProductUpdateRequestDto requestDto,
-                                                  MultipartFile thumbnailImage,
-                                                  List<MultipartFile> detailImages) {
-        Product product = productRepository.findById(id).orElseThrow(() -> new ApiException(ProductErrorCode.PRODUCT_NOT_FOUND));
-        Product changedProduct = product.updateDetails(requestDto.getName(), requestDto.getPrice());
-        // productRepository를 통하여 Image 객체 조회
-        List<Long> imageIds = new ArrayList<>();
-        //
-        /**
-         * MultipartFile이 null이 아니라면, 기존에 존재하던 Image를 삭제한 후, 추가한다?
-         * 위와 같은 로직으로 구성한다면, Image를 단순하게 하나를 추가하거나, 하나만 삭제하거나 하는 등과 같은
-         * 로직은 따로 Service Layer에서 로직을 별도로 작성해줘야하나?
-         *
-         */
+    public void updateProduct(final ProductDomain productDomain) {
 
-        // 삭제할 이미지가 존재한다면, 이미지를 삭제한다.
-        if (!requestDto.getImagesToDelete().isEmpty()) {
-            List<FileType> filetypes = List.of(FileType.PRODUCT_THUMBNAIL, FileType.PRODUCT_DETAIL_IMAGE);
-            imageRdbService.deleteImages(product.getId(), filetypes);
-        }
-
-        // 썸네일 이미지가 있으면, 추가한다.
-        if (thumbnailImage != null && !thumbnailImage.isEmpty()) {
-            List<Image> savedImages = imageRdbService.saveImage(List.of(thumbnailImage), product.getId(), FileType.PRODUCT_THUMBNAIL);
-            imageIds = savedImages.stream()
-                    .map(i -> i.getId())
-                    .collect(toList());
-        }
-
-        // 상세이미지가 있으면, 추가한다.
-        if (detailImages != null && !detailImages.isEmpty()) {
-            List<Image> savedImages = imageRdbService.saveImage(detailImages, product.getId(), FileType.PRODUCT_DETAIL_IMAGE);
-            imageIds.addAll(savedImages.stream().map(Image::getId).collect(toList()));
-        }
-
-        return ProductUpdateResponseDto.builder()
-                .productId(changedProduct.getId())
-                .name(changedProduct.getName())
-                .price(changedProduct.getPrice())
-                .images(imageIds)
-                .build();
+        Product product = productRepository.findById(productDomain.getId()).orElseThrow(() -> new ApiException(ProductErrorCode.PRODUCT_NOT_FOUND));
+        product.updateDetails(productDomain.getName(), productDomain.getPrice());
 
     }
 

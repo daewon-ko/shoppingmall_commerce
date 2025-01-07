@@ -17,7 +17,7 @@ public class ProductUpdateRequestDto {
     @PositiveOrZero(message = "가격은 음수가 될 수 없습니다.")
     @Max(value = 9999999999L, message = "가격은 9999999999 이상일 수 없습니다.")
     private int price;
-
+    // TODO : 변경할 이미지 번호가 requestDTO에 들어가는 것이 과연 적절할까?
     private List<Long> imagesToDelete = new ArrayList<>();
 
 

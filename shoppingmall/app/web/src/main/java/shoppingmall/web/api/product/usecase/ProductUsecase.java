@@ -9,13 +9,17 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import shoppingmall.domainrdb.image.ImageDomain;
 import shoppingmall.domainrdb.product.ProductDomain;
+import shoppingmall.domainrdb.product.service.ProductRdbService;
 import shoppingmall.domainservice.domain.product.service.ProductCreateService;
 import shoppingmall.domainservice.domain.product.service.ProductImageService;
 import shoppingmall.domainservice.domain.product.service.ProductSearchService;
+import shoppingmall.domainservice.domain.product.service.ProductUpdateService;
 import shoppingmall.web.api.product.dto.request.ProductCreateRequestDto;
 import shoppingmall.web.api.product.dto.request.ProductSearchConditionRequestDto;
+import shoppingmall.web.api.product.dto.request.ProductUpdateRequestDto;
 import shoppingmall.web.api.product.dto.response.ProductCreateResponseDto;
 import shoppingmall.web.api.product.dto.response.ProductQueryResponseDto;
+import shoppingmall.web.api.product.dto.response.ProductUpdateResponseDto;
 import shoppingmall.web.common.mapper.ImageDtoMapper;
 import shoppingmall.web.common.mapper.ProductDtoMapper;
 import shoppingmall.web.common.annotataion.Usecase;
@@ -30,9 +34,9 @@ public class ProductUsecase {
     private final ProductImageService productImageService;
 
     private final ProductSearchService productSearchService;
-//    private final ProductUpdateService productUpdateService;
-//    private final ProductDeleteService productDeleteService;
-
+    private final ProductUpdateService productUpdateService;
+    private final ProductDeleteService productDeleteService;
+    private final ProductRdbService productRdbService;
 
 
     @Transactional
@@ -53,10 +57,7 @@ public class ProductUsecase {
 
     public Slice<ProductQueryResponseDto> getAllProductList(final ProductSearchConditionRequestDto searchConditionRequestDto, final Pageable pageable) {
 
-        // ProductSearchCondition을 Mapper로 변환?
 
-
-        //List<ProductDomain>
         Slice<ProductDomain> productDomains = productSearchService.searchProducts(ProductDtoMapper.toSearchCondition(searchConditionRequestDto), pageable);
 
         // ProductDomain -> ProductResponseDTO
@@ -76,8 +77,13 @@ public class ProductUsecase {
     }
 
 
+    public void updateProducts(final Long productId, final ProductUpdateRequestDto updateRequestDto) {
+        productUpdateService.updateProduct(ProductDtoMapper.toProductDomain(productId, updateRequestDto));
+    }
 
-
+    public void deleteProduct(final Long productId) {
+        productDeleteService.
+    }
 
 
 }
