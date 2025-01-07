@@ -3,8 +3,11 @@ package shoppingmall.domainservice.domain.product.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 import shoppingmall.domainrdb.common.annotation.DomainService;
+import shoppingmall.domainrdb.image.ImageDomain;
 import shoppingmall.domainrdb.image.entity.FileType;
+import shoppingmall.domainrdb.product.ProductDomain;
 import shoppingmall.domainservice.domain.image.service.ImageSaveService;
+import shoppingmall.domainservice.domain.image.service.ImageSearchService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +19,7 @@ public class ProductImageService {
     // ImagePersistService 으로(?) -> DB쪽 가는 것으로 이해가능.
     // Image
     private final ImageSaveService imageSaveService;
+    private final ImageSearchService imageSearchService;
 
     /**
      * 같은 Layer에서 호출 시에는 DTO로 왔다갔다 하게끔..하는게 좋다.
@@ -61,5 +65,9 @@ public class ProductImageService {
         // 저장된 이미지 ID 리스트를 반환
         return imageIds;
 
+    }
+
+    public List<ImageDomain> searchProductImages(final Long productId, final List<FileType> fileTypes) {
+        return imageSearchService.searchImage(productId, fileTypes);
     }
 }

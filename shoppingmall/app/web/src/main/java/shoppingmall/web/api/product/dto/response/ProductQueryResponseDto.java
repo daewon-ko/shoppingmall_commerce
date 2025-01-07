@@ -2,8 +2,8 @@ package shoppingmall.web.api.product.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import shoppingmall.domainrdb.image.dto.response.ImageResponseDto;
-import shoppingmall.domainrdb.product.entity.Product;
+import shoppingmall.domainrdb.product.ProductDomain;
+import shoppingmall.web.api.image.dto.response.ImageResponseDto;
 
 import java.util.List;
 
@@ -27,14 +27,16 @@ public class ProductQueryResponseDto {
     }
 
 
-    public static ProductQueryResponseDto of(Product product, List<ImageResponseDto> imageResponseDtos) {
+    public static ProductQueryResponseDto of(final ProductDomain productDomain,final List<ImageResponseDto> imageResponseDtos, final Long categoryId
+    ) {
         return ProductQueryResponseDto.builder()
-                .id(product.getId())
-                .name(product.getName())
-                .price(product.getPrice())
-                .categoryId(product.getCategory().getId())
-                .categoryName(product.getCategory().getName())
+                .id(productDomain.getId())
+                .name(productDomain.getName())
+                .price(productDomain.getPrice())
+                .categoryId(categoryId) // T
+                .categoryName(productDomain.getCategoryDomain().getName())
                 .imageResponseDtos(imageResponseDtos)
                 .build();
     }
+
 }

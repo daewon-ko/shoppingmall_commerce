@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-public class ProductSearchCondition {
+public class ProductSearchConditionRequestDto {
     private Long categoryId;
     @Min(value = 0L, message = "최소 0원 이상이어야 합니다.")
     private Integer minPrice;
@@ -22,7 +22,7 @@ public class ProductSearchCondition {
     private List<FileType> fileTypes;
 
     @Builder
-    protected ProductSearchCondition(Long categoryId, Integer minPrice, Integer maxPrice, String productName, LocalDateTime startDate, LocalDateTime endDate, List<FileType> fileTypes) {
+    protected ProductSearchConditionRequestDto(Long categoryId, Integer minPrice, Integer maxPrice, String productName, LocalDateTime startDate, LocalDateTime endDate, List<FileType> fileTypes) {
         this.categoryId = categoryId;
         this.minPrice = minPrice;
         this.maxPrice = maxPrice;

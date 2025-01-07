@@ -22,7 +22,7 @@ public class ProductCreateRequestDto {
     @Max(value = 9999999999L, message = "가격은 9999999999 이상일 수 없습니다.")
     private int price;
 
-    @NotNull(message = "카테고리 번호를 입력해주세요.")
+    @NotNull(message = "카테고리 이름을 입력해주세요.")
     private String cagegoryName;
 
     private String sellerEmail;

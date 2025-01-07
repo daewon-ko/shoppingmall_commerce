@@ -8,7 +8,10 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
+import shoppingmall.domainrdb.category.entity.QCategory;
+import shoppingmall.domainrdb.product.dto.request.ProductSearchCondition;
 import shoppingmall.domainrdb.product.entity.Product;
+import shoppingmall.domainrdb.product.entity.QProduct;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,7 +25,7 @@ import static shoppingmall.domainrdb.domain.product.entity.QProduct.product;
 public class ProductQueryRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
-    public Slice<Product> findProductsByCond(ProductSearchCondition productSearchCondition, Pageable pageable) {
+    public Slice<Product> findProductsByCond(final ProductSearchCondition productSearchCondition, Pageable pageable) {
 
 
         List<Product> products = jpaQueryFactory.selectFrom(QProduct.product)

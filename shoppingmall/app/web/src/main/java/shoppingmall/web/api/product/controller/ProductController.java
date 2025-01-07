@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import shoppingmall.common.ApiResponse;
 import shoppingmall.domainrdb.image.entity.FileType;
-import shoppingmall.domainrdb.product.dto.response.ProductQueryResponse;
 import shoppingmall.domainrdb.product.dto.response.ProductUpdateResponseDto;
 import shoppingmall.web.api.product.dto.request.ProductCreateRequestDto;
-import shoppingmall.web.api.product.dto.request.ProductSearchCondition;
+import shoppingmall.web.api.product.dto.request.ProductSearchConditionRequestDto;
+import shoppingmall.web.api.product.dto.request.ProductUpdateRequestDto;
 import shoppingmall.web.api.product.dto.response.ProductCreateResponseDto;
+import shoppingmall.web.api.product.dto.response.ProductQueryResponseDto;
 import shoppingmall.web.api.product.usecase.ProductUsecase;
 import shoppingmall.web.common.argument.Login;
 
@@ -35,7 +36,7 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public ApiResponse<Slice<ProductQueryResponse>> getAllProductList
+    public ApiResponse<Slice<ProductQueryResponseDto>> getAllProductList
             (@RequestParam(required = false)Long categoryId,
              @RequestParam(required = false)Integer minPrice,
              @RequestParam(required = false)Integer maxPrice,
@@ -45,7 +46,7 @@ public class ProductController {
              @RequestParam(required = false) List<FileType> fileType,
              Pageable pageable) {
 
-        ProductSearchCondition searchCond = ProductSearchCondition.builder()
+        ProductSearchConditionRequestDto searchCond = ProductSearchConditionRequestDto.builder()
                 .categoryId(categoryId)
                 .minPrice(minPrice)
                 .maxPrice(maxPrice)
@@ -56,8 +57,7 @@ public class ProductController {
 
 
 
-
-        Slice<ProductQueryResponse> result = productService.getAllProductList(searchCond, pageable);
+        Slice<ProductQueryResponseDto> result = productUsecase.getAllProductList(searchCond, pageable);
         return ApiResponse.of(HttpStatus.OK, result);
     }
 

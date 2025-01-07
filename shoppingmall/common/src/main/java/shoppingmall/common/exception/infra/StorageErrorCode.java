@@ -8,7 +8,7 @@ import shoppingmall.common.exception.ErrorCode;
 
 @Getter
 @RequiredArgsConstructor
-@AllArgsConstructor
+
 public enum StorageErrorCode implements ErrorCode {
     // 400 Bad Request
 //    HttpStatus.BAD_REQUEST

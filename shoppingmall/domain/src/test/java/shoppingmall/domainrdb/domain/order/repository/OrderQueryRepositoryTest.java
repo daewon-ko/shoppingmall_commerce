@@ -1,6 +1,6 @@
 package shoppingmall.domainrdb.domain.order.repository;
 
-import com.querydsl.core.NonUniqueResultException;
+import com.querydsl.NonUniqueResultException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
