@@ -9,17 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import shoppingmall.domainrdb.image.ImageDomain;
 import shoppingmall.domainrdb.product.ProductDomain;
-import shoppingmall.domainrdb.product.service.ProductRdbService;
-import shoppingmall.domainservice.domain.product.service.ProductCreateService;
-import shoppingmall.domainservice.domain.product.service.ProductImageService;
-import shoppingmall.domainservice.domain.product.service.ProductSearchService;
-import shoppingmall.domainservice.domain.product.service.ProductUpdateService;
+import shoppingmall.domainservice.domain.product.service.*;
 import shoppingmall.web.api.product.dto.request.ProductCreateRequestDto;
 import shoppingmall.web.api.product.dto.request.ProductSearchConditionRequestDto;
 import shoppingmall.web.api.product.dto.request.ProductUpdateRequestDto;
 import shoppingmall.web.api.product.dto.response.ProductCreateResponseDto;
 import shoppingmall.web.api.product.dto.response.ProductQueryResponseDto;
-import shoppingmall.web.api.product.dto.response.ProductUpdateResponseDto;
 import shoppingmall.web.common.mapper.ImageDtoMapper;
 import shoppingmall.web.common.mapper.ProductDtoMapper;
 import shoppingmall.web.common.annotataion.Usecase;
@@ -32,11 +27,9 @@ import java.util.List;
 public class ProductUsecase {
     private final ProductCreateService productCreateService;
     private final ProductImageService productImageService;
-
     private final ProductSearchService productSearchService;
     private final ProductUpdateService productUpdateService;
     private final ProductDeleteService productDeleteService;
-    private final ProductRdbService productRdbService;
 
 
     @Transactional
@@ -81,8 +74,18 @@ public class ProductUsecase {
         productUpdateService.updateProduct(ProductDtoMapper.toProductDomain(productId, updateRequestDto));
     }
 
+    public void updateProductThumbNailImage(final Long productId, final MultipartFile multipartFile) {
+        productImageService.updateThumbNailImage(productId, multipartFile);
+
+
+    }
+
+
+    @Transactional
     public void deleteProduct(final Long productId) {
-        productDeleteService.
+        productDeleteService.deleteProduct(productId);
+        productImageService.deleteImage(productId);
+
     }
 
 

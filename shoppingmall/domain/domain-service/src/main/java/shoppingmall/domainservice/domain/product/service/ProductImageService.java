@@ -5,16 +5,12 @@ import org.springframework.web.multipart.MultipartFile;
 import shoppingmall.domainrdb.common.annotation.DomainService;
 import shoppingmall.domainrdb.image.ImageDomain;
 import shoppingmall.domainrdb.image.entity.FileType;
-import shoppingmall.domainrdb.image.entity.Image;
-import shoppingmall.domainrdb.product.ProductDomain;
 import shoppingmall.domainservice.domain.image.service.ImageDeleteService;
 import shoppingmall.domainservice.domain.image.service.ImageSaveService;
 import shoppingmall.domainservice.domain.image.service.ImageSearchService;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 @DomainService
 @RequiredArgsConstructor
@@ -76,7 +72,10 @@ public class ProductImageService {
         return imageSearchService.searchImage(productId, fileTypes);
     }
 
-    public void updateImages(final MultipartFile thumbNailImage, final List<MultipartFile> detailImages, final List<Long> imagesToDelete) {
+    public void updateThumbNailImage(final Long productId, final MultipartFile thumbNailImage) {
+        image
+        imageDeleteService.deleteImage(productId, List.of(thumbNailImage));
+
 
 //        List<Long> imageIds = new ArrayList<>();
 //        //
@@ -113,5 +112,11 @@ public class ProductImageService {
 //                .price(changedProduct.getPrice())
 //                .images(imageIds)
 //                .build();
+    }
+
+
+    public void deleteImage(final Long productId) {
+        imageDeleteService.deleteImage(productId, List.of(FileType.PRODUCT_THUMBNAIL, FileType.PRODUCT_DETAIL_IMAGE));
+
     }
 }

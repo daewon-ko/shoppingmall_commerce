@@ -13,6 +13,7 @@ import shoppingmall.domainrdb.mapper.ImageEntityMapper;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @DomainService
@@ -49,12 +50,15 @@ public class ImageRdbService {
     @Transactional
     public void deleteImages(Long targetId, List<FileType> fileTypes) {
         // ImageRepository에서 FileType 및 targetId이 일치하는 이미지 조회
-        List<Image> imageList = imageRepository.findImagesByTargetIdAndFileType(fileTypes, targetId);
+        imageRepository.findImagesByTargetIdAndFileType(fileTypes, targetId)
+                .stream()
+                .map(image -> {
+                    // image soft-delete 처리
+                    image.deleteImage(LocalDateTime.now());
+                    // Image -> ImageDomain 변환
+                    ImageDomain domain = ImageEntityMapper.toDomain(image);
+                    return domain;
+                }).collect(Collectors.toUnmodifiableList());
 
-        // 저장된 파일을 삭제하고 이미지도 삭제한다.
-        for (Image image : imageList) {
-            LocalDateTime now = LocalDateTime.now();
-            image.deleteImage(now);
-        }
     }
 }
