@@ -23,11 +23,11 @@ public class ProductCreateService {
 
 
     public Long createProduct(final ProductDomain productDomain) {
-        // Validation
+
+
         CategoryDomain categoryDomain = productDomain.getCategoryDomain();
-        if (categoryDomain.getName() == null || categoryDomain.getName().isEmpty()) {
-            throw new IllegalArgumentException("Category name is empty");
-        }
+        UserDomain userDomain = productDomain.getUserDomain();
+
 
         // 중복 category 검증
         if (categoryRdbService.findByCategoryName(categoryDomain.getName())) {
@@ -35,16 +35,12 @@ public class ProductCreateService {
         }
 
 
-        UserDomain userDomain = productDomain.getUserDomain();
-        //validation
-        if (userDomain.getEmail() == null || userDomain.getEmail().isEmpty()) {
-            throw new IllegalArgumentException("User email is empty");
-        }
         // email 존재여부 검증
         if (!userRdbService.isExistEmail(userDomain.getEmail())) {
             // email이 없으면 예외를 던진다.
             throw new ApiException(UserErrorCode.NO_EXIST_USER);
         }
+
 
         // Domain 객체 -> Entity 변환해서 매개변수로 넘겨준다.
         return productRdbService.createProduct(productDomain);
