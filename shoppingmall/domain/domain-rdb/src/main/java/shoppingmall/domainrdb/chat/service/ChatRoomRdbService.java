@@ -4,16 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import shoppingmall.common.exception.ApiException;
 import shoppingmall.common.exception.domain.ChatErrorCode;
-import shoppingmall.common.exception.domain.ProductErrorCode;
-import shoppingmall.common.exception.domain.UserErrorCode;
+import shoppingmall.domainrdb.chat.ChatRoomDomain;
 import shoppingmall.domainrdb.chat.entity.ChatRoom;
 import shoppingmall.domainrdb.chat.repository.ChatRoomRepository;
 import shoppingmall.domainrdb.common.annotation.DomainService;
-import shoppingmall.domainrdb.product.entity.Product;
-import shoppingmall.domainrdb.product.repository.ProductRepository;
-import shoppingmall.domainrdb.user.entity.User;
-import shoppingmall.domainrdb.user.entity.UserRole;
-import shoppingmall.domainrdb.user.repository.UserRepository;
+import shoppingmall.domainrdb.mapper.ChatRoomEntityMapper;
 
 
 import java.util.Optional;
@@ -22,57 +17,27 @@ import java.util.UUID;
 @DomainService
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class ChatRoomService {
+public class ChatRoomRdbService {
     private final ChatRoomRepository chatRoomRepository;
-    private final UserRepository userRepository;
-    private final ProductRepository productRepository;
 
 
     // TODO : 예외처리 커스텀 필요 및 세부적으로 작성 필요
     @Transactional
-    public UUID createRoom(final Long sellerId, final Long buyerId, final Long productId) {
-        User buyer = userRepository.findById(buyerId).
-                orElseThrow(() -> new ApiException(UserErrorCode.NO_EXIST_USER));
+    public UUID createRoom(final ChatRoomDomain chatRoomDomain) {
 
-        // buyer 검증
-        if (!buyer.getUserRole().equals(UserRole.BUYER)) {
-            throw new ApiException(UserErrorCode.INVALID_USER_INFORMATION);
-        }
-        User seller = userRepository.findById(sellerId).
-                orElseThrow(() -> new ApiException(UserErrorCode.NO_EXIST_USER));
-        // seller 검증
-        if (!seller.getUserRole().equals(UserRole.SELLER)) {
-            throw new ApiException(UserErrorCode.INVALID_USER_INFORMATION);
-        }
-
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new ApiException(ProductErrorCode.PRODUCT_NOT_FOUND));
+        ChatRoom chatRoom = ChatRoomEntityMapper.toEntity(chatRoomDomain);
 
 
         // 아래와 같이 로직을 작성하면 Optional 안에 null이 아닌 빈 객체를 담고 있을 수도 있지 않을까?
-        Optional<ChatRoom> existingChatRoom = chatRoomRepository.findByBuyerAndSellerAndProduct(buyer, seller, product);
-
-
-
-
+        Optional<ChatRoom> existingChatRoom = chatRoomRepository.findByBuyerAndSellerAndProduct(chatRoom.getBuyer(), chatRoom.getSeller(), chatRoom.getProduct());
 
         // TODO: 로직 변경 필요.
         if (existingChatRoom.isPresent()) {  // existingChatRoom이 null이 아니라면
-            ChatRoom chatRoom = existingChatRoom.get();
+            ChatRoom findChatRoom = existingChatRoom.get();
 
-            return chatRoom.getId();
-            }
+            return findChatRoom.getId();
+        }
 
-
-
-
-        // TODO : DTO를 아래와 같이 만들면 매번 ChatRoom이 생성되지 않을까?, 같은 거
-        // TODO : ChatRoom Id값 랜덤생성 필요.
-        ChatRoom chatRoom = ChatRoom.builder()
-                .product(product)
-                .buyer(buyer)
-                .seller(seller)
-                .build();
         chatRoom = chatRoomRepository.save(chatRoom);
 
         return chatRoom.getId();

@@ -28,7 +28,7 @@ import java.util.List;
 public class ProductController {
     private final ProductUsecase productUsecase;
 
-    @PostMapping(value = "/product", consumes ={ MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PostMapping(value = "/product", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ApiResponse<ProductCreateResponseDto> createProduct(@Login String email, @RequestPart("requestDto") @Valid ProductCreateRequestDto requestDto, @RequestPart("images") List<MultipartFile> images) {
         ProductCreateResponseDto response = productUsecase.createProduct(requestDto, images);
 
@@ -37,12 +37,12 @@ public class ProductController {
 
     @GetMapping("/products")
     public ApiResponse<Slice<ProductQueryResponseDto>> getAllProductList
-            (@RequestParam(required = false)Long categoryId,
-             @RequestParam(required = false)Integer minPrice,
-             @RequestParam(required = false)Integer maxPrice,
-             @RequestParam(required = false)String productName,
-             @RequestParam(required = false)LocalDateTime startDate,
-             @RequestParam(required = false)LocalDateTime endDate,
+            (@RequestParam(required = false) Long categoryId,
+             @RequestParam(required = false) Integer minPrice,
+             @RequestParam(required = false) Integer maxPrice,
+             @RequestParam(required = false) String productName,
+             @RequestParam(required = false) LocalDateTime startDate,
+             @RequestParam(required = false) LocalDateTime endDate,
              @RequestParam(required = false) List<FileType> fileType,
              Pageable pageable) {
 
@@ -56,18 +56,17 @@ public class ProductController {
                 .fileTypes(fileType).build();
 
 
-
         Slice<ProductQueryResponseDto> result = productUsecase.getAllProductList(searchCond, pageable);
         return ApiResponse.of(HttpStatus.OK, result);
     }
 
     @PutMapping("/product/{id}")
     public ApiResponse<Void> updateProduct(@PathVariable("id") Long id,
-                                                               @RequestPart("requestDto") @Valid ProductUpdateRequestDto requestDto,
-                                                               @RequestPart(value = "detailImages", required = false) List<MultipartFile> detailImages,
-                                                               @RequestPart(value = "thumbnailImage", required = false) MultipartFile thumbnailImage) { // 상세 이미지들
+                                           @RequestPart("requestDto") @Valid ProductUpdateRequestDto requestDto
 
-        productUsecase.updateProducts(id, requestDto, thumbnailImage, detailImages);
+    ) { // 상세 이미지들
+
+        productUsecase.updateProducts(id, requestDto);
         return ApiResponse.of(HttpStatus.OK, null);
 
     }
@@ -79,10 +78,8 @@ public class ProductController {
         return ApiResponse.of(HttpStatus.OK, null);
     }
 
-    /**
-     * 썸네일 이미지
-     */
-//    @GetMapping("/product/{id}/image")
+    //TODO: 추후 상품 이미지 변경 API 작성예정
+
 
 }
 

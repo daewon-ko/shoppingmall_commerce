@@ -72,9 +72,10 @@ public class ProductImageService {
         return imageSearchService.searchImage(productId, fileTypes);
     }
 
+
+    // TODO : 상품의 썸네일, 세부 이미지 업데이트는 추후 구현 필요
     public void updateThumbNailImage(final Long productId, final MultipartFile thumbNailImage) {
-        image
-        imageDeleteService.deleteImage(productId, List.of(thumbNailImage));
+        imageDeleteService.deleteImage(productId, List.of(FileType.PRODUCT_THUMBNAIL));
 
 
 //        List<Long> imageIds = new ArrayList<>();

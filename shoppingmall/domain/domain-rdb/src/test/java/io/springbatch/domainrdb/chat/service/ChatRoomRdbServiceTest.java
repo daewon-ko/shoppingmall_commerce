@@ -19,7 +19,7 @@ import shoppingmall.domainrdb.domain.user.repository.UserRepository;
 import shoppingmall.domainrdb.support.IntegrationTestSupport;
 
 
-class ChatRoomServiceTest extends IntegrationTestSupport {
+class ChatRoomRdbServiceTest extends IntegrationTestSupport {
     @Autowired
     private ChatRoomService chatRoomService;
     @Autowired

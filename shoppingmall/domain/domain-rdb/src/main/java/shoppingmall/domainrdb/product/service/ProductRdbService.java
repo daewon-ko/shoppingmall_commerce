@@ -7,25 +7,21 @@ import org.springframework.data.domain.SliceImpl;
 import org.springframework.transaction.annotation.Transactional;
 import shoppingmall.common.exception.ApiException;
 import shoppingmall.common.exception.domain.ProductErrorCode;
-import shoppingmall.domainrdb.category.repository.CategoryRepository;
 import shoppingmall.domainrdb.common.annotation.DomainService;
+import shoppingmall.domainrdb.image.entity.FileType;
 import shoppingmall.domainrdb.image.entity.Image;
 import shoppingmall.domainrdb.image.repository.ImageRepository;
-import shoppingmall.domainrdb.image.service.ImageRdbService;
 import shoppingmall.domainrdb.mapper.ProductEntityMapper;
 import shoppingmall.domainrdb.product.ProductDomain;
 import shoppingmall.domainrdb.product.dto.request.ProductSearchCondition;
 import shoppingmall.domainrdb.product.entity.Product;
 import shoppingmall.domainrdb.product.repository.ProductQueryRepository;
 import shoppingmall.domainrdb.product.repository.ProductRepository;
-import shoppingmall.domainrdb.user.service.UserRdbService;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toList;
 
 @DomainService
 @RequiredArgsConstructor
@@ -48,7 +44,6 @@ public class ProductRdbService {
 
 
     public Slice<ProductDomain> getAllProductList(final ProductSearchCondition productSearchCond, Pageable pageable) {
-        // 1. 상품조회 -> lazy loading이므로 Category도 함께 조회 필요.
 
         // 아래 객체를 ProductDomain으로 변환해서 Return 필요
 
@@ -64,23 +59,7 @@ public class ProductRdbService {
         return new SliceImpl<>(productDomainList, pageable, productsByCond.hasNext());
 
 
-//        List<ProductQueryResponseDto> productDtos = new ArrayList<>();
-
-//        for (Product product : products) {
-        // ImageService에서 정의 필요
-//            List<ImageResponseDto> images = imageRdbService.getImage(product.getId(), productSearchCond.getFileTypes());
-//            ProductQueryResponseDto productQueryResponseDto = ProductQueryResponseDto.of(product, images);
-//            productDtos.add(productQueryResponseDto);
     }
-
-//        return new SliceImpl<>(productDtos, pageable, products.hasNext());
-
-
-    // 2. 상품과 연관된 이미지 조회
-    // targetId와 저장된 Image 중 첫번째로 저장된 이미지가 thumbNailImage
-
-
-//        return productQueryRepository.findAllByProductId(productSearchCond, pageable);
 
     @Transactional
     public void updateProduct(final ProductDomain productDomain) {
@@ -101,5 +80,14 @@ public class ProductRdbService {
         for (Image image : images) {
             image.deleteImage(LocalDateTime.now());
         }
+    }
+
+    public Boolean existByProductId(final Long productId) {
+        return productRepository.existsById(productId);
+    }
+
+    public ProductDomain getProductDomainByProductId(final Long productId) {
+        Product product = productRepository.findById(productId).orElseThrow(() -> new ApiException(ProductErrorCode.PRODUCT_NOT_FOUND));
+        return ProductEntityMapper.toProductDomain(product);
     }
 }

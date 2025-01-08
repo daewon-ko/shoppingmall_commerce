@@ -5,6 +5,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import shoppingmall.common.annotation.DomainService;
 import shoppingmall.domainrdb.common.annotation.DomainService;
+import shoppingmall.domainrdb.mapper.UserEntityMapper;
+import shoppingmall.domainrdb.user.UserDomain;
 import shoppingmall.domainrdb.user.dto.CreateUserRequestDto;
 import shoppingmall.domainrdb.user.dto.LoginUserRequestDto;
 import shoppingmall.domainrdb.user.entity.User;
@@ -22,7 +24,7 @@ public class UserRdbService {
 
 
     @Transactional
-    public Long registerBuyer(CreateUserRequestDto createUserRequest) {
+    public Long registerBuyer(final CreateUserRequestDto createUserRequest) {
 
         if (userRepository.existsByEmail(createUserRequest.getEmail())) {
             new ApiException(UserErrorCode.ALREADY_REGISTERED_EMAIL);
@@ -42,7 +44,7 @@ public class UserRdbService {
     // TODO : Seller, Buyer 분기처리 좀더 섬세히 작성 필요
 
     @Transactional
-    public Long registerSeller(CreateUserRequestDto createUserRequest) {
+    public Long registerSeller(final CreateUserRequestDto createUserRequest) {
 
         if (userRepository.existsByEmail(createUserRequest.getEmail())) {
             new ApiException(UserErrorCode.ALREADY_REGISTERED_EMAIL);
@@ -58,22 +60,30 @@ public class UserRdbService {
         return user.getId();
     }
 
-    public Boolean isExistEmail(String email) {
+    public Boolean isExistEmail(final String email) {
         return userRepository.existsByEmail(email);
     }
 
 
-
-
-    private boolean isPasswordMatch(LoginUserRequestDto loginUserRequestDto, String password) {
+    private boolean isPasswordMatch(final LoginUserRequestDto loginUserRequestDto, final String password) {
         return bCryptPasswordEncoder.matches(loginUserRequestDto.getPassword(), password);
     }
 
-    public User findUserByIdAndSeller(Long userId) {
+    public User findUserByIdAndSeller(final Long userId) {
         User findUser = userRepository.findById(userId).orElseThrow(() -> new ApiException(UserErrorCode.NO_EXIST_USER));
         if (!findUser.getUserRole().equals(UserRole.SELLER)) {
             throw new ApiException(UserErrorCode.USER_NOT_SELLER);
         }
         return findUser;
+    }
+
+    public Boolean isExistByIdAndUserRole(final Long userId, final UserRole userRole) {
+
+        return userRepository.existsByIdAndUserRole(userId, userRole);
+    }
+
+    public UserDomain findUserByIdAndUserRole(final Long userId, final UserRole userRole) {
+        User user = userRepository.findByIdAndUserRole(userId, userRole).orElseThrow(() -> new ApiException(UserErrorCode.NO_EXIST_USER));
+        return UserEntityMapper.toUserDomain(user);
     }
 }

@@ -1,12 +1,14 @@
 package shoppingmall.web.api.chat.usecase;
 
 import lombok.RequiredArgsConstructor;
+import shoppingmall.domainrdb.chat.ChatRoomDomain;
 import shoppingmall.domainrdb.chat.entity.ChatRoom;
 import shoppingmall.domainservice.domain.chatroom.ChatRoomMakeService;
 import shoppingmall.domainservice.domain.chatroom.ChatRoomSearchService;
 import shoppingmall.web.api.chat.dto.ChatRoomCreateDto;
 import shoppingmall.web.api.chat.dto.ChatRoomResponseDto;
 import shoppingmall.web.common.annotataion.Usecase;
+import shoppingmall.web.common.mapper.ChatRoomDtoMapper;
 
 import java.util.UUID;
 
@@ -19,7 +21,8 @@ public class ChatRoomUsecase {
 
 
     public UUID createChatRoom(final ChatRoomCreateDto chatRoomCreateDto) {
-        return chatRoomMakeService.makeChatRoom(chatRoomCreateDto.getSellerId(), chatRoomCreateDto.getBuyerId(), chatRoomCreateDto.getProductId());
+
+        return chatRoomMakeService.makeChatRoom(chatRoomCreateDto.getProductId(), chatRoomCreateDto.getSellerId(), chatRoomCreateDto.getBuyerId());
     }
 
     // TODO : ChatRoomResponseDTO를 Usecase(Application Layer)에서 만들어줄지 또는 DomainService에서 만들어줄지 고민 필요

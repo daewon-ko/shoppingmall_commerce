@@ -11,7 +11,7 @@ public class ProductEntityMapper {
                 .name(productDomain.getName())
                 .price(productDomain.getPrice())
                 .category(CategoryEntityMapper.toEntity(productDomain.getCategoryDomain()))
-                .seller(UserEntityMapper.toEntity(productDomain.getUserDomain())).build();
+                .seller(UserEntityMapper.toUserEntity(productDomain.getUserDomain())).build();
     }
 
 //    public static Slice<ProductQueryResponse> createProductSearchDetails(final ProductQueryResponse)
@@ -23,9 +23,18 @@ public class ProductEntityMapper {
                 .price(product.getPrice())
                 .name(product.getName())
                 .categoryDomain(CategoryMapper.toCategoryDomain(product.getCategory()))
+                .userDomain(UserEntityMapper.toUserDomain(product.getSeller()))
                 .build();
-//                .userDomain(product.getSeller())  // UserDomain으로 mapping필요
+    }
 
+    public static Product toProductEntity(final ProductDomain productDomain) {
+        return Product.builder()
+                .id(productDomain.getId())
+                .name(productDomain.getName())
+                .price(productDomain.getPrice())
+                .category(CategoryEntityMapper.toEntity(productDomain.getCategoryDomain()))
+                .seller(UserEntityMapper.toUserEntity(productDomain.getUserDomain()))
+                .build();
     }
 
 

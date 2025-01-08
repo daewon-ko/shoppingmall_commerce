@@ -2,6 +2,7 @@ package shoppingmall.domainrdb.user.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import shoppingmall.domainrdb.user.entity.User;
+import shoppingmall.domainrdb.user.entity.UserRole;
 
 
 import java.util.Optional;
@@ -17,4 +18,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
 
     Boolean existsByEmail(String email);
+
+    Boolean existsByIdAndUserRole(Long id, UserRole userRole);
+
+    Optional<User> findByIdAndUserRole(Long id, UserRole userRole);
 }
