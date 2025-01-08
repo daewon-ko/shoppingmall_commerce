@@ -28,14 +28,11 @@ public class ChatRoomUsecase {
     // TODO : ChatRoomResponseDTO를 Usecase(Application Layer)에서 만들어줄지 또는 DomainService에서 만들어줄지 고민 필요
 
     public ChatRoomResponseDto searchChatRoom(final UUID roomId) {
-        ChatRoom chatRoom = chatRoomSearchService.searchChatRoom(roomId);
+        ChatRoomDomain chatRoomDomain = chatRoomSearchService.searchChatRoom(roomId);
 
-        return ChatRoomResponseDto.builder()
-                .roomId(chatRoom.getId())
-                .sellerId(chatRoom.getSeller().getId())
-                .buyerId(chatRoom.getBuyer().getId())
-                .senderId(chatRoom.getBuyer().getId())
-                .build();
+        return ChatRoomDtoMapper.toBuyerChatRoomResponseDto(chatRoomDomain);
+
+
     }
 
 

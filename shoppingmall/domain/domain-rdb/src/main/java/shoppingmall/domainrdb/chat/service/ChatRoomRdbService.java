@@ -44,12 +44,13 @@ public class ChatRoomRdbService {
     }
 
 
-    public ChatRoom getChatRoom(UUID roomId) {
+    public ChatRoomDomain getChatRoom(UUID roomId) {
 
 
-        return chatRoomRepository.findById(roomId).orElseThrow(
+        ChatRoom findChatRoom = chatRoomRepository.findById(roomId).orElseThrow(
                 () -> new ApiException(ChatErrorCode.NO_EXIST_CHATROOM)
         );
+        return ChatRoomEntityMapper.toChatRoomDomain(findChatRoom);
 //
 //        UUID chatRoomId = chatRoom.getId();
 //        chatRoom.getBuyer();

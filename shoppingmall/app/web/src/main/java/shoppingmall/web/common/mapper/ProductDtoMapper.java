@@ -56,7 +56,7 @@ public abstract class ProductDtoMapper {
     }
 
     public static ProductQueryResponseDto toSearchResponseDto(final ProductDomain productDomain, final List<ImageResponseDto> imageResponseDtos, final Long categoryId) {
-        return ProductQueryResponseDto.of(productDomain, imageResponseDtos);
+        return ProductQueryResponseDto.of(productDomain, imageResponseDtos, categoryId);
     }
 
 }

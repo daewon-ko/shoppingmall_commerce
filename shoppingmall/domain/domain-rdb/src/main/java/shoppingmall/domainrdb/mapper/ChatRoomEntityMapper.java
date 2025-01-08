@@ -11,4 +11,13 @@ public class ChatRoomEntityMapper {
                 .seller(UserEntityMapper.toUserEntity(chatRoomDomain.getSeller()))
                 .build();
     }
+
+    public static ChatRoomDomain toChatRoomDomain(ChatRoom chatRoom) {
+        return new ChatRoomDomain(
+                chatRoom.getId(),
+                UserEntityMapper.toUserDomain(chatRoom.getSeller()),
+                UserEntityMapper.toUserDomain(chatRoom.getBuyer()),
+                ProductEntityMapper.toProductDomain(chatRoom.getProduct())
+        );
+    }
 }
