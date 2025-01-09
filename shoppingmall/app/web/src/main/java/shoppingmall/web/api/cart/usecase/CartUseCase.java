@@ -4,7 +4,7 @@ import org.springframework.transaction.annotation.Transactional;
 import shoppingmall.web.api.cart.dto.request.AddCartProductRequestDto;
 import shoppingmall.web.api.cart.dto.request.AddCartRequestDto;
 import shoppingmall.web.api.cart.dto.request.CreateCartRequestDto;
-import shoppingmall.domainrdb.cart.service.CartService;
+import shoppingmall.domainrdb.cart.service.CartRdbService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import shoppingmall.web.api.cart.dto.response.AddCartProductResponseDto;
@@ -19,11 +19,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Usecase
 public class CartUseCase {
-    private final CartService cartService;
+    private final CartRdbService cartRdbService;
 
     @Transactional
     public void createCart(final CreateCartRequestDto cartRequestDto) {
-        cartService.createCart(cartRequestDto.getUserId());
+        cartRdbService.createCart(cartRequestDto.getUserId());
     }
 
     /**
@@ -51,7 +51,7 @@ public class CartUseCase {
                 AddCartProductRequestDto::getQuantity
         ));
 
-        return cartService.addProductToCart(cartId, productQuantityMap).entrySet().stream()
+        return cartRdbService.addProductToCart(cartId, productQuantityMap).entrySet().stream()
                 .map(entry -> AddCartProductResponseDto.builder()
                         .cartProductId(entry.getKey())
                         .quantity(entry.getValue()).build()).collect(Collectors.toList());

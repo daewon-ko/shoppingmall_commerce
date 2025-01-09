@@ -1,5 +1,6 @@
 package shoppingmall.domainrdb.product;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Builder;
 import lombok.Getter;
 import shoppingmall.domainrdb.category.CategoryDomain;
@@ -9,13 +10,13 @@ import shoppingmall.domainrdb.user.UserDomain;
 public class ProductDomain {
     private final Long id;
     private final String name;
-    private final int price;
+    private final Integer price;
     private final CategoryDomain categoryDomain;
     private final UserDomain userDomain;
 
 
     @Builder
-    private ProductDomain(Long id, String name, int price, CategoryDomain categoryDomain, UserDomain userDomain) {
+    private ProductDomain(Long id, String name, Integer price, CategoryDomain categoryDomain, UserDomain userDomain) {
         this.id = id;
         this.name = name;
         this.price = price;

@@ -1,6 +1,5 @@
 package shoppingmall.domainrdb.cart.service;
 
-import org.springframework.stereotype.Service;
 import shoppingmall.domainrdb.cart.entity.Cart;
 import shoppingmall.domainrdb.cart.entity.CartProduct;
 import shoppingmall.domainrdb.cart.repository.CartProductRepository;
@@ -17,14 +16,12 @@ import shoppingmall.domainrdb.product.repository.ProductRepository;
 import shoppingmall.domainrdb.user.entity.User;
 import shoppingmall.domainrdb.user.repository.UserRepository;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @DomainService
 @RequiredArgsConstructor
-public class CartService {
+public class CartRdbService {
     private final CartRepository cartRepository;
     private final CartProductRepository cartProductRepository;
     private final ProductRepository productRepository;
@@ -50,7 +47,6 @@ public class CartService {
                         }, Map.Entry::getValue
 
                 ));
-
     }
 
 
@@ -73,6 +69,8 @@ public class CartService {
             return savedCartWithOutUser.getId();
         }
     }
+
+    public
 
 
 }

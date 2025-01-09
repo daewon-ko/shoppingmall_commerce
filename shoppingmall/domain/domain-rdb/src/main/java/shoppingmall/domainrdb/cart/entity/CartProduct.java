@@ -36,4 +36,5 @@ public class CartProduct extends BaseEntity {
     private Product product;
 
 
+
 }

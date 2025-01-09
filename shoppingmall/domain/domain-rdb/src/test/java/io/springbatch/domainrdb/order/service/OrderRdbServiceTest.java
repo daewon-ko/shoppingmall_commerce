@@ -27,7 +27,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 import static shoppingmall.domainrdb.support.TestFixture.*;
-class OrderServiceTest extends IntegrationTestSupport {
+class OrderRdbServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private OrderService orderService;

@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import shoppingmall.domainrdb.domain.product.entity.Product;
-
+import shoppingmall.domainrdb.product.entity.Product;
 
 
 /** TODO : OrderProduct는 생성, 수정시간이 필요할까?

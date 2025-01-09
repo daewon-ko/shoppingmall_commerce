@@ -17,7 +17,7 @@ import shoppingmall.domainrdb.user.service.UserRdbService;
 import shoppingmall.web.api.cart.controller.CartController;
 import shoppingmall.web.api.category.controller.CategoryController;
 import shoppingmall.web.api.chat.controller.ChatRoomController;
-import shoppingmall.web.api.order.OrderController;
+import shoppingmall.web.api.order.controller.OrderController;
 import shoppingmall.web.api.product.controller.ProductController;
 import shoppingmall.web.api.user.AuthController;
 

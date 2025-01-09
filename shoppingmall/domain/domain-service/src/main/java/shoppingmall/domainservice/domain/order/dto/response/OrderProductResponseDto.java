@@ -1,4 +1,4 @@
-package shoppingmall.domainrdb.order.dto.response;
+package shoppingmall.domainservice.domain.order.dto.response;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;

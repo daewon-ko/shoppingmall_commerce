@@ -86,4 +86,9 @@ public class UserRdbService {
         User user = userRepository.findByIdAndUserRole(userId, userRole).orElseThrow(() -> new ApiException(UserErrorCode.NO_EXIST_USER));
         return UserEntityMapper.toUserDomain(user);
     }
+
+    public UserDomain findByUserId(final Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new ApiException(UserErrorCode.NO_EXIST_USER));
+        return UserEntityMapper.toUserDomain(user);
+    }
 }

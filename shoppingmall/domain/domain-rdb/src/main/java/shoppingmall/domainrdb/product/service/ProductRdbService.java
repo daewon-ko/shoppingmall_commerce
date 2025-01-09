@@ -86,6 +86,7 @@ public class ProductRdbService {
         return productRepository.existsById(productId);
     }
 
+
     public ProductDomain getProductDomainByProductId(final Long productId) {
         Product product = productRepository.findById(productId).orElseThrow(() -> new ApiException(ProductErrorCode.PRODUCT_NOT_FOUND));
         return ProductEntityMapper.toProductDomain(product);

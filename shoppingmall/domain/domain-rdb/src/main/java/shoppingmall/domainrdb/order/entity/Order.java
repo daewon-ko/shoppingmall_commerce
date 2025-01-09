@@ -1,14 +1,14 @@
 package shoppingmall.domainrdb.order.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
-import shoppingmall.domainrdb.domain.cart.entity.Cart;
-import shoppingmall.domainrdb.domain.user.entity.User;
+import shoppingmall.domainrdb.cart.entity.Cart;
+import shoppingmall.domainrdb.order.OrderStatus;
+import shoppingmall.domainrdb.user.entity.User;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -32,11 +32,9 @@ public class Order implements Serializable {
     OrderStatus orderStatus;
 
     @Column(name = "zip_code")
-    @NotNull
     String zipCode;
 
     @Column(name = "detail_address")
-    @NotNull
     String detailAddress;
 
     // TODO : cascade option을 줘야할까?( 해당 옵션을 주면, cart가 삭제될때 주문도 삭제된다.)

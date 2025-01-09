@@ -1,4 +1,4 @@
-package shoppingmall.domainrdb.order.entity;
+package shoppingmall.domainrdb.order;
 
 public enum OrderStatus {
     NEW("신규생성"), READY("주문준비"), ORDER_FINISH("주문완료"), CANCELED("주문취소"), DELIVERY_FINISHED("배송완료");

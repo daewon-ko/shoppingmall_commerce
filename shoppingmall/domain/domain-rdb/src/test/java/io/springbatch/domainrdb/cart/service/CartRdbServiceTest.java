@@ -24,7 +24,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
-class CartServiceTest extends IntegrationTestSupport {
+class CartRdbServiceTest extends IntegrationTestSupport {
     @Autowired
     private CartService cartService;
     @Autowired

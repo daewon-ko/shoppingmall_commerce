@@ -1,4 +1,4 @@
-package shoppingmall.domainrdb.order.dto.request;
+package shoppingmall.domainservice.domain.order.dto.request;
 
 import lombok.Builder;
 import lombok.Getter;

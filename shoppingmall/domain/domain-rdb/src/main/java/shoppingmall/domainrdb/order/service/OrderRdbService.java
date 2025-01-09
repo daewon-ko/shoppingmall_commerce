@@ -9,6 +9,7 @@ import shoppingmall.common.exception.ApiException;
 import shoppingmall.common.exception.domain.CartErrorCode;
 import shoppingmall.common.exception.domain.OrderErrorCode;
 import shoppingmall.common.exception.domain.ProductErrorCode;
+import shoppingmall.domainrdb.cart.repository.CartRepository;
 import shoppingmall.domainrdb.domain.cart.entity.Cart;
 import shoppingmall.domainrdb.domain.cart.repository.CartRepository;
 import shoppingmall.domainrdb.domain.order.dto.response.OrderProductCreateResponseDto;
@@ -21,6 +22,18 @@ import shoppingmall.domainrdb.domain.order.repository.OrderQueryRepository;
 import shoppingmall.domainrdb.domain.order.repository.OrderRepository;
 import shoppingmall.domainrdb.domain.product.entity.Product;
 import shoppingmall.domainrdb.domain.product.repository.ProductRepository;
+import shoppingmall.domainrdb.mapper.OrderEntityMapper;
+import shoppingmall.domainrdb.order.AddressDomain;
+import shoppingmall.domainrdb.order.OrderDomain;
+import shoppingmall.domainrdb.order.OrderProductDomain;
+import shoppingmall.domainrdb.order.OrderStatus;
+import shoppingmall.domainrdb.order.entity.Order;
+import shoppingmall.domainrdb.order.repository.OrderProductRepository;
+import shoppingmall.domainrdb.order.repository.OrderQueryRepository;
+import shoppingmall.domainrdb.order.repository.OrderRepository;
+import shoppingmall.domainrdb.product.ProductDomain;
+import shoppingmall.domainrdb.product.repository.ProductRepository;
+import shoppingmall.domainrdb.user.UserDomain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +42,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class OrderService {
+public class OrderRdbService {
     //TODO : Service에서 타 Entity Service Layer를 참조하는게 적합한가 혹은 참조만 할것이라면 Repository Layer를 직접 참조하는 것도 괜찮은가?
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
@@ -39,10 +52,8 @@ public class OrderService {
 
 
     @Transactional
-    public List<OrderProductCreateResponseDto> createDirectOrder(OrderCreateRequestDto orderCreateRequestDto) {
-        Order order = orderCreateRequestDto.toEntity();
-
-        return createCommonOrder(orderCreateRequestDto, order);
+    public OrderDomain createDirectOrder(final OrderDomain orderDomain) {
+        return createCommonOrder(orderDomain);
     }
 
 
@@ -98,23 +109,14 @@ public class OrderService {
 
     }
 
-    private List<OrderProductCreateResponseDto> createCommonOrder(final OrderCreateRequestDto orderCreateRequestDto, final Order order) {
+    private OrderDomain createCommonOrder(final OrderDomain orderDomain) {
         // Order 생성(DB 저장)
-        orderRepository.save(order);
+        Order order = OrderEntityMapper.toOrderEntity(orderDomain);
 
-        // OrderProduct 생성
-        List<OrderProductCreateRequestDto> orderProductRequestDtoList = orderCreateRequestDto.getOrderProductRequestDtoList();
-        // 응답용 객체를 담은 List 생성
-        List<OrderProductCreateResponseDto> orderProductCreateResponseDtoList = new ArrayList<>();
+        Order savedOrder = orderRepository.save(order);
+        return OrderEntityMapper.toOrderDomain(savedOrder);
 
-        for (OrderProductCreateRequestDto orderProductRequestDto : orderProductRequestDtoList) {
-            // TODO : 예외처리 정립 필요
-            Product product = productRepository.findById(orderProductRequestDto.getProductId()).orElseThrow(() -> new ApiException(ProductErrorCode.PRODUCT_NOT_FOUND));
-            OrderProduct orderProduct = orderProductRequestDto.toEntity(order, product);
-            OrderProduct savedOrderProduct = orderProductRepository.save(orderProduct);
-            orderProductCreateResponseDtoList.add(OrderProductCreateResponseDto.of(savedOrderProduct));
-        }
-        return orderProductCreateResponseDtoList;
+
     }
 
 
