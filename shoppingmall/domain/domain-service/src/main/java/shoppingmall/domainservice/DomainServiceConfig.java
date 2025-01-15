@@ -1,6 +1,7 @@
 package shoppingmall.domainservice;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication(
         scanBasePackages = {
@@ -10,5 +11,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
                 "shoppingmall.domainredis"
         }
 )
+@EnableFeignClients(basePackages = {"shoppingmall.tosspayment"})
 public class DomainServiceConfig {
 }
