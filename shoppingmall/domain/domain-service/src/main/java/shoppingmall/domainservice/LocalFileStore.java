@@ -1,4 +1,4 @@
-package shoppingmall.domainrdb.common;
+package shoppingmall.domainservice;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;

@@ -1,4 +1,4 @@
-package shoppingmall.web.api.image.dto.response;
+package shoppingmall.domainservice.domain.image.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;

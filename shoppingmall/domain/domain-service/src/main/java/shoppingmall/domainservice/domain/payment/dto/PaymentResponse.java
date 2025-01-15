@@ -1,8 +1,8 @@
-package shoppingmall.domainrdb.payment.dto;
+package shoppingmall.domainservice.domain.payment.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import shoppingmall.domainrdb.domain.payment.entity.TossPayment;
+import shoppingmall.domainrdb.payment.entity.TossPayment;
 import shoppingmall.tosspayment.feign.TossPaymentMethod;
 import shoppingmall.tosspayment.feign.TossPaymentStatus;
 
