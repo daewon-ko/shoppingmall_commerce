@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import shoppingmall.domainrdb.chat.ChatRoomDomain;
 import shoppingmall.domainrdb.chat.service.ChatRoomRdbService;
 import shoppingmall.domainrdb.common.annotation.DomainService;
-import shoppingmall.domainrdb.product.ProductDomain;
+import shoppingmall.domainrdb.product.domain.ProductDomain;
 import shoppingmall.domainrdb.product.service.ProductRdbService;
 import shoppingmall.domainrdb.user.UserDomain;
 import shoppingmall.domainrdb.user.entity.UserRole;
