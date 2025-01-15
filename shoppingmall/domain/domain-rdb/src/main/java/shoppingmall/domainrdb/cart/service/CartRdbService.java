@@ -10,7 +10,7 @@ import shoppingmall.common.exception.ApiException;
 import shoppingmall.common.exception.domain.CartErrorCode;
 import shoppingmall.common.exception.domain.ProductErrorCode;
 import shoppingmall.common.exception.domain.UserErrorCode;
-import shoppingmall.domainrdb.common.annotation.DomainService;
+import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.product.entity.Product;
 import shoppingmall.domainrdb.product.repository.ProductRepository;
 import shoppingmall.domainrdb.user.entity.User;
@@ -19,7 +19,7 @@ import shoppingmall.domainrdb.user.repository.UserRepository;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@DomainService
+@DomainRdbService
 @RequiredArgsConstructor
 public class CartRdbService {
     private final CartRepository cartRepository;

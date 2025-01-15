@@ -5,7 +5,7 @@ import shoppingmall.common.exception.ApiException;
 import shoppingmall.common.exception.domain.ProductErrorCode;
 import shoppingmall.domainrdb.cart.CartProductDomain;
 import shoppingmall.domainrdb.cart.service.CartProductRdbService;
-import shoppingmall.domainrdb.common.annotation.DomainService;
+import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.order.domain.*;
 import shoppingmall.domainrdb.order.service.OrderProductRdbService;
 import shoppingmall.domainrdb.order.service.OrderRdbService;
@@ -20,7 +20,7 @@ import shoppingmall.domainservice.domain.order.dto.response.OrderProductCreateRe
 import java.util.List;
 import java.util.stream.Collectors;
 
-@DomainService
+@DomainRdbService
 @RequiredArgsConstructor
 public class OrderCreateService {
     private final OrderRdbService orderRdbService;

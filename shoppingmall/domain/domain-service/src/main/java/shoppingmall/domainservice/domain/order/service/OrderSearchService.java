@@ -3,14 +3,13 @@ package shoppingmall.domainservice.domain.order.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
-import shoppingmall.domainrdb.common.annotation.DomainService;
-import shoppingmall.domainrdb.order.domain.OrderProductDomain;
+import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.order.domain.OrderStatus;
 import shoppingmall.domainrdb.order.dto.OrderProductResponseDto;
 import shoppingmall.domainrdb.order.dto.OrderSearchCondition;
 import shoppingmall.domainrdb.order.service.OrderRdbService;
 
-@DomainService
+@DomainRdbService
 @RequiredArgsConstructor
 public class OrderSearchService {
     private final OrderRdbService orderRdbService;

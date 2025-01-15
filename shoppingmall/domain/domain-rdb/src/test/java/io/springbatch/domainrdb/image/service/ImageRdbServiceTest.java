@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockMultipartFile;
 import shoppingmall.common.exception.ApiException;
-import shoppingmall.domainrdb.common.LocalFileStore;
 import shoppingmall.domainrdb.domain.image.dto.response.ImageResponseDto;
 import shoppingmall.domainrdb.domain.image.entity.FileType;
 import shoppingmall.domainrdb.domain.image.entity.Image;

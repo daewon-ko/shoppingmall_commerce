@@ -7,14 +7,14 @@ import shoppingmall.common.exception.domain.ChatErrorCode;
 import shoppingmall.domainrdb.chat.ChatRoomDomain;
 import shoppingmall.domainrdb.chat.entity.ChatRoom;
 import shoppingmall.domainrdb.chat.repository.ChatRoomRepository;
-import shoppingmall.domainrdb.common.annotation.DomainService;
+import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.mapper.ChatRoomEntityMapper;
 
 
 import java.util.Optional;
 import java.util.UUID;
 
-@DomainService
+@DomainRdbService
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class ChatRoomRdbService {

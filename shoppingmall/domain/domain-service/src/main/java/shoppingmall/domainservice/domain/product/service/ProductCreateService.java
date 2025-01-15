@@ -4,13 +4,13 @@ import lombok.RequiredArgsConstructor;
 import shoppingmall.domainrdb.category.service.CategoryId;
 import shoppingmall.domainrdb.product.domain.ProductDomain;
 import shoppingmall.domainrdb.category.service.CategoryRdbService;
-import shoppingmall.domainrdb.common.annotation.DomainService;
+import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.product.service.ProductRdbService;
 import shoppingmall.domainrdb.user.UserId;
 import shoppingmall.domainrdb.user.service.UserRdbService;
 import shoppingmall.domainservice.domain.product.dto.request.ProductCreateRequestDto;
 
-@DomainService
+@DomainRdbService
 @RequiredArgsConstructor
 public class ProductCreateService {
     private final ProductRdbService productRdbService;

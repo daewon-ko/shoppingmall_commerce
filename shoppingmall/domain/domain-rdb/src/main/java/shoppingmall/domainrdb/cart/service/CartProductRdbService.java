@@ -4,13 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import shoppingmall.domainrdb.cart.CartProductDomain;
 import shoppingmall.domainrdb.cart.repository.CartProductRepository;
-import shoppingmall.domainrdb.common.annotation.DomainService;
+import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.mapper.CartProductEntityMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@DomainService
+@DomainRdbService
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class CartProductRdbService {

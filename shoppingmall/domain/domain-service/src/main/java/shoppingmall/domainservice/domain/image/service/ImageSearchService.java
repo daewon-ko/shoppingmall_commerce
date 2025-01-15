@@ -1,9 +1,7 @@
 package shoppingmall.domainservice.domain.image.service;
 
 import lombok.RequiredArgsConstructor;
-import shoppingmall.common.exception.ApiException;
-import shoppingmall.common.exception.domain.ImageErrorCode;
-import shoppingmall.domainrdb.common.annotation.DomainService;
+import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.image.ImageDomain;
 import shoppingmall.domainrdb.image.entity.FileType;
 import shoppingmall.domainrdb.image.service.ImageRdbService;
@@ -11,7 +9,7 @@ import shoppingmall.domainrdb.image.service.ImageRdbService;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@DomainService
+@DomainRdbService
 @RequiredArgsConstructor
 public class ImageSearchService {
     private final ImageRdbService imageRdbService;

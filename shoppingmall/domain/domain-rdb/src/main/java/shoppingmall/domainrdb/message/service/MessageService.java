@@ -10,7 +10,7 @@ import shoppingmall.common.exception.domain.UserErrorCode;
 import shoppingmall.domainrdb.chat.entity.ChatRoom;
 import shoppingmall.domainrdb.chat.repository.ChatRoomRepository;
 
-import shoppingmall.domainrdb.common.annotation.DomainService;
+import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.message.entity.Message;
 import shoppingmall.domainrdb.message.repository.MessageRepository;
 import shoppingmall.domainrdb.user.entity.User;
@@ -18,7 +18,7 @@ import shoppingmall.domainrdb.user.repository.UserRepository;
 
 import java.util.UUID;
 
-@DomainService
+@DomainRdbService
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class MessageService {

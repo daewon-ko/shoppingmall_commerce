@@ -1,10 +1,10 @@
 package shoppingmall.domainservice.domain.product.service;
 
 import lombok.RequiredArgsConstructor;
-import shoppingmall.domainrdb.common.annotation.DomainService;
+import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.product.service.ProductRdbService;
 
-@DomainService
+@DomainRdbService
 @RequiredArgsConstructor
 public class ProductDeleteService {
     private final ProductRdbService productRdbService;

@@ -8,11 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shoppingmall.common.exception.ApiException;
 import shoppingmall.common.exception.domain.OrderErrorCode;
-import shoppingmall.domainrdb.cart.repository.CartRepository;
 
+import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.mapper.OrderEntityMapper;
 import shoppingmall.domainrdb.mapper.OrderProductEntityMapper;
-import shoppingmall.domainrdb.mapper.UserEntityMapper;
 import shoppingmall.domainrdb.order.domain.OrderDomain;
 import shoppingmall.domainrdb.order.domain.OrderProductDomain;
 import shoppingmall.domainrdb.order.domain.OrderStatus;
@@ -20,19 +19,15 @@ import shoppingmall.domainrdb.order.dto.OrderProductResponseDto;
 import shoppingmall.domainrdb.order.dto.OrderSearchCondition;
 import shoppingmall.domainrdb.order.entity.Order;
 import shoppingmall.domainrdb.order.entity.OrderProduct;
-import shoppingmall.domainrdb.order.repository.OrderProductRepository;
 import shoppingmall.domainrdb.order.repository.OrderQueryRepository;
 import shoppingmall.domainrdb.order.repository.OrderRepository;
 import shoppingmall.domainrdb.product.entity.Product;
-import shoppingmall.domainrdb.product.repository.ProductRepository;
-import shoppingmall.domainrdb.user.UserDomain;
-import shoppingmall.domainrdb.user.entity.User;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 
-@Service
+@DomainRdbService
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class OrderRdbService {
@@ -107,9 +102,13 @@ public class OrderRdbService {
 
 
     // N+1 방지 위해 fetch join 사용하여 User 정보까지 조회
-    public OrderDomain findById(Long orderId) {
+    public OrderDomain findOrderDomainById(Long orderId) {
         Order order = orderRepository.findByIdWithUser(orderId).orElseThrow(() -> new ApiException(OrderErrorCode.NOT_EXIST_ORDER));
         return OrderEntityMapper.toOrderDomain(order);
+    }
+
+    public Order findOrderEntityById(final Long orderId) {
+        return orderRepository.findById(orderId).orElseThrow(() -> new ApiException(OrderErrorCode.NOT_EXIST_ORDER));
     }
 
 

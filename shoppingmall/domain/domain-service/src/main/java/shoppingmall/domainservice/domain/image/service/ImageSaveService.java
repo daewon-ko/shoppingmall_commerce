@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import shoppingmall.aws.s3.S3Uploader;
 import shoppingmall.common.exception.ApiException;
 import shoppingmall.common.exception.infra.StorageErrorCode;
-import shoppingmall.domainrdb.common.annotation.DomainService;
+import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.image.ImageDomain;
 import shoppingmall.domainrdb.image.entity.FileType;
 import shoppingmall.domainrdb.image.service.ImageRdbService;
@@ -19,7 +19,7 @@ import java.util.stream.IntStream;
  * 이미지 저장 서비스
  * 특정 도메인에 대한 이미지 저장이 아닌 이미지 저장 일반에 대한 기능을 수행
  */
-@DomainService
+@DomainRdbService
 @RequiredArgsConstructor
 public class ImageSaveService {
     private final S3Uploader s3Uploader;

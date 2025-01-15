@@ -2,13 +2,12 @@ package shoppingmall.domainservice.domain.chatroom;
 
 import lombok.RequiredArgsConstructor;
 import shoppingmall.domainrdb.chat.ChatRoomDomain;
-import shoppingmall.domainrdb.chat.entity.ChatRoom;
 import shoppingmall.domainrdb.chat.service.ChatRoomRdbService;
-import shoppingmall.domainrdb.common.annotation.DomainService;
+import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 
 import java.util.UUID;
 
-@DomainService
+@DomainRdbService
 @RequiredArgsConstructor
 public class ChatRoomSearchService {
 

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
-import shoppingmall.domainrdb.common.annotation.DomainService;
+import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.image.ImageDomain;
 import shoppingmall.domainrdb.product.domain.ProductDomain;
 import shoppingmall.domainrdb.product.service.*;
@@ -17,7 +17,7 @@ import shoppingmall.domainservice.domain.product.mapper.ProductDtoMapper;
 import java.util.ArrayList;
 import java.util.List;
 
-@DomainService
+@DomainRdbService
 @RequiredArgsConstructor
 public class ProductSearchService {
 

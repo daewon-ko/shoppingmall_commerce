@@ -2,18 +2,14 @@ package shoppingmall.domainrdb.order.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import shoppingmall.domainrdb.common.annotation.DomainService;
-import shoppingmall.domainrdb.mapper.OrderEntityMapper;
+import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.mapper.OrderProductEntityMapper;
 import shoppingmall.domainrdb.order.domain.OrderProductDomain;
 import shoppingmall.domainrdb.order.entity.OrderProduct;
 import shoppingmall.domainrdb.order.repository.OrderProductRepository;
 import shoppingmall.domainrdb.order.repository.OrderQueryRepository;
-import shoppingmall.domainrdb.order.repository.OrderRepository;
 
-import java.util.List;
-
-@DomainService
+@DomainRdbService
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class OrderProductRdbService {

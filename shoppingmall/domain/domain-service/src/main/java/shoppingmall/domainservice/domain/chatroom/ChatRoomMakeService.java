@@ -3,7 +3,7 @@ package shoppingmall.domainservice.domain.chatroom;
 import lombok.RequiredArgsConstructor;
 import shoppingmall.domainrdb.chat.ChatRoomDomain;
 import shoppingmall.domainrdb.chat.service.ChatRoomRdbService;
-import shoppingmall.domainrdb.common.annotation.DomainService;
+import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.product.domain.ProductDomain;
 import shoppingmall.domainrdb.product.service.ProductRdbService;
 import shoppingmall.domainrdb.user.UserDomain;
@@ -12,7 +12,7 @@ import shoppingmall.domainrdb.user.service.UserRdbService;
 
 import java.util.UUID;
 
-@DomainService
+@DomainRdbService
 @RequiredArgsConstructor
 public class ChatRoomMakeService {
     private final ChatRoomRdbService chatRoomRdbService;

@@ -3,7 +3,7 @@ package shoppingmall.domainservice.domain.order.service;
 import lombok.RequiredArgsConstructor;
 import shoppingmall.common.exception.ApiException;
 import shoppingmall.common.exception.domain.OrderErrorCode;
-import shoppingmall.domainrdb.common.annotation.DomainService;
+import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.order.domain.OrderDomain;
 import shoppingmall.domainrdb.order.domain.OrderStatus;
 import shoppingmall.domainrdb.order.service.OrderProductRdbService;
@@ -13,7 +13,7 @@ import shoppingmall.domainservice.domain.order.dto.request.OrderUpdateRequest;
 
 import java.util.List;
 
-@DomainService
+@DomainRdbService
 @RequiredArgsConstructor
 public class OrderUpdateService {
     private final OrderRdbService orderRdbService;
@@ -28,7 +28,7 @@ public class OrderUpdateService {
         List<OrderProductUpdateRequest> updateRequestList = orderUpdateRequest.getUpdateRequestList();
 
         // OrderDomain 조회 후 주문상태가 배송완료 또는 취소인 경우 주문 업데이트가 불가능
-        OrderDomain orderDomain = orderRdbService.findById(orderId);
+        OrderDomain orderDomain = orderRdbService.findOrderDomainById(orderId);
         if (orderDomain.getOrderStatus() == OrderStatus.DELIVERY_FINISHED || orderDomain.getOrderStatus() == OrderStatus.CANCELED) {
             throw new ApiException(OrderErrorCode.ORDER_UPDATE_NOT_ALLOWED);
         }

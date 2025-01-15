@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import shoppingmall.common.exception.ApiException;
 import shoppingmall.common.exception.domain.ImageErrorCode;
-import shoppingmall.domainrdb.common.annotation.DomainService;
+import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.image.ImageDomain;
 import shoppingmall.domainrdb.image.entity.FileType;
 import shoppingmall.domainrdb.image.entity.Image;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-@DomainService
+@DomainRdbService
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class ImageRdbService {

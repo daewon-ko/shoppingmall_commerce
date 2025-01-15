@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import shoppingmall.common.annotation.DomainService;
-import shoppingmall.domainrdb.common.annotation.DomainService;
+import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.mapper.UserEntityMapper;
 import shoppingmall.domainrdb.user.UserDomain;
 import shoppingmall.domainrdb.user.dto.CreateUserRequestDto;
@@ -15,7 +15,7 @@ import shoppingmall.domainrdb.user.repository.UserRepository;
 import shoppingmall.common.exception.ApiException;
 import shoppingmall.common.exception.domain.UserErrorCode;
 
-@DomainService
+@DomainRdbService
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class UserRdbService {
@@ -60,26 +60,21 @@ public class UserRdbService {
         return user.getId();
     }
 
-    public Boolean isExistEmail(final String email) {
-        return userRepository.existsByEmail(email);
-    }
-
-    public Boolean isExistById(final Long userId) {
-        return userRepository.existsById(userId);
-    }
-
 
     private boolean isPasswordMatch(final LoginUserRequestDto loginUserRequestDto, final String password) {
         return bCryptPasswordEncoder.matches(loginUserRequestDto.getPassword(), password);
     }
 
-    public User findUserByIdAndSeller(final Long userId) {
-        User findUser = userRepository.findById(userId).orElseThrow(() -> new ApiException(UserErrorCode.NO_EXIST_USER));
-        if (!findUser.getUserRole().equals(UserRole.SELLER)) {
+
+    public Long findSellerByEmail(final String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new ApiException(UserErrorCode.NO_EXIST_USER));
+        if (!user.getUserRole().equals(UserRole.SELLER)) {
             throw new ApiException(UserErrorCode.USER_NOT_SELLER);
         }
-        return findUser;
+        return user.getId();
     }
+
+
 
     public Boolean isExistByIdAndUserRole(final Long userId, final UserRole userRole) {
 
