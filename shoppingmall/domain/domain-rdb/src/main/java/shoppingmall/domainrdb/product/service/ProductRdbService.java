@@ -62,10 +62,10 @@ public class ProductRdbService {
     }
 
     @Transactional
-    public void updateProduct(final ProductDomain productDomain) {
+    public void updateProduct(final Long productId, final String name, final Integer price) {
 
-        Product product = productRepository.findById(productDomain.getProductId().getValue()).orElseThrow(() -> new ApiException(ProductErrorCode.PRODUCT_NOT_FOUND));
-        product.updateDetails(productDomain.getName(), productDomain.getPrice());
+        Product product = productRepository.findById(productId).orElseThrow(() -> new ApiException(ProductErrorCode.PRODUCT_NOT_FOUND));
+        product.updateDetails(name, price);
 
     }
 

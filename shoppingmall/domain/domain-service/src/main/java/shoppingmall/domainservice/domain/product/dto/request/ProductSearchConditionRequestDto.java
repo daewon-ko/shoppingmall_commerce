@@ -1,7 +1,5 @@
-package shoppingmall.web.api.product.dto.request;
+package shoppingmall.domainservice.domain.product.dto.request;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import lombok.Builder;
 import lombok.Getter;
 import shoppingmall.domainrdb.image.entity.FileType;
@@ -12,9 +10,7 @@ import java.util.List;
 @Getter
 public class ProductSearchConditionRequestDto {
     private Long categoryId;
-    @Min(value = 0L, message = "최소 0원 이상이어야 합니다.")
     private Integer minPrice;
-    @Max(value = 999999999L, message = "최대 금액은 10억 이하입니다.")
     private Integer maxPrice;
     private String productName;
     private LocalDateTime startDate;
