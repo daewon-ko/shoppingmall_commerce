@@ -4,9 +4,11 @@ import shoppingmall.domainrdb.cart.CartDomain;
 import shoppingmall.domainrdb.cart.entity.Cart;
 
 public class CartEntityMapper {
-    public static CartDomain toCartDomain(Cart cart) {
-        return CartDomain.builder()
-                .userDomain(UserEntityMapper.toUserDomain(cart.getUser()))
+
+
+    public static Cart toCartEntity(CartDomain cartDomain) {
+        return Cart.builder()
+                .user(UserEntityMapper.toUserEntity(cartDomain.getUserDomain()))
                 .build();
     }
 }

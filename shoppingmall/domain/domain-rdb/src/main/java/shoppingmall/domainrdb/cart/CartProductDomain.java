@@ -1,23 +1,28 @@
 package shoppingmall.domainrdb.cart;
 
-import lombok.Builder;
 import lombok.Getter;
-import shoppingmall.domainrdb.product.ProductDomain;
+import shoppingmall.domainrdb.product.domain.ProductId;
 
 @Getter
 public class CartProductDomain {
-    private Long cartProductId;
+    private final CartProductId cartProductId;
     private final int quantity;
-    private final CartDomain cartDomain;
-    private final ProductDomain productDomain;
+    private final CartId cartId;
+    private final ProductId productId;
 
 
-    @Builder
-
-    public CartProductDomain(int quantity, CartDomain cartDomain, ProductDomain productDomain, Long cartProductId) {
-        this.quantity = quantity;
-        this.cartDomain = cartDomain;
-        this.productDomain = productDomain;
+    private CartProductDomain(CartProductId cartProductId, int quantity, CartId cartId, ProductId productId) {
         this.cartProductId = cartProductId;
+        this.quantity = quantity;
+        this.cartId = cartId;
+        this.productId = productId;
+    }
+
+    public static CartProductDomain createForWrite(ProductId productId, CartId cartId, int quantity) {
+        return new CartProductDomain(null, quantity, cartId, productId);
+    }
+
+    public static CartProductDomain createForRead(Long id, ProductId productId, CartId cartId, int quantity) {
+        return new CartProductDomain(CartProductId.from(id), quantity, cartId, productId);
     }
 }
