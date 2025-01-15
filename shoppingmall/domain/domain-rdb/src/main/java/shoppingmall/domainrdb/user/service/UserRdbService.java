@@ -64,6 +64,10 @@ public class UserRdbService {
         return userRepository.existsByEmail(email);
     }
 
+    public Boolean isExistById(final Long userId) {
+        return userRepository.existsById(userId);
+    }
+
 
     private boolean isPasswordMatch(final LoginUserRequestDto loginUserRequestDto, final String password) {
         return bCryptPasswordEncoder.matches(loginUserRequestDto.getPassword(), password);

@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import shoppingmall.domainrdb.user.UserId;
 
 import java.util.Objects;
 
@@ -40,6 +41,13 @@ public class User {
         this.name = name;
         this.password = password;
         this.userRole = userRole;
+    }
+
+
+    public static User fromUserId(final UserId userId) {
+        User user = new User();
+        user.id = userId.getValue();
+        return user;
     }
 
 

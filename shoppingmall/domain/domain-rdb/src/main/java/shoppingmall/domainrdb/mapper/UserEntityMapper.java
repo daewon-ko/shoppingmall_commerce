@@ -12,6 +12,8 @@ public class UserEntityMapper {
     }
 
     public static UserDomain toUserDomain(User user) {
-        return new UserDomain(user.getId(), user.getName(), user.getEmail());
+        return UserDomain.createForRead(user.getId(), user.getName(), user.getEmail());
+
+
     }
 }
