@@ -3,6 +3,7 @@ package shoppingmall.domainrdb.category.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import shoppingmall.domainrdb.category.service.CategoryId;
 import shoppingmall.domainrdb.common.BaseEntity;
 
 @Entity
@@ -27,6 +28,13 @@ public class Category extends BaseEntity {
     public static Category createCategory(String name) {
         return Category.builder()
                 .name(name).build();
+
+    }
+
+    public static Category fromCategoryId(final CategoryId categoryId) {
+        Category category = new Category();
+        category.id = categoryId.getValue();
+        return category;
 
     }
 

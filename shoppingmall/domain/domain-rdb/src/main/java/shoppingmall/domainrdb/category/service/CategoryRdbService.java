@@ -27,5 +27,9 @@ public class CategoryRdbService {
         return categoryRepository.existsByName(categoryName);
     }
 
+    public Boolean findByCategoryId(final Long categoryId) {
+        return categoryRepository.existsById(categoryId);
+    }
+
 
 }
