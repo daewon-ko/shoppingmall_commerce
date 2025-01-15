@@ -1,10 +1,9 @@
-package shoppingmall.domainservice.domain.order.dto.request;
+package shoppingmall.domainrdb.order.dto;
 
-import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.domain.Pageable;
-import shoppingmall.domainrdb.domain.order.entity.OrderStatus;
+import shoppingmall.domainrdb.order.domain.OrderStatus;
 
 
 @Getter
@@ -14,7 +13,6 @@ public class OrderSearchCondition {
 
 
     @Builder
-    @QueryProjection
     public OrderSearchCondition(OrderStatus orderStatus, Pageable pageable) {
         this.orderStatus = orderStatus;
         this.pageable = pageable;

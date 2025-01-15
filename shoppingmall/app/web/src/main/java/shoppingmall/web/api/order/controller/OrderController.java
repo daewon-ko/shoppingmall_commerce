@@ -3,10 +3,15 @@ package shoppingmall.web.api.order.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import shoppingmall.common.ApiResponse;
+import shoppingmall.domainrdb.order.domain.OrderStatus;
+import shoppingmall.domainrdb.order.dto.OrderProductResponseDto;
+import shoppingmall.domainrdb.order.dto.OrderSearchCondition;
 import shoppingmall.domainservice.domain.order.dto.request.OrderCreateRequestDto;
+import shoppingmall.domainservice.domain.order.dto.request.OrderUpdateRequest;
 import shoppingmall.domainservice.domain.order.dto.response.OrderProductCreateResponseDto;
 import shoppingmall.web.api.order.usecase.OrderUsecase;
 
@@ -51,7 +56,7 @@ public class OrderController {
         OrderSearchCondition orderSearchCondition = OrderSearchCondition.builder()
                 .orderStatus(orderStatus).build();
 
-        Slice<OrderProductResponseDto> orderList = orderService.getOrderList(userId, orderSearchCondition, pageable);
+        Slice<OrderProductResponseDto> orderList = orderUsecase.getOrderList(userId, orderSearchCondition, pageable);
         return ApiResponse.ok(orderList);
     }
 
@@ -63,17 +68,16 @@ public class OrderController {
     public ApiResponse cancelOrder(
             @PathVariable(name = "orderId") Long orderId
     ) {
-        orderService.cancelOrder(orderId);
+        orderUsecase.cancelOrder(orderId);
         return ApiResponse.ok();
     }
 
     @PatchMapping("/order/{orderId}")
     @PreAuthorize("hasRole('BUYER')")
     public ApiResponse updateOrder(
-            @PathVariable(name = "orderId") Long orderId,
             @RequestBody OrderUpdateRequest orderUpdateRequest
     ) {
-        orderService.updateOrderProducts(orderId, orderUpdateRequest);
+        orderUsecase.updateOrder(orderUpdateRequest);
         return ApiResponse.ok();
 
     }

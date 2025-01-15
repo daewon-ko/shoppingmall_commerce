@@ -7,7 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
 import shoppingmall.domainrdb.cart.entity.Cart;
-import shoppingmall.domainrdb.order.OrderStatus;
+import shoppingmall.domainrdb.order.domain.OrderId;
+import shoppingmall.domainrdb.order.domain.OrderStatus;
 import shoppingmall.domainrdb.user.entity.User;
 
 import java.io.Serial;
@@ -54,6 +55,12 @@ public class Order implements Serializable {
         this.detailAddress = detailAddress;
         this.cart = cart;
         this.user = user;
+    }
+
+    public static Order fromOrderId(final OrderId orderId) {
+        Order order = new Order();
+        order.id = orderId.getValue();
+        return order;
     }
 
     public void cancelOrder() {

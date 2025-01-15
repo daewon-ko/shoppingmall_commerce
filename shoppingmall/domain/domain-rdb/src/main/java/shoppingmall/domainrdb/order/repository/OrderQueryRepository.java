@@ -7,17 +7,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Repository;
-import shoppingmall.domainrdb.domain.order.dto.request.OrderSearchCondition;
-import shoppingmall.domainrdb.domain.order.dto.response.OrderProductResponseDto;
-import shoppingmall.domainrdb.domain.order.dto.response.QOrderProductResponseDto;
-import shoppingmall.domainrdb.domain.order.entity.OrderProduct;
-import shoppingmall.domainrdb.domain.order.entity.OrderStatus;
+import shoppingmall.domainrdb.order.domain.OrderStatus;
+import shoppingmall.domainrdb.order.dto.OrderSearchCondition;
+import shoppingmall.domainrdb.order.entity.OrderProduct;
 
 import java.util.List;
 
-import static shoppingmall.domainrdb.domain.order.entity.QOrder.order;
-import static shoppingmall.domainrdb.domain.order.entity.QOrderProduct.orderProduct;
-import static shoppingmall.domainrdb.domain.product.entity.QProduct.product;
+import static shoppingmall.domainrdb.order.entity.QOrder.order;
+import static shoppingmall.domainrdb.order.entity.QOrderProduct.orderProduct;
+import static shoppingmall.domainrdb.product.entity.QProduct.product;
 
 
 @Repository
@@ -26,24 +24,47 @@ public class OrderQueryRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
 
-    public Slice<OrderProductResponseDto> findOrderProducts(Long userId, OrderSearchCondition orderSearchCondition, Pageable pageable) {
+//    public Slice<OrderProductResponseDto> findOrderProducts(Long userId, OrderSearchCondition orderSearchCondition, Pageable pageable) {
+//        final OrderStatus orderStatus = orderSearchCondition.getOrderStatus();
+//
+//
+//        List<OrderProductResponseDto> results = jpaQueryFactory
+//                .select(new QOrderProductResponseDto(
+//                        order.id,
+//                        product.id,
+//                        product.name,
+//                        orderProduct.price,
+//                        orderProduct.quantity
+//                ))
+//                .from(orderProduct)
+//                .join(orderProduct.order, order)
+//                .join(orderProduct.product, product)
+//                .where(order.user.id.eq(userId),
+//                        orderStatusEq(orderStatus)
+//                )
+//                .offset(pageable.getOffset())
+//                .limit(pageable.getPageSize() + 1)  // 페이징을 위한 +1
+//                .fetch();
+//
+//        boolean hasNext = results.size() > pageable.getPageSize();
+//
+//        if (hasNext) {
+//            results.remove(results.size() - 1);
+//        }
+//
+//        return new SliceImpl<>(results, pageable, hasNext);
+//
+//    }
+
+    public Slice<OrderProduct> findOrderProducts(Long userId, OrderSearchCondition orderSearchCondition, Pageable pageable) {
         final OrderStatus orderStatus = orderSearchCondition.getOrderStatus();
 
-
-        List<OrderProductResponseDto> results = jpaQueryFactory
-                .select(new QOrderProductResponseDto(
-                        order.id,
-                        product.id,
-                        product.name,
-                        orderProduct.price,
-                        orderProduct.quantity
-                ))
-                .from(orderProduct)
-                .join(orderProduct.order, order)
-                .join(orderProduct.product, product)
+        List<OrderProduct> results = jpaQueryFactory
+                .selectFrom(orderProduct)
+                .join(orderProduct.order, order).fetchJoin()    // Order와 fetch join
+                .join(orderProduct.product, product).fetchJoin() // Product와 fetch join
                 .where(order.user.id.eq(userId),
-                        orderStatusEq(orderStatus)
-                )
+                        orderStatusEq(orderStatus))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize() + 1)  // 페이징을 위한 +1
                 .fetch();
@@ -55,8 +76,8 @@ public class OrderQueryRepository {
         }
 
         return new SliceImpl<>(results, pageable, hasNext);
-
     }
+
 
 
 
