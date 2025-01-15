@@ -1,8 +1,7 @@
-package shoppingmall.web.api.product.dto.response;
+package shoppingmall.domainservice.domain.product.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import shoppingmall.domainrdb.product.entity.Product;
 
 import java.util.List;
 

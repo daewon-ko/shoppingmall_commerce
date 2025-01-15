@@ -4,20 +4,17 @@ package shoppingmall.web.api.product.usecase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.SliceImpl;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import shoppingmall.domainrdb.image.ImageDomain;
-import shoppingmall.domainrdb.product.ProductDomain;
+import shoppingmall.domainservice.domain.product.dto.request.ProductCreateRequestDto;
+import shoppingmall.domainservice.domain.product.dto.request.ProductSearchConditionRequestDto;
+import shoppingmall.domainservice.domain.product.dto.request.ProductUpdateRequestDto;
+import shoppingmall.domainservice.domain.product.dto.response.ProductCreateResponseDto;
+import shoppingmall.domainservice.domain.product.dto.response.ProductQueryResponseDto;
 import shoppingmall.domainservice.domain.product.service.*;
-import shoppingmall.web.api.product.dto.request.ProductCreateRequestDto;
-import shoppingmall.web.api.product.dto.request.ProductSearchConditionRequestDto;
-import shoppingmall.web.api.product.dto.request.ProductUpdateRequestDto;
-import shoppingmall.web.api.product.dto.response.ProductCreateResponseDto;
-import shoppingmall.web.api.product.dto.response.ProductQueryResponseDto;
-import shoppingmall.web.common.mapper.ImageDtoMapper;
-import shoppingmall.web.common.mapper.ProductDtoMapper;
 import shoppingmall.web.common.annotataion.Usecase;
+import shoppingmall.web.common.validation.product.ProductCreateValidator;
+import shoppingmall.web.common.validation.product.ProductSearchValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,53 +27,49 @@ public class ProductUsecase {
     private final ProductSearchService productSearchService;
     private final ProductUpdateService productUpdateService;
     private final ProductDeleteService productDeleteService;
+    private final ProductCreateValidator productCreateValidator;
+    private final ProductSearchValidator productSearchValidator;
 
 
     @Transactional
     public ProductCreateResponseDto createProduct(final ProductCreateRequestDto productCreateRequestDto, final List<MultipartFile> multipartFiles) {
 
-        // ProductDomain 생성시 Validation 수행
-        // CategoryDomain, UserDomain도 인스턴스 생성 시 생성자를 통해 Validation 수행
-        ProductDomain productDomain = ProductDtoMapper.toProductDomain(productCreateRequestDto);
+        // ProductCreateRequest Validation
+        productCreateValidator.validate(productCreateRequestDto);
 
 
-        Long productId = productCreateService.createProduct(productDomain);
+        Long productId = productCreateService.createProduct(productCreateRequestDto);
 
         final List<Long> imageIds = productImageService.saveProductImages(multipartFiles, productId);
 
-        return ProductDtoMapper.toCreateResponseDto(productDomain, productId, imageIds);
+
+        return ProductCreateResponseDto.builder()
+                .id(productId)
+                .name(productCreateRequestDto.getName())
+                .price(productCreateRequestDto.getPrice())
+                .categoryName(productCreateRequestDto.getCagegoryName())
+                .imageIds(imageIds).build();
 
     }
 
     public Slice<ProductQueryResponseDto> getAllProductList(final ProductSearchConditionRequestDto searchConditionRequestDto, final Pageable pageable) {
 
-
-        Slice<ProductDomain> productDomains = productSearchService.searchProducts(ProductDtoMapper.toSearchCondition(searchConditionRequestDto), pageable);
-
-        // ProductDomain -> ProductResponseDTO
-
-        List<ProductQueryResponseDto> listDtos = new ArrayList<>();
-        for (ProductDomain productDomain : productDomains) {
-
-            List<ImageDomain> imageDomains = productImageService.searchProductImages(productDomain.getId(), searchConditionRequestDto.getFileTypes());
-
-            listDtos.add(ProductDtoMapper.toSearchResponseDto(productDomain, ImageDtoMapper.toImageResponseDto(imageDomains), searchConditionRequestDto.getCategoryId()));
+        // ProductSearchConditionRequestDto Validation
+        productSearchValidator.validate(searchConditionRequestDto);
 
 
-        }
-        return new SliceImpl<>(listDtos, pageable, productDomains.hasNext());
+        return productSearchService.searchProducts(searchConditionRequestDto, pageable);
 
 
     }
 
 
     public void updateProducts(final Long productId, final ProductUpdateRequestDto updateRequestDto) {
-        productUpdateService.updateProduct(ProductDtoMapper.toProductDomain(productId, updateRequestDto));
+        productUpdateService.updateProduct(productId, updateRequestDto);
     }
 
     public void updateProductThumbNailImage(final Long productId, final MultipartFile multipartFile) {
         productImageService.updateThumbNailImage(productId, multipartFile);
-
 
     }
 

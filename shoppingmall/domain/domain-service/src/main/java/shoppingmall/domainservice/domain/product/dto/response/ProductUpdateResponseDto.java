@@ -1,9 +1,7 @@
-package shoppingmall.web.api.product.dto.response;
+package shoppingmall.domainservice.domain.product.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
-
-import java.util.List;
 
 @Getter
 public class ProductUpdateResponseDto {
