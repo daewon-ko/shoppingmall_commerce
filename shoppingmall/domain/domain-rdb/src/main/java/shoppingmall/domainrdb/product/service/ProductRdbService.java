@@ -12,7 +12,7 @@ import shoppingmall.domainrdb.image.entity.FileType;
 import shoppingmall.domainrdb.image.entity.Image;
 import shoppingmall.domainrdb.image.repository.ImageRepository;
 import shoppingmall.domainrdb.mapper.ProductEntityMapper;
-import shoppingmall.domainrdb.product.ProductDomain;
+import shoppingmall.domainrdb.product.domain.ProductDomain;
 import shoppingmall.domainrdb.product.dto.request.ProductSearchCondition;
 import shoppingmall.domainrdb.product.entity.Product;
 import shoppingmall.domainrdb.product.repository.ProductQueryRepository;
@@ -64,7 +64,7 @@ public class ProductRdbService {
     @Transactional
     public void updateProduct(final ProductDomain productDomain) {
 
-        Product product = productRepository.findById(productDomain.getId()).orElseThrow(() -> new ApiException(ProductErrorCode.PRODUCT_NOT_FOUND));
+        Product product = productRepository.findById(productDomain.getProductId().getValue()).orElseThrow(() -> new ApiException(ProductErrorCode.PRODUCT_NOT_FOUND));
         product.updateDetails(productDomain.getName(), productDomain.getPrice());
 
     }

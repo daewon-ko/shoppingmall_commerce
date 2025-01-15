@@ -2,7 +2,7 @@ package shoppingmall.domainservice.domain.product.service;
 
 import lombok.RequiredArgsConstructor;
 import shoppingmall.domainrdb.common.annotation.DomainService;
-import shoppingmall.domainrdb.product.ProductDomain;
+import shoppingmall.domainrdb.product.domain.ProductDomain;
 import shoppingmall.domainrdb.product.service.ProductRdbService;
 
 @DomainService

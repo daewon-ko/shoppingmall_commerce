@@ -8,16 +8,14 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
-import shoppingmall.domainrdb.category.entity.QCategory;
+import shoppingmall.domainrdb.domain.category.entity.QCategory;
+import shoppingmall.domainrdb.domain.product.entity.QProduct;
 import shoppingmall.domainrdb.product.dto.request.ProductSearchCondition;
 import shoppingmall.domainrdb.product.entity.Product;
-import shoppingmall.domainrdb.product.entity.QProduct;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static shoppingmall.domainrdb.domain.category.entity.QCategory.category;
-import static shoppingmall.domainrdb.domain.product.entity.QProduct.product;
 
 
 @Repository
@@ -29,7 +27,7 @@ public class ProductQueryRepository {
 
 
         List<Product> products = jpaQueryFactory.selectFrom(QProduct.product)
-                .join(QProduct.product.category, QCategory.category)
+                .join(QProduct.product.category, QCategory.category, QProduct.product.seller)
                 .fetchJoin()
                 .where(categoryIdEq(productSearchCondition.getCategoryId()),
                         productNameEq(productSearchCondition.getProductName()),

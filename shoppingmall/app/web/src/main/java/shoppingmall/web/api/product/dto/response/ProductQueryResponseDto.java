@@ -2,7 +2,7 @@ package shoppingmall.web.api.product.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import shoppingmall.domainrdb.product.ProductDomain;
+import shoppingmall.domainrdb.product.domain.ProductDomain;
 import shoppingmall.web.api.image.dto.response.ImageResponseDto;
 
 import java.util.List;

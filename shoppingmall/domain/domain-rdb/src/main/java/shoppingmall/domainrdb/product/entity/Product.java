@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import shoppingmall.domainrdb.category.entity.Category;
 import shoppingmall.domainrdb.common.BaseEntity;
+import shoppingmall.domainrdb.product.domain.ProductId;
 import shoppingmall.domainrdb.user.entity.User;
 
 
@@ -40,6 +41,12 @@ public class Product extends BaseEntity {
         this.price = price;
         this.seller = seller;
         this.category = category;
+    }
+
+    public static Product fromProductId(final ProductId productId) {
+        Product product = new Product();
+        product.id = productId.getValue();
+        return product;
     }
 
 

@@ -1,37 +1,36 @@
-package shoppingmall.domainrdb.product;
+package shoppingmall.domainrdb.product.domain;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Builder;
 import lombok.Getter;
 import shoppingmall.domainrdb.category.CategoryDomain;
+import shoppingmall.domainrdb.category.service.CategoryId;
 import shoppingmall.domainrdb.user.UserDomain;
+import shoppingmall.domainrdb.user.UserId;
 
 @Getter
 public class ProductDomain {
-    private final Long id;
+    private final ProductId productId;
     private final String name;
     private final Integer price;
-    private final CategoryDomain categoryDomain;
-    private final UserDomain userDomain;
+    private final CategoryId categoryId;
+    private final UserId userId;
 
-
-    @Builder
-    private ProductDomain(Long id, String name, Integer price, CategoryDomain categoryDomain, UserDomain userDomain) {
-        this.id = id;
+    public ProductDomain(ProductId productId, String name, Integer price, CategoryId categoryId, UserId userId) {
+        this.productId = productId;
         this.name = name;
         this.price = price;
-        this.categoryDomain = categoryDomain;
-        this.userDomain = userDomain;
+        this.categoryId = categoryId;
+        this.userId = userId;
     }
 
     // 쓰기 작업을 위한 팩토리 메서드
-    public static ProductDomain createForWrite(String name, int price, CategoryDomain categoryDomain, UserDomain userDomain) {
-        return new ProductDomain(null, name, price, categoryDomain, userDomain);
+    public static ProductDomain createForWrite(String name, int price, CategoryId categoryId, UserId userId) {
+        return new ProductDomain(null, name, price, categoryId, userId);
     }
 
     // 읽기 작업을 위한 팩토리 메서드
-    public static ProductDomain createForRead(Long id, String name, int price, CategoryDomain categoryDomain, UserDomain userDomain) {
-        return new ProductDomain(id, name, price, categoryDomain, userDomain);
+    public static ProductDomain createForRead(Long id, String name, int price, CategoryId categoryId, UserId userId) {
+        return new ProductDomain(ProductId.from(id), name, price, categoryId, userId);
     }
 
 

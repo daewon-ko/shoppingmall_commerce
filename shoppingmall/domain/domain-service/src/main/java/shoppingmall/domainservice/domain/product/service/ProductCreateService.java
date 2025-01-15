@@ -2,7 +2,8 @@ package shoppingmall.domainservice.domain.product.service;
 
 import lombok.RequiredArgsConstructor;
 import shoppingmall.domainrdb.category.CategoryDomain;
-import shoppingmall.domainrdb.product.ProductDomain;
+import shoppingmall.domainrdb.category.service.CategoryId;
+import shoppingmall.domainrdb.product.domain.ProductDomain;
 import shoppingmall.domainrdb.user.UserDomain;
 import shoppingmall.common.exception.ApiException;
 import shoppingmall.common.exception.domain.CategoryErrorCode;
@@ -10,6 +11,7 @@ import shoppingmall.common.exception.domain.UserErrorCode;
 import shoppingmall.domainrdb.category.service.CategoryRdbService;
 import shoppingmall.domainrdb.common.annotation.DomainService;
 import shoppingmall.domainrdb.product.service.ProductRdbService;
+import shoppingmall.domainrdb.user.UserId;
 import shoppingmall.domainrdb.user.service.UserRdbService;
 
 @DomainService
@@ -25,18 +27,19 @@ public class ProductCreateService {
     public Long createProduct(final ProductDomain productDomain) {
 
 
-        CategoryDomain categoryDomain = productDomain.getCategoryDomain();
-        UserDomain userDomain = productDomain.getUserDomain();
+        CategoryId categoryId = productDomain.getCategoryId();
+
+        UserId userId = productDomain.getUserId();
 
 
         // 중복 category 검증
-        if (categoryRdbService.findByCategoryName(categoryDomain.getName())) {
+        if (categoryRdbService.findByCategoryId(categoryId.getValue())) {
             throw new ApiException(CategoryErrorCode.DUPLICATED_CATEGORY);
         }
 
 
         // email 존재여부 검증
-        if (!userRdbService.isExistEmail(userDomain.getEmail())) {
+        if (!userRdbService.isExistById(userId.getValue())) {
             // email이 없으면 예외를 던진다.
             throw new ApiException(UserErrorCode.NO_EXIST_USER);
         }

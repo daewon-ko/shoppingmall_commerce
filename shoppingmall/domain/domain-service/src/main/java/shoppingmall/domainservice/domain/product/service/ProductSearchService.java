@@ -1,16 +1,13 @@
 package shoppingmall.domainservice.domain.product.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import shoppingmall.domainrdb.category.service.CategoryRdbService;
 import shoppingmall.domainrdb.common.annotation.DomainService;
-import shoppingmall.domainrdb.product.ProductDomain;
+import shoppingmall.domainrdb.product.domain.ProductDomain;
 import shoppingmall.domainrdb.product.service.*;
 import shoppingmall.domainrdb.product.dto.request.ProductSearchCondition;
-
-import java.util.List;
 
 @DomainService
 @RequiredArgsConstructor
