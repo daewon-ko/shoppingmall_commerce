@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.image.ImageDomain;
 import shoppingmall.domainrdb.image.entity.FileType;
+import shoppingmall.domainservice.common.annotation.DomainService;
 import shoppingmall.domainservice.domain.image.service.ImageDeleteService;
 import shoppingmall.domainservice.domain.image.service.ImageSaveService;
 import shoppingmall.domainservice.domain.image.service.ImageSearchService;
@@ -12,7 +13,7 @@ import shoppingmall.domainservice.domain.image.service.ImageSearchService;
 import java.util.ArrayList;
 import java.util.List;
 
-@DomainRdbService
+@DomainService
 @RequiredArgsConstructor
 public class ProductImageService {
     // ImageSaveRdbService 네이밍 변경 필요..

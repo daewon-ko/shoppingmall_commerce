@@ -4,10 +4,11 @@ import lombok.RequiredArgsConstructor;
 import shoppingmall.domainrdb.chat.ChatRoomDomain;
 import shoppingmall.domainrdb.chat.service.ChatRoomRdbService;
 import shoppingmall.domainrdb.common.annotation.DomainRdbService;
+import shoppingmall.domainservice.common.annotation.DomainService;
 
 import java.util.UUID;
 
-@DomainRdbService
+@DomainService
 @RequiredArgsConstructor
 public class ChatRoomSearchService {
 

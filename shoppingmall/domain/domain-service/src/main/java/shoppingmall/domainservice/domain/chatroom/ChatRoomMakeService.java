@@ -9,10 +9,11 @@ import shoppingmall.domainrdb.product.service.ProductRdbService;
 import shoppingmall.domainrdb.user.UserDomain;
 import shoppingmall.domainrdb.user.entity.UserRole;
 import shoppingmall.domainrdb.user.service.UserRdbService;
+import shoppingmall.domainservice.common.annotation.DomainService;
 
 import java.util.UUID;
 
-@DomainRdbService
+@DomainService
 @RequiredArgsConstructor
 public class ChatRoomMakeService {
     private final ChatRoomRdbService chatRoomRdbService;

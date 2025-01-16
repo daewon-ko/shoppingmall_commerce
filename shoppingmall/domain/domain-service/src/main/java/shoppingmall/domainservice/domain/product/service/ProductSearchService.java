@@ -9,6 +9,7 @@ import shoppingmall.domainrdb.image.ImageDomain;
 import shoppingmall.domainrdb.product.domain.ProductDomain;
 import shoppingmall.domainrdb.product.service.*;
 import shoppingmall.domainrdb.product.dto.request.ProductSearchCondition;
+import shoppingmall.domainservice.common.annotation.DomainService;
 import shoppingmall.domainservice.domain.image.mapper.ImageDtoMapper;
 import shoppingmall.domainservice.domain.product.dto.request.ProductSearchConditionRequestDto;
 import shoppingmall.domainservice.domain.product.dto.response.ProductQueryResponseDto;
@@ -17,7 +18,7 @@ import shoppingmall.domainservice.domain.product.mapper.ProductDtoMapper;
 import java.util.ArrayList;
 import java.util.List;
 
-@DomainRdbService
+@DomainService
 @RequiredArgsConstructor
 public class ProductSearchService {
 

@@ -8,9 +8,10 @@ import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.product.service.ProductRdbService;
 import shoppingmall.domainrdb.user.UserId;
 import shoppingmall.domainrdb.user.service.UserRdbService;
+import shoppingmall.domainservice.common.annotation.DomainService;
 import shoppingmall.domainservice.domain.product.dto.request.ProductCreateRequestDto;
 
-@DomainRdbService
+@DomainService
 @RequiredArgsConstructor
 public class ProductCreateService {
     private final ProductRdbService productRdbService;

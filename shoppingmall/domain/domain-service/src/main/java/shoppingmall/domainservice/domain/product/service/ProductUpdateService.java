@@ -3,9 +3,10 @@ package shoppingmall.domainservice.domain.product.service;
 import lombok.RequiredArgsConstructor;
 import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.product.service.ProductRdbService;
+import shoppingmall.domainservice.common.annotation.DomainService;
 import shoppingmall.domainservice.domain.product.dto.request.ProductUpdateRequestDto;
 
-@DomainRdbService
+@DomainService
 @RequiredArgsConstructor
 public class ProductUpdateService {
     private final ProductRdbService productRdbService;

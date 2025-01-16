@@ -14,7 +14,7 @@ import shoppingmall.domainrdb.payment.TossPaymentDomain;
 import shoppingmall.domainrdb.payment.service.PaymentRdbService;
 import shoppingmall.domainredis.domain.dto.PaymentCacheDto;
 import shoppingmall.domainredis.domain.payment.service.PaymentCacheService;
-import shoppingmall.domainservice.domain.payment.PaymentConverter;
+import shoppingmall.domainservice.domain.payment.mapper.PaymentConverter;
 import shoppingmall.domainservice.domain.payment.dto.PaymentResponse;
 import shoppingmall.tosspayment.feign.PaymentClient;
 
@@ -73,6 +73,7 @@ public class PaymentConfirmService {
 
 
         } catch (Exception e) {
+            // DB 저장 중 오류 발생시 결제 취소 이벤트 발행
             TossPaymentCancelEvent cancelEvent = new TossPaymentCancelEvent(tossPaymentConfirmRequest.getPaymentKey(), "서버 내부 DB 저장 중 오류 발생");
             paymentCancelService.cancelPayment(cancelEvent);
             log.debug("결제 취소 수행", e);

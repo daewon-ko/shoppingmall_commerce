@@ -4,10 +4,11 @@ import lombok.RequiredArgsConstructor;
 import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.image.entity.FileType;
 import shoppingmall.domainrdb.image.service.ImageRdbService;
+import shoppingmall.domainservice.common.annotation.DomainService;
 
 import java.util.List;
 
-@DomainRdbService
+@DomainService
 @RequiredArgsConstructor
 public class ImageDeleteService {
     private final ImageRdbService imageRdbService;

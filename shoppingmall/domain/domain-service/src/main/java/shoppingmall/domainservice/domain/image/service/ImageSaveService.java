@@ -9,6 +9,7 @@ import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.image.ImageDomain;
 import shoppingmall.domainrdb.image.entity.FileType;
 import shoppingmall.domainrdb.image.service.ImageRdbService;
+import shoppingmall.domainservice.common.annotation.DomainService;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.stream.IntStream;
  * 이미지 저장 서비스
  * 특정 도메인에 대한 이미지 저장이 아닌 이미지 저장 일반에 대한 기능을 수행
  */
-@DomainRdbService
+@DomainService
 @RequiredArgsConstructor
 public class ImageSaveService {
     private final S3Uploader s3Uploader;
