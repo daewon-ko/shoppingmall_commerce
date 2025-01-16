@@ -4,10 +4,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Getter
 @ToString
-public class TossPaymentConfirmResponse {
+public class TossPaymentConfirmResponse implements Serializable {
 
+    // Toss서버에서 내려받는 결제 정보(WAS 내부와는 무관)
     private String orderId;
 
     private String paymentKey;

@@ -1,8 +1,9 @@
 package shoppingmall.domainrdb.payment.repository;
 
 
+
 import org.springframework.data.jpa.repository.JpaRepository;
-import shoppingmall.domainrdb.domain.payment.entity.TossPayment;
+import shoppingmall.domainrdb.payment.entity.TossPayment;
 
 import java.util.Optional;
 

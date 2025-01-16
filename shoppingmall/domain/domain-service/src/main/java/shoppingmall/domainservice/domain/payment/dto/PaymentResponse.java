@@ -2,6 +2,7 @@ package shoppingmall.domainservice.domain.payment.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import shoppingmall.domainrdb.payment.TossPaymentDomain;
 import shoppingmall.domainrdb.payment.entity.TossPayment;
 import shoppingmall.tosspayment.feign.TossPaymentMethod;
 import shoppingmall.tosspayment.feign.TossPaymentStatus;
@@ -24,13 +25,13 @@ public class PaymentResponse {
         this.amount = amount;
     }
 
-    public static PaymentResponse from(TossPayment tossPayment) {
+    public static PaymentResponse from(TossPaymentDomain tossPaymentDomain) {
         return PaymentResponse.builder()
-                .paymentId(tossPayment.getPaymentId())
-                .orderId(tossPayment.getOrder().getId())
-                .tossPaymentStatus(tossPayment.getTossPaymentStatus())
-                .tossPaymentMethod(tossPayment.getTossPaymentMethod())
-                .amount(tossPayment.getAmount())
+                .paymentId(tossPaymentDomain.getTossPaymentId().getValue())
+                .orderId(tossPaymentDomain.getOrderId())
+                .tossPaymentMethod(tossPaymentDomain.getTossPaymentMethod())
+                .tossPaymentStatus(tossPaymentDomain.getTossPaymentStatus())
+                .amount(tossPaymentDomain.getAmount())
                 .build();
     }
 }

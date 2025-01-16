@@ -5,8 +5,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import shoppingmall.common.dto.TossPaymentConfirmResponse;
-import shoppingmall.domainrdb.domain.order.entity.Order;
+import shoppingmall.common.dto.toss.TossPaymentConfirmResponse;
+import shoppingmall.domainrdb.order.entity.Order;
 import shoppingmall.tosspayment.feign.TossPaymentMethod;
 import shoppingmall.tosspayment.feign.TossPaymentStatus;
 
