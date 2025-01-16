@@ -1,4 +1,4 @@
-package shoppingmall.domainrdb.user.dto;
+package shoppingmall.domainservice.domain.user.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
