@@ -1,4 +1,4 @@
-package shoppingmall.domainservice.domain.user.dto;
+package shoppingmall.domainservice.domain.user.dto.request;
 
 
 import lombok.AccessLevel;

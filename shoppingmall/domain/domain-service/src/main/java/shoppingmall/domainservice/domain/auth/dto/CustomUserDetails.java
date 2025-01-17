@@ -1,4 +1,4 @@
-package shoppingmall.domainrdb.auth.dto;
+package shoppingmall.domainservice.domain.auth.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import shoppingmall.domainrdb.domain.user.entity.UserRole;
+import shoppingmall.domainrdb.user.entity.UserRole;
 
 import java.util.ArrayList;
 import java.util.Collection;

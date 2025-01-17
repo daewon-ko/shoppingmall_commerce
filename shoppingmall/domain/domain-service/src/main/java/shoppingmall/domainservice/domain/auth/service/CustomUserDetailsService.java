@@ -1,13 +1,10 @@
-package shoppingmall.domainrdb.auth.service;
+package shoppingmall.domainservice.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import shoppingmall.domainrdb.domain.auth.dto.CustomUserDetails;
-import shoppingmall.domainrdb.domain.user.entity.User;
-import shoppingmall.domainrdb.domain.user.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor

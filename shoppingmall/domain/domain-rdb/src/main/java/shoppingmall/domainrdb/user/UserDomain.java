@@ -1,28 +1,31 @@
 package shoppingmall.domainrdb.user;
 
 import lombok.Getter;
+import shoppingmall.domainrdb.user.entity.UserRole;
 
 @Getter
 public class UserDomain {
     private final UserId userId;
     private final String name;
     private final String email;
+    private final String encodedPassword;
+    private final UserRole userRole;
 
 
-    private UserDomain(UserId userId, String name, String email) {
+    private UserDomain(UserId userId, String name, String email, String encodedPassword, UserRole userRole) {
         this.userId = userId;
         this.name = name;
         this.email = email;
-        validateEmail();
-        validateEmail();
+        this.encodedPassword = encodedPassword;
+        this.userRole = userRole;
     }
 
-    public static UserDomain createForWrite(String name, String email) {
-        return new UserDomain(null, name, email);
+    public static UserDomain createForWrite(final String name, final String email, final String encodedPassword, final UserRole userRole) {
+        return new UserDomain(null, name, email, encodedPassword, userRole);
     }
 
-    public static UserDomain createForRead(Long id, String name, String email) {
-        return new UserDomain(UserId.from(id), name, email);
+    public static UserDomain createForRead(final Long userId, final String name, final String email, final String encodedPassword, final UserRole userRole) {
+        return new UserDomain(new UserId(userId), name, email, encodedPassword, userRole);
     }
 
 

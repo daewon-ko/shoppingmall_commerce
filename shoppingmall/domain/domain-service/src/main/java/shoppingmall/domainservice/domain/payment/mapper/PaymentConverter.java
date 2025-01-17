@@ -1,4 +1,4 @@
-package shoppingmall.domainservice.domain.payment;
+package shoppingmall.domainservice.domain.payment.mapper;
 
 import org.springframework.stereotype.Component;
 import shoppingmall.domainrdb.payment.TossPaymentDomain;
