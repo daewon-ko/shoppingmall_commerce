@@ -8,14 +8,15 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
-import shoppingmall.domainrdb.domain.category.entity.QCategory;
-import shoppingmall.domainrdb.domain.product.entity.QProduct;
 import shoppingmall.domainrdb.product.dto.request.ProductSearchCondition;
 import shoppingmall.domainrdb.product.entity.Product;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static shoppingmall.domainrdb.category.entity.QCategory.*;
+import static shoppingmall.domainrdb.product.entity.QProduct.*;
+import static shoppingmall.domainrdb.user.entity.QUser.*;
 
 
 @Repository
@@ -26,8 +27,9 @@ public class ProductQueryRepository {
     public Slice<Product> findProductsByCond(final ProductSearchCondition productSearchCondition, Pageable pageable) {
 
 
-        List<Product> products = jpaQueryFactory.selectFrom(QProduct.product)
-                .join(QProduct.product.category, QCategory.category, QProduct.product.seller)
+        List<Product> products = jpaQueryFactory.selectFrom(product)
+                .join(product.category, category)
+                .join(product.seller, user)
                 .fetchJoin()
                 .where(categoryIdEq(productSearchCondition.getCategoryId()),
                         productNameEq(productSearchCondition.getProductName()),
@@ -51,28 +53,28 @@ public class ProductQueryRepository {
     }
 
     private BooleanExpression categoryIdEq(Long categoryId) {
-        return StringUtils.hasText(String.valueOf(categoryId)) ? QProduct.product.category.id
+        return StringUtils.hasText(String.valueOf(categoryId)) ? product.category.id
                 .eq(categoryId) : null;
     }
 
     private BooleanExpression productNameEq(String productName) {
-        return productName == null ? null : QProduct.product.name.eq(productName);
+        return productName == null ? null : product.name.eq(productName);
     }
 
     private BooleanExpression priceGoe(Integer minPrice) {
-        return minPrice == null ? null : QProduct.product.price.goe(minPrice);
+        return minPrice == null ? null : product.price.goe(minPrice);
     }
 
     private BooleanExpression priceLoe(Integer maxPrice) {
-        return maxPrice == null ? null : QProduct.product.price.loe(maxPrice);
+        return maxPrice == null ? null : product.price.loe(maxPrice);
     }
 
     private BooleanExpression startDateGoe(LocalDateTime startDate) {
-        return startDate == null ? null : QProduct.product.createdAt.goe(startDate);
+        return startDate == null ? null : product.createdAt.goe(startDate);
     }
 
     private BooleanExpression endDateLoe(LocalDateTime endDate) {
-        return endDate == null ? null : QProduct.product.createdAt.loe(endDate);
+        return endDate == null ? null : product.createdAt.loe(endDate);
     }
 
 

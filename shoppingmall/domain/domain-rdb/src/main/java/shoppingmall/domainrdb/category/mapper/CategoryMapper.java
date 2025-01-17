@@ -5,6 +5,6 @@ import shoppingmall.domainrdb.category.entity.Category;
 
 public class CategoryMapper {
     public static CategoryDomain toCategoryDomain(final Category category) {
-        return new CategoryDomain(category.getName());
+        return CategoryDomain.createForWrite(category.getName());
     }
 }
