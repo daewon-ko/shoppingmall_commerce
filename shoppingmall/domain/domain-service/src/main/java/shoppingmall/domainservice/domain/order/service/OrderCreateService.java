@@ -38,6 +38,7 @@ public class OrderCreateService {
         return orderCreateRequestDto.getOrderProductRequestDtoList().stream()
                 .map(orderProductCreateRequestDto -> {
                     // product id로 product 조회
+
                     Long productId = orderProductCreateRequestDto.getProductId();
                     ProductDomain productDomain = productRdbService.getProductDomainByProductId(productId);
 
