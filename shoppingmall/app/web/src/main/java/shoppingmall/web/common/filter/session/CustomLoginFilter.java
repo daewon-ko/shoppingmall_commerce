@@ -9,7 +9,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import shoppingmall.common.exception.ApiException;
 import shoppingmall.common.exception.domain.AuthErrorCode;
 import shoppingmall.domainservice.domain.user.dto.request.LoginUserRequestDto;
@@ -42,8 +44,18 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        super.successfulAuthentication(request, response, chain, authResult);
-        request.getSession().setAttribute(SessionConst.LOGIN_USER, authResult.getPrincipal());
+//        super.successfulAuthentication(request, response, chain, authResult);
+//        request.getSession().setAttribute(SessionConst.LOGIN_USER, authResult.getPrincipal());
+
+//        ((UsernamePasswordAuthenticationToken) authResult).setAuthenticated(true);
+
+
+        // SecurityContext에 인증 정보 저장
+        SecurityContextHolder.getContext().setAuthentication(authResult);
+
+        // 세션에도 저장 (Spring Security가 자동으로 처리)
+        request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
+
         response.getWriter().write("Login Success");
         response.getWriter().write(objectMapper.writeValueAsString(authResult.getName()));
     }

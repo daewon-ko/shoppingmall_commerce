@@ -15,7 +15,10 @@ import org.springframework.security.web.access.expression.DefaultWebSecurityExpr
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import shoppingmall.domainrdb.user.entity.UserRole;
+//import shoppingmall.web.common.filter.ReqResLoggingFilter;
 import shoppingmall.web.common.filter.ReqResLoggingFilter;
 import shoppingmall.web.common.filter.session.CustomLoginFilter;
 
@@ -30,16 +33,21 @@ public class SecurityWebConfig {
     private final ObjectMapper objectMapper;
 
 
-    @Bean
-    public DefaultWebSecurityExpressionHandler expressionHandler() {
-        DefaultWebSecurityExpressionHandler handler = new DefaultWebSecurityExpressionHandler();
-        handler.setDefaultRolePrefix(""); // ROLE_ 접두사 제거
-        return handler;
-    }
+//    @Bean
+//    public DefaultWebSecurityExpressionHandler expressionHandler() {
+//        DefaultWebSecurityExpressionHandler handler = new DefaultWebSecurityExpressionHandler();
+//        handler.setDefaultRolePrefix(""); // ROLE_ 접두사 제거
+//        return handler;
+//    }
 
     @Bean
     public ReqResLoggingFilter reqResLoggingFilter() {
-        return new ReqResLoggingFilter();
+        return new ReqResLoggingFilter(multipartResolver());
+    }
+
+    @Bean
+    public MultipartResolver multipartResolver() {
+        return new StandardServletMultipartResolver();
     }
 
 
@@ -91,10 +99,12 @@ public class SecurityWebConfig {
 
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/api/v1/auth/register").permitAll()
-                        .requestMatchers("/api/v1/auth/login", "/", "join", "/checkout").permitAll()
-                        .requestMatchers("/api/v1/cart/**").authenticated()
-                        .requestMatchers("/api/v1/product/**").hasAuthority("SELLER")  // 판매자만 상품을 생성, 수정, 삭제할수 있게끔 인증
+                        .requestMatchers("/api/v1/users/signup/**").permitAll()
+                        .requestMatchers("/api/v1/auth/login", "/", "/checkout").permitAll()
+                        .requestMatchers("/api/v1/cart/**").hasAuthority("ROLE_"+UserRole.BUYER.name())
+                        .requestMatchers("/api/v1/product/**").hasAuthority("ROLE_"+UserRole.SELLER.name())
+//                        .hasRole(UserRole.SELLER.name())  // 판매자만 상품을 생성, 수정, 삭제할수 있게끔 인증
+//
                         .requestMatchers("/api/v1/payments/**").hasRole(UserRole.BUYER.name())  // 구매자만 구매할 수 있게끔 인증
                         .requestMatchers("/api/v1/admin").hasRole(UserRole.ADMIN.name())
                         .anyRequest().authenticated());
@@ -102,8 +112,8 @@ public class SecurityWebConfig {
 
 
         http.addFilterBefore(customLoginFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class);
-        http
-                .addFilterAt(customLoginFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class);
+//        http
+//                .addFilterAt(customLoginFilter(authenticationManager()), UsernamePasswordAuthenticationFilter.class);
 
 
         //세션 설정

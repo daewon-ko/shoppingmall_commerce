@@ -6,19 +6,15 @@ import shoppingmall.domainrdb.user.entity.User;
 
 @Getter
 public class LoginUserResponseDto {
-    private Long id;
-    private String username;
+    private String sessionId;
+    private String email;
+
 
     @Builder
-    private LoginUserResponseDto(Long id, String username) {
-        this.id = id;
-        this.username = username;
+    private LoginUserResponseDto(String sessionId, String email) {
+        this.sessionId = sessionId;
+        this.email = email;
     }
 
-    public static LoginUserResponseDto from(User user) {
-        return LoginUserResponseDto.builder()
-                .id(user.getId())
-                .username(user.getName())
-                .build();
-    }
+
 }
