@@ -10,8 +10,6 @@ import org.springframework.data.domain.SliceImpl;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
-import shoppingmall.domainrdb.product.dto.request.ProductCreateRequestDto;
-import shoppingmall.domainrdb.product.dto.request.ProductUpdateRequestDto;
 import shoppingmall.domainrdb.product.dto.response.ProductUpdateResponseDto;
 import shoppingmall.web.api.support.ControllerTestSupport;
 

@@ -4,8 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
-import shoppingmall.domainrdb.domain.cart.dto.dto.request.*;
-import shoppingmall.domainrdb.domain.cart.dto.dto.response.*;
+import shoppingmall.web.api.cart.dto.request.CreateCartRequestDto;
 import shoppingmall.web.api.support.ControllerTestSupport;
 
 import java.util.List;

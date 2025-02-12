@@ -6,11 +6,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.test.web.servlet.MockMvc;
-import shoppingmall.domainrdb.domain.cart.service.CartService;
 import shoppingmall.domainrdb.category.service.CategoryRdbService;
-import shoppingmall.domainrdb.domain.chat.service.ChatRoomService;
-import shoppingmall.domainrdb.domain.message.service.MessageService;
-import shoppingmall.domainrdb.domain.order.service.OrderService;
 import shoppingmall.domainrdb.product.service.ProductRdbService;
 import shoppingmall.domainrdb.user.repository.UserRepository;
 import shoppingmall.domainrdb.user.service.UserRdbService;
@@ -19,11 +15,11 @@ import shoppingmall.web.api.category.controller.CategoryController;
 import shoppingmall.web.api.chat.controller.ChatRoomController;
 import shoppingmall.web.api.order.controller.OrderController;
 import shoppingmall.web.api.product.controller.ProductController;
-import shoppingmall.web.api.user.AuthController;
+import shoppingmall.web.api.user.UserController;
 
 @WebMvcTest(controllers = {
         ProductController.class,
-        AuthController.class,
+        UserController.class,
         OrderController.class,
         ChatRoomController.class,
         CategoryController.class,

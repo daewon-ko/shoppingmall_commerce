@@ -4,6 +4,6 @@ import shoppingmall.domainrdb.category.CategoryDomain;
 
 public abstract class CategoryDtoMapper {
     public static CategoryDomain toCategoryDomain(String name) {
-        return new CategoryDomain(name);
+        return CategoryDomain.createForWrite(name);
     }
 }
