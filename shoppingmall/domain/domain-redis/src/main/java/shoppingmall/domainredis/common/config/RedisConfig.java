@@ -14,7 +14,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 
 @Configuration
 @RequiredArgsConstructor
-@EnableRedisHttpSession
+@EnableRedisHttpSession(redisNamespace = "shoppingmall:session", maxInactiveIntervalInSeconds = 1800)
 public class RedisConfig {
     private final RedisProperties redisProperties;
 
