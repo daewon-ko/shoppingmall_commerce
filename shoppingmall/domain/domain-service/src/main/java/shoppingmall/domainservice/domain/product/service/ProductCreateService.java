@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import shoppingmall.domainrdb.category.service.CategoryId;
 import shoppingmall.domainrdb.product.domain.ProductDomain;
 import shoppingmall.domainrdb.category.service.CategoryRdbService;
-import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.product.service.ProductRdbService;
 import shoppingmall.domainrdb.user.UserId;
 import shoppingmall.domainrdb.user.service.UserRdbService;
@@ -22,7 +21,7 @@ public class ProductCreateService {
     public Long createProduct(final ProductCreateRequestDto createRequestDto) {
 
         // 중복 category 검증
-        Long categoryId = categoryRdbService.findByCategoryName(createRequestDto.getCagegoryName());
+        Long categoryId = categoryRdbService.findByCategoryName(createRequestDto.getCategoryName());
 
         // email로 회원 존재여부 검증
         Long userId = userRdbService.findSellerByEmail(createRequestDto.getSellerEmail());

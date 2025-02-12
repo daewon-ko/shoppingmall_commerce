@@ -16,7 +16,6 @@ import shoppingmall.web.common.annotataion.Usecase;
 import shoppingmall.web.common.validation.product.ProductCreateValidator;
 import shoppingmall.web.common.validation.product.ProductSearchValidator;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Usecase
@@ -47,7 +46,7 @@ public class ProductUsecase {
                 .id(productId)
                 .name(productCreateRequestDto.getName())
                 .price(productCreateRequestDto.getPrice())
-                .categoryName(productCreateRequestDto.getCagegoryName())
+                .categoryName(productCreateRequestDto.getCategoryName())
                 .imageIds(imageIds).build();
 
     }

@@ -28,9 +28,7 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class ProductRdbService {
     private final ProductRepository productRepository;
-    // TODO : Service Layer에서 타 도메인 Repository를 참고하는게 적절한가?
 
-    private final ImageRepository imageRepository;
     private final ProductQueryRepository productQueryRepository;
 
 
@@ -45,10 +43,7 @@ public class ProductRdbService {
 
     public Slice<ProductDomain> getAllProductList(final ProductSearchCondition productSearchCond, Pageable pageable) {
 
-        // 아래 객체를 ProductDomain으로 변환해서 Return 필요
-
         Slice<Product> productsByCond = productQueryRepository.findProductsByCond(productSearchCond, pageable);
-
         // Product Entity -> ProductDomain 변환
         List<ProductDomain> productDomainList = productsByCond.stream()
                 .map(product -> {
@@ -57,7 +52,6 @@ public class ProductRdbService {
                 }).collect(Collectors.toUnmodifiableList());
 
         return new SliceImpl<>(productDomainList, pageable, productsByCond.hasNext());
-
 
     }
 
@@ -74,12 +68,6 @@ public class ProductRdbService {
     public void deleteProduct(Long id) {
         // 상품 삭제
         productRepository.deleteById(id);
-        List<Image> images = imageRepository.findImagesByTargetIdAndFileType(List.of(FileType.PRODUCT_THUMBNAIL, FileType.PRODUCT_DETAIL_IMAGE), id);
-
-        // Soft-Delete
-        for (Image image : images) {
-            image.deleteImage(LocalDateTime.now());
-        }
     }
 
     public Boolean existByProductId(final Long productId) {

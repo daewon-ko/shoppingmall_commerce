@@ -21,7 +21,7 @@ public class ProductCreateValidator {
             throw new IllegalArgumentException("상품 가격은 9999999999 이하여야 합니다.");
         }
 
-        if (productCreateRequestDto.getCagegoryName().isEmpty() || productCreateRequestDto.getCagegoryName() == null) {
+        if (productCreateRequestDto.getCategoryName().isEmpty() || productCreateRequestDto.getCategoryName() == null) {
             throw new IllegalArgumentException("카테고리 이름을 입력해주세요.");
         }
     }
