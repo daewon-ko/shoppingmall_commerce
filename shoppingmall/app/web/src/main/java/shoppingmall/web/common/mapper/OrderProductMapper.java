@@ -1,6 +1,6 @@
 //package shoppingmall.web.common.mapper;
 //
-//import shoppingmall.domainrdb.order.OrderProductDomain;
+//import shoppingmall.domainrdb.order.domain.OrderProductDomain;
 //import shoppingmall.domainservice.domain.order.dto.request.OrderProductCreateRequestDto;
 //import shoppingmall.web.api.order.dto.request.OrderProductCreateRequestDto;
 //

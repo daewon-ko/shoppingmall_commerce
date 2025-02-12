@@ -8,11 +8,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 import org.springframework.http.MediaType;
-import shoppingmall.domainrdb.domain.order.dto.request.OrderCreateRequestDto;
-import shoppingmall.domainrdb.domain.order.dto.request.OrderProductCreateRequestDto;
-import shoppingmall.domainrdb.domain.order.dto.request.OrderSearchCondition;
-import shoppingmall.domainrdb.domain.order.dto.response.OrderProductResponseDto;
-import shoppingmall.domainrdb.domain.order.entity.OrderStatus;
+
+import shoppingmall.domainrdb.order.dto.OrderProductResponseDto;
+import shoppingmall.domainrdb.order.dto.OrderSearchCondition;
+import shoppingmall.domainservice.domain.order.dto.request.OrderCreateRequestDto;
+import shoppingmall.domainservice.domain.order.dto.request.OrderProductCreateRequestDto;
 import shoppingmall.web.api.support.ControllerTestSupport;
 
 import java.util.List;

@@ -1,6 +1,5 @@
 package shoppingmall.web.api.order.controller;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -30,7 +29,7 @@ public class OrderController {
     // Buyer만 주문할 수 있도록 설정
     @PreAuthorize("hasRole('BUYER')")
     @PostMapping("/order")
-    public ApiResponse<List<OrderProductCreateResponseDto>> createOrder(@RequestBody @Valid OrderCreateRequestDto orderCreateRequestDto) {
+    public ApiResponse<List<OrderProductCreateResponseDto>> createOrder(@RequestBody  OrderCreateRequestDto orderCreateRequestDto) {
         return ApiResponse.ok(orderUsecase.createDirectOrder(orderCreateRequestDto));
 
     }
@@ -38,7 +37,7 @@ public class OrderController {
     // 장바구니통해 주문
     @PostMapping("/order/cart")
     @PreAuthorize("hasRole('BUYER')")
-    public ApiResponse<List<OrderProductCreateResponseDto>> createOrderWithCart(@RequestBody @Valid OrderCreateRequestDto orderCartCreateRequestDto) {
+    public ApiResponse<List<OrderProductCreateResponseDto>> createOrderWithCart(@RequestBody  OrderCreateRequestDto orderCartCreateRequestDto) {
         return ApiResponse.ok(orderUsecase.createOrderWithCart(orderCartCreateRequestDto));
     }
 
