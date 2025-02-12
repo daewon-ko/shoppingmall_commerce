@@ -21,7 +21,7 @@ public class OrderUpdateValidator implements OrderValidator<OrderUpdateRequest> 
 
     @Override
     public boolean isAcceptable(RequestType type) {
-        return type.equals(RequestType.UPDATE);
+        return type.equals(RequestType.ORDER_UPDATE);
     }
 
     private void validate(Long orderId, List<OrderProductUpdateRequest> updateRequestList) {

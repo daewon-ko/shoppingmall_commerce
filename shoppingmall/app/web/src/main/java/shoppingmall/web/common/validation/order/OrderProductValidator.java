@@ -19,7 +19,7 @@ public class OrderProductValidator implements OrderValidator<List<OrderProductCr
 
     @Override
     public boolean isAcceptable(RequestType type) {
-        return type.equals(RequestType.CREATE);
+        return type.equals(RequestType.ORDER_PRODUCT_CREATE);
     }
 
     private void validateProductId(OrderProductCreateRequestDto dto) {

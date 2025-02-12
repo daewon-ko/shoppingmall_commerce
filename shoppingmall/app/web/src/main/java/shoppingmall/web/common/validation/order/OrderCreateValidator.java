@@ -51,6 +51,6 @@ public class OrderCreateValidator implements OrderValidator<OrderCreateRequestDt
 
     @Override
     public boolean isAcceptable(RequestType type) {
-        return type.equals(RequestType.CREATE);
+        return type.equals(RequestType.ORDER_CREATE);
     }
 }

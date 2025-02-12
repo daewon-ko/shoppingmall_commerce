@@ -6,6 +6,7 @@ import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.mapper.OrderProductEntityMapper;
 import shoppingmall.domainrdb.order.domain.OrderProductDomain;
 import shoppingmall.domainrdb.order.entity.OrderProduct;
+import shoppingmall.domainrdb.order.factory.OrderProductFactory;
 import shoppingmall.domainrdb.order.repository.OrderProductRepository;
 import shoppingmall.domainrdb.order.repository.OrderQueryRepository;
 
@@ -15,12 +16,16 @@ import shoppingmall.domainrdb.order.repository.OrderQueryRepository;
 public class OrderProductRdbService {
     private final OrderProductRepository orderProductRepository;
     private final OrderQueryRepository orderQueryRepository;
+    private final OrderProductFactory orderProductFactory;
 
 
     @Transactional
     public Long createOrderProduct(final OrderProductDomain orderProductDomain) {
-        OrderProduct orderProductEntity = OrderProductEntityMapper.toOrderProductEntity(orderProductDomain);
-        return orderProductRepository.save(orderProductEntity).getId();
+//        OrderProduct orderProductEntity = OrderProductEntityMapper.toOrderProductEntity(orderProductDomain);
+        OrderProduct orderProduct = orderProductFactory.createOrderProduct(orderProductDomain);
+        OrderProduct savedOrderProduct = orderProductRepository.save(orderProduct);
+        return savedOrderProduct.getId();
+//        return orderProductRepository.save(orderProductEntity).getId();
     }
 
     @Transactional

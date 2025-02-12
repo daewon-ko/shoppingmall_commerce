@@ -32,14 +32,14 @@ public class OrderUsecase {
     @Transactional
     public List<OrderProductCreateResponseDto> createDirectOrder(final OrderCreateRequestDto orderCreateDto) {
 
-        validateRequest(orderCreateDto, RequestType.CREATE);
+        validateRequest(orderCreateDto, RequestType.ORDER_CREATE);
         return orderCreateService.createOrderWithOutCart(orderCreateDto);
 
     }
 
     @Transactional
     public List<OrderProductCreateResponseDto> createOrderWithCart(final OrderCreateRequestDto orderCreateRequestDto) {
-        validateRequest(orderCreateRequestDto, RequestType.CREATE);
+        validateRequest(orderCreateRequestDto, RequestType.ORDER_CREATE);
         return orderCreateService.createOrderWithCart(orderCreateRequestDto);
     }
 
@@ -59,7 +59,7 @@ public class OrderUsecase {
 
     @Transactional
     public void updateOrder(final OrderUpdateRequest orderUpdateRequest) {
-        validateRequest(orderUpdateRequest, RequestType.UPDATE);
+        validateRequest(orderUpdateRequest, RequestType.ORDER_UPDATE);
         orderUpdateService.updateOrderProduct(orderUpdateRequest);
     }
 
