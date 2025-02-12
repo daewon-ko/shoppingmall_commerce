@@ -25,7 +25,7 @@ import shoppingmall.tosspayment.feign.PaymentClient;
 public class PaymentConfirmService {
     private final PaymentRdbService paymentRdbService;
     private final PaymentClient paymentClient;
-    private final PaymentCancelService paymentCancelService;
+    private final EventPublisher<TossPaymentCancelEvent> eventPublisher;
     private final PaymentCacheService paymentCacheService;
     private final OrderRdbService orderRdbService;
     private final PaymentConverter paymentConverter;
@@ -74,8 +74,11 @@ public class PaymentConfirmService {
 
         } catch (Exception e) {
             // DB 저장 중 오류 발생시 결제 취소 이벤트 발행
+            /**
+             * EventList
+             */
             TossPaymentCancelEvent cancelEvent = new TossPaymentCancelEvent(tossPaymentConfirmRequest.getPaymentKey(), "서버 내부 DB 저장 중 오류 발생");
-            paymentCancelService.cancelPayment(cancelEvent);
+            eventPublisher.publishEvent(cancelEvent);
             log.debug("결제 취소 수행", e);
             throw new ApiException(PaymentErrorCode.FAIL_PAYMENT);
 
