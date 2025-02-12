@@ -1,18 +1,25 @@
 package shoppingmall.web.common.validation.order;
 
 import org.springframework.stereotype.Component;
+import shoppingmall.domainservice.common.type.request.RequestType;
 import shoppingmall.domainservice.domain.order.dto.request.OrderProductCreateRequestDto;
 
 import java.util.List;
 
 @Component
-public class OrderProductValidator {
+public class OrderProductValidator implements OrderValidator<List<OrderProductCreateRequestDto>> {
+    @Override
     public void validate(List<OrderProductCreateRequestDto> dtos) {
         for (OrderProductCreateRequestDto dto : dtos) {
             validateProductId(dto);
             validateQuantity(dto);
         }
 
+    }
+
+    @Override
+    public boolean isAcceptable(RequestType type) {
+        return type.equals(RequestType.CREATE);
     }
 
     private void validateProductId(OrderProductCreateRequestDto dto) {

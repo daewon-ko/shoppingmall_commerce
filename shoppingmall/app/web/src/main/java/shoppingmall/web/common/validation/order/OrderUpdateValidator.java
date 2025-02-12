@@ -2,13 +2,29 @@ package shoppingmall.web.common.validation.order;
 
 
 import org.springframework.stereotype.Component;
+import shoppingmall.domainservice.common.type.request.RequestType;
 import shoppingmall.domainservice.domain.order.dto.request.OrderProductUpdateRequest;
+import shoppingmall.domainservice.domain.order.dto.request.OrderUpdateRequest;
 
 import java.util.List;
 
 @Component
-public class OrderUpdateValidator {
-    public void validate(Long orderId, List<OrderProductUpdateRequest> updateRequestList) {
+public class OrderUpdateValidator implements OrderValidator<OrderUpdateRequest> {
+
+
+    @Override
+    public void validate(OrderUpdateRequest orderUpdateRequest) {
+        validate(orderUpdateRequest.getOrderId(), orderUpdateRequest.getUpdateRequestList());
+
+
+    }
+
+    @Override
+    public boolean isAcceptable(RequestType type) {
+        return type.equals(RequestType.UPDATE);
+    }
+
+    private void validate(Long orderId, List<OrderProductUpdateRequest> updateRequestList) {
         if (orderId == null) {
             throw new IllegalArgumentException("주문 정보가 없습니다. 확인해주세요.");
         }
@@ -36,5 +52,4 @@ public class OrderUpdateValidator {
             throw new IllegalArgumentException("상품 수량은 0 이상 9999 이하로 입력해주세요.");
         }
     }
-
 }

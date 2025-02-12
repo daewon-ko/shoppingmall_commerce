@@ -2,12 +2,13 @@ package shoppingmall.domainservice.domain.order.dto.request;
 
 import lombok.Builder;
 import lombok.Getter;
+import shoppingmall.domainservice.common.type.request.RequestType;
 
 import java.util.List;
 
 @Getter
 public class OrderCreateRequestDto {
-
+    private RequestType requestType;
     private final Long cartId;
     private final Long userId;
     private final String zipCode;
@@ -15,17 +16,19 @@ public class OrderCreateRequestDto {
 
     private List<OrderProductCreateRequestDto> orderProductRequestDtoList;
 
+
+
     @Builder
-    private OrderCreateRequestDto( Long cartId, Long userId, String zipCode, String detailAddress, List<OrderProductCreateRequestDto> orderProductRequestDtoList) {
+    private OrderCreateRequestDto(Long cartId, Long userId, String zipCode, String detailAddress, RequestType requestType, List<OrderProductCreateRequestDto> orderProductRequestDtoList) {
         this.cartId = cartId;
         this.userId = userId;
         this.zipCode = zipCode;
         this.detailAddress = detailAddress;
+        this.requestType = requestType;
         this.orderProductRequestDtoList = orderProductRequestDtoList;
     }
 
-
-//    public Order toEntity() {
+    //    public Order toEntity() {
 //        return Order.builder()
 //                .orderStatus(OrderStatus.NEW)   // 처음 주문이 들어오면 주문상태는 NEW로 고정
 //                .zipCode(getZipCode())
