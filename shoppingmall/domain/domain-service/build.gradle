@@ -1,0 +1,49 @@
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
+dependencies {
+    implementation project(':common')
+    implementation project(':domain:domain-rdb')
+    implementation project(':domain:domain-redis')
+    implementation project(':infra:toss_payment')
+    implementation project(':infra:aws')
+
+
+
+    //AWS 관련 의존성
+    implementation platform("io.awspring.cloud:spring-cloud-aws-dependencies:3.1.0")
+    implementation 'io.awspring.cloud:spring-cloud-aws-starter-parameter-store'
+    implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3'
+
+
+
+    // TODO : Page객체 등을 이용 위해 SPRING DATA 접근 위한 JPA 의존성 추가
+    // 추후 리팩토링 또는 별도 분리 필요
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+
+    // OpenFeign Cleint 의존성 추가
+    // @EnableFeignClients 어노테이션을 사용하기 위해 추가
+    implementation project(':common')
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+
+    // BcryptPasswordEncoder 사용을 위한 Spring Security Core 의존성 추가
+    implementation 'org.springframework.security:spring-security-core'
+
+
+}
+
+// OpenFeign Cleint 의존성 추가
+// @EnableFeignClients 어노테이션을 사용하기 위해 추가
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:2023.0.4"
+    }
+
+}

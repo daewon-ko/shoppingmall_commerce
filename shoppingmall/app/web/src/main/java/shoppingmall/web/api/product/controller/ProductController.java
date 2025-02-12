@@ -1,0 +1,88 @@
+package shoppingmall.web.api.product.controller;
+
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import shoppingmall.common.ApiResponse;
+import shoppingmall.domainrdb.image.entity.FileType;
+import shoppingmall.domainservice.domain.product.dto.request.ProductCreateRequestDto;
+import shoppingmall.domainservice.domain.product.dto.request.ProductSearchConditionRequestDto;
+import shoppingmall.domainservice.domain.product.dto.request.ProductUpdateRequestDto;
+import shoppingmall.domainservice.domain.product.dto.response.ProductCreateResponseDto;
+import shoppingmall.domainservice.domain.product.dto.response.ProductQueryResponseDto;
+import shoppingmall.web.api.product.usecase.ProductUsecase;
+import shoppingmall.web.common.argument.Login;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/v1")
+public class ProductController {
+    private final ProductUsecase productUsecase;
+
+    @PostMapping(value = "/product", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ApiResponse<ProductCreateResponseDto> createProduct(@Login String email,
+                                                               @RequestPart(value = "request")  ProductCreateRequestDto requestDto,
+                                                               @RequestPart(value = "images") List<MultipartFile> images) {
+
+        ProductCreateResponseDto response = productUsecase.createProduct(requestDto, images);
+
+        return ApiResponse.ok(response);
+    }
+
+
+    @GetMapping("/products")
+    public ApiResponse<Slice<ProductQueryResponseDto>> getAllProductList
+            (@RequestParam(required = false) Long categoryId,
+             @RequestParam(required = false) Integer minPrice,
+             @RequestParam(required = false) Integer maxPrice,
+             @RequestParam(required = false) String productName,
+             @RequestParam(required = false) LocalDateTime startDate,
+             @RequestParam(required = false) LocalDateTime endDate,
+             @RequestParam(required = false) List<FileType> fileType,
+             Pageable pageable) {
+
+        ProductSearchConditionRequestDto searchCond = ProductSearchConditionRequestDto.builder()
+                .categoryId(categoryId)
+                .minPrice(minPrice)
+                .maxPrice(maxPrice)
+                .productName(productName)
+                .startDate(startDate)
+                .endDate(endDate)
+                .fileTypes(fileType).build();
+
+
+        Slice<ProductQueryResponseDto> result = productUsecase.getAllProductList(searchCond, pageable);
+        return ApiResponse.of(HttpStatus.OK, result);
+    }
+
+    @PutMapping("/product/{id}")
+    public ApiResponse<Void> updateProduct(@PathVariable("id") Long id,
+                                           @RequestPart("requestDto") @Valid ProductUpdateRequestDto requestDto
+
+    ) { // 상세 이미지들
+
+        productUsecase.updateProducts(id, requestDto);
+        return ApiResponse.of(HttpStatus.OK, null);
+
+    }
+
+    // TODO : Data를 넘겨줄떄 jsonIncldude로 null을 무시한다고해도 아래와 같은 방식이 적합할까?
+    @DeleteMapping("/product/{id}")
+    public ApiResponse<Void> deleteProduct(@PathVariable("id") Long id) {
+        productUsecase.deleteProduct(id);
+        return ApiResponse.of(HttpStatus.OK, null);
+    }
+
+    //TODO: 추후 상품 이미지 변경 API 작성예정
+
+
+}
+

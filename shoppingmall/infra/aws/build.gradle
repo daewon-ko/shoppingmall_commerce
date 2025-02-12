@@ -1,0 +1,20 @@
+bootJar{
+    enabled = false
+}
+jar{
+    enabled= true
+}
+
+dependencies {
+    implementation project(':common')
+
+
+    // TODO : Multipart 이용위한 웹 계층 라이브러리 의존 추가
+    // 웹계층
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    //AWS 관련 의존성
+    implementation platform("io.awspring.cloud:spring-cloud-aws-dependencies:3.1.0")
+    implementation 'io.awspring.cloud:spring-cloud-aws-starter-parameter-store'
+    implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3'
+}
