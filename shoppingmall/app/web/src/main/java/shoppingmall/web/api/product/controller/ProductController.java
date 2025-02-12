@@ -28,11 +28,15 @@ public class ProductController {
     private final ProductUsecase productUsecase;
 
     @PostMapping(value = "/product", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ApiResponse<ProductCreateResponseDto> createProduct(@Login String email, @RequestPart("requestDto") @Valid ProductCreateRequestDto requestDto, @RequestPart("images") List<MultipartFile> images) {
+    public ApiResponse<ProductCreateResponseDto> createProduct(@Login String email,
+                                                               @RequestPart(value = "request")  ProductCreateRequestDto requestDto,
+                                                               @RequestPart(value = "images") List<MultipartFile> images) {
+
         ProductCreateResponseDto response = productUsecase.createProduct(requestDto, images);
 
         return ApiResponse.ok(response);
     }
+
 
     @GetMapping("/products")
     public ApiResponse<Slice<ProductQueryResponseDto>> getAllProductList
