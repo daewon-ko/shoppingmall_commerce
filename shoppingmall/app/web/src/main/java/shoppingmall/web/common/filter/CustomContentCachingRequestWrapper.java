@@ -7,16 +7,30 @@ import jakarta.servlet.http.HttpServletRequestWrapper;
 import org.springframework.util.StreamUtils;
 
 import java.io.*;
+import java.util.*;
 
 // Multipart -Form 로깅 목적 Custom 객체
 public class CustomContentCachingRequestWrapper extends HttpServletRequestWrapper {
     private byte[] cachedBody;
+    private final Map<String, List<String>> cachedHeaders = new HashMap<>();
+
 
     public CustomContentCachingRequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
         // Request의 Body를 캐싱
         InputStream requestInputStream = request.getInputStream();
         this.cachedBody = StreamUtils.copyToByteArray(requestInputStream);
+
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            Enumeration<String> headerValues = request.getHeaders(headerName);
+            List<String> valueLists = new ArrayList<>();
+            while (headerValues.hasMoreElements()) {
+                valueLists.add(headerValues.nextElement());
+            }
+            cachedHeaders.put(headerName, valueLists);
+        }
     }
 
 
@@ -37,7 +51,16 @@ public class CustomContentCachingRequestWrapper extends HttpServletRequestWrappe
         return this.cachedBody;
     }
 
+    @Override
+    public Enumeration<String> getHeaders(String name) {
+        List<String> values = cachedHeaders.getOrDefault(name, Collections.emptyList());
+        return Collections.enumeration(values);
+    }
 
+    @Override
+    public Enumeration<String> getHeaderNames() {
+        return Collections.enumeration(cachedHeaders.keySet());
+    }
 
     private static class CachedServletInputStream extends ServletInputStream {
 
