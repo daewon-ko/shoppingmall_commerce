@@ -1,6 +1,7 @@
 package shoppingmall.web.api.chat.usecase;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import shoppingmall.domainrdb.chat.ChatRoomDomain;
 import shoppingmall.domainrdb.chat.entity.ChatRoom;
 import shoppingmall.domainservice.domain.chatroom.ChatRoomMakeService;
@@ -20,8 +21,8 @@ public class ChatRoomUsecase {
     private final ChatRoomSearchService chatRoomSearchService;
 
 
+    @Transactional
     public UUID createChatRoom(final ChatRoomCreateDto chatRoomCreateDto) {
-
         return chatRoomMakeService.makeChatRoom(chatRoomCreateDto.getProductId(), chatRoomCreateDto.getSellerId(), chatRoomCreateDto.getBuyerId());
     }
 

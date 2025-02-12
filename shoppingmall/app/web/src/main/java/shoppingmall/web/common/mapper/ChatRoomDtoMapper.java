@@ -11,8 +11,8 @@ public class ChatRoomDtoMapper {
     public static ChatRoomResponseDto toBuyerChatRoomResponseDto(final ChatRoomDomain chatRoomDomain) {
         return ChatRoomResponseDto.builder()
                 .roomId(chatRoomDomain.getChatRoomId())
-                .sellerId(chatRoomDomain.getSeller().getUserId())
-                .buyerId(chatRoomDomain.getBuyer().getUserId())
+                .sellerId(chatRoomDomain.getSellerId().getValue())
+                .buyerId(chatRoomDomain.getBuyerId().getValue())
                 .userRole(UserRole.BUYER)
                 .build();
     }

@@ -28,7 +28,7 @@ public class ChatRoomMakeService {
         UserDomain seller = userRdbService.findUserByIdAndUserRole(sellerId, UserRole.SELLER);
         UserDomain buyer = userRdbService.findUserByIdAndUserRole(buyerId, UserRole.BUYER);
 
-        return chatRoomRdbService.createRoom(new ChatRoomDomain(null, seller, buyer, productDomain));
+        return chatRoomRdbService.createRoom(ChatRoomDomain.createForWrite(seller.getUserId(), buyer.getUserId(), productDomain.getProductId()));
     }
 
 }

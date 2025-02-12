@@ -9,6 +9,8 @@ import shoppingmall.domainrdb.chat.entity.ChatRoom;
 import shoppingmall.domainrdb.chat.repository.ChatRoomRepository;
 import shoppingmall.domainrdb.common.annotation.DomainRdbService;
 import shoppingmall.domainrdb.mapper.ChatRoomEntityMapper;
+import shoppingmall.domainrdb.product.repository.ProductRepository;
+import shoppingmall.domainrdb.user.repository.UserRepository;
 
 
 import java.util.Optional;
@@ -19,13 +21,24 @@ import java.util.UUID;
 @Transactional(readOnly = true)
 public class ChatRoomRdbService {
     private final ChatRoomRepository chatRoomRepository;
+    private final UserRepository userRepository;
+    private final ProductRepository productRepository;
 
 
     // TODO : 예외처리 커스텀 필요 및 세부적으로 작성 필요
     @Transactional
     public UUID createRoom(final ChatRoomDomain chatRoomDomain) {
 
-        ChatRoom chatRoom = ChatRoomEntityMapper.toEntity(chatRoomDomain);
+//        ChatRoom chatRoom = ChatRoomEntityMapper.toEntity(chatRoomDomain);
+
+        // JOIN으로 푼다.
+        // 1. Buyer, Seller, Product를 참조하는 ChatRoom 객체를 생성한다.
+
+        ChatRoom chatRoom = ChatRoom.builder()
+                .seller(userRepository.getReferenceById(chatRoomDomain.getSellerId().getValue()))
+                .buyer(userRepository.getReferenceById(chatRoomDomain.getBuyerId().getValue()))
+                .product(productRepository.getReferenceById(chatRoomDomain.getProductId().getValue()))
+                .build();
 
 
         // 아래와 같이 로직을 작성하면 Optional 안에 null이 아닌 빈 객체를 담고 있을 수도 있지 않을까?

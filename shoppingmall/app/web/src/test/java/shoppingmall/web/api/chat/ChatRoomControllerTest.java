@@ -7,7 +7,6 @@ import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import shoppingmall.common.exception.ApiException;
 import shoppingmall.common.exception.domain.ChatErrorCode;
-import shoppingmall.domainrdb.domain.chat.dto.*;
 import shoppingmall.domainrdb.user.entity.UserRole;
 import shoppingmall.web.api.support.ControllerTestSupport;
 
