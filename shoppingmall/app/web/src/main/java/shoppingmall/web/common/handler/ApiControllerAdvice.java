@@ -19,7 +19,7 @@ public class ApiControllerAdvice {
         return ResponseEntity.status(e.getHttpStatusCode()).body(response);
     }
 
-//    @ExceptionHandler(ExternalApiException.class)
+    //    @ExceptionHandler(ExternalApiException.class)
 //    public ResponseEntity<ApiResponse<Object>> handleExternalApiException(ExternalApiException ex) {
 //        ApiResponse<Object> response = ApiResponse.of(ex.getHttpStatus(), ex.getMessage(), null);
 //        return ResponseEntity.status(ex.getHttpStatus()).body(response);

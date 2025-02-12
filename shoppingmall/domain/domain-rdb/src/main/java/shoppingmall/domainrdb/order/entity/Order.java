@@ -66,4 +66,8 @@ public class Order implements Serializable {
     public void cancelOrder() {
         orderStatus = OrderStatus.CANCELED;
     }
+
+//    public static OrderDomain toDomain() {
+//
+//    }
 }

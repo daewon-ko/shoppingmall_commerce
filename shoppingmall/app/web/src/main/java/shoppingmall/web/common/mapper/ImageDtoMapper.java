@@ -1,7 +1,7 @@
 package shoppingmall.web.common.mapper;
 
 import shoppingmall.domainrdb.image.ImageDomain;
-import shoppingmall.web.api.image.dto.response.ImageResponseDto;
+import shoppingmall.domainservice.domain.image.dto.response.ImageResponseDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
