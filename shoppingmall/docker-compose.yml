@@ -2,7 +2,6 @@ services:
   mysql-master:
     image: mysql:8.0
     container_name: mysql_master
-    environment:
     volumes:
       - ./master_data:/var/lib/mysql
       - ./master_conf/master.cnf:/etc/mysql/conf.d/master.cnf
@@ -14,7 +13,7 @@ services:
   mysql-slave:
     image: mysql:8.0
     container_name: mysql_slave
-    environment:
+#    environment:
     volumes:
       - ./slave_data:/var/lib/mysql
       - ./slave_conf/slave.cnf:/etc/mysql/conf.d/slave.cnf
