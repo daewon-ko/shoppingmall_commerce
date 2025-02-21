@@ -25,7 +25,7 @@ public class Order implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "orders_id")
+//    @Column(name = "orders_id")
     private Long id;
 
     @Enumerated(EnumType.STRING)
