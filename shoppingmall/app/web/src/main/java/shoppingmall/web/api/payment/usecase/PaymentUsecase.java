@@ -3,6 +3,7 @@ package shoppingmall.web.api.payment.usecase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import shoppingmall.common.dto.toss.TossPaymentConfirmRequest;
+import shoppingmall.domainredis.common.annotation.DistributedLock;
 import shoppingmall.domainservice.domain.payment.dto.PaymentResponse;
 import shoppingmall.domainservice.domain.payment.service.PaymentConfirmService;
 import shoppingmall.domainservice.domain.payment.service.PaymentSearchService;
@@ -19,7 +20,8 @@ public class PaymentUsecase {
 
 
     @Transactional
-    public PaymentResponse executePayment(TossPaymentConfirmRequest tossPaymentConfirmRequest) {
+    @DistributedLock(key = "#idempotenceKey")
+    public PaymentResponse executePayment(final String idempotenceKey ,final TossPaymentConfirmRequest tossPaymentConfirmRequest) {
         // TossPaymentConfirmRequest Validation
         tossPaymentConfirmValidator.validate(tossPaymentConfirmRequest);
 

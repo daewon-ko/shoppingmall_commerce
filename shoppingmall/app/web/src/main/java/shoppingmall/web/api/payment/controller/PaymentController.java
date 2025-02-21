@@ -17,9 +17,9 @@ public class PaymentController {
 
 
     @PostMapping("/confirm/{orderId}")
-    public ResponseEntity<PaymentResponse> confirmPayment(@RequestBody TossPaymentConfirmRequest tossPaymentConfirmRequest) {
+    public ResponseEntity<PaymentResponse> confirmPayment(@RequestHeader("idempotency-key") String idempotenceKey, @RequestBody TossPaymentConfirmRequest tossPaymentConfirmRequest) {
 
-        PaymentResponse paymentResponse = paymentUsecase.executePayment(tossPaymentConfirmRequest);
+        PaymentResponse paymentResponse = paymentUsecase.executePayment(idempotenceKey, tossPaymentConfirmRequest);
 
         return ResponseEntity.status(HttpStatus.OK).body(paymentResponse);
     }
