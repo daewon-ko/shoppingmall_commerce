@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import shoppingmall.domainredis.common.annotation.DomainRedisService;
-import shoppingmall.domainredis.domain.dto.PaymentCacheDto;
+import shoppingmall.domainredis.domain.payment.dto.PaymentCacheDto;
 
 import java.time.Duration;
 

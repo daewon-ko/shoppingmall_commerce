@@ -12,7 +12,7 @@ import shoppingmall.domainrdb.order.service.OrderRdbService;
 import shoppingmall.domainrdb.payment.TossPaymentCancelEvent;
 import shoppingmall.domainrdb.payment.TossPaymentDomain;
 import shoppingmall.domainrdb.payment.service.PaymentRdbService;
-import shoppingmall.domainredis.domain.dto.PaymentCacheDto;
+import shoppingmall.domainredis.domain.payment.dto.PaymentCacheDto;
 import shoppingmall.domainredis.domain.payment.service.PaymentCacheService;
 import shoppingmall.domainservice.domain.payment.mapper.PaymentConverter;
 import shoppingmall.domainservice.domain.payment.dto.PaymentResponse;
