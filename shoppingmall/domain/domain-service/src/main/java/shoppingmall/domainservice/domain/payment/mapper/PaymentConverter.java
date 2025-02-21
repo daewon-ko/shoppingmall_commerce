@@ -3,7 +3,7 @@ package shoppingmall.domainservice.domain.payment.mapper;
 import org.springframework.stereotype.Component;
 import shoppingmall.domainrdb.payment.TossPaymentDomain;
 import shoppingmall.domainrdb.payment.TossPaymentId;
-import shoppingmall.domainredis.domain.dto.PaymentCacheDto;
+import shoppingmall.domainredis.domain.payment.dto.PaymentCacheDto;
 import shoppingmall.tosspayment.feign.TossPaymentMethod;
 import shoppingmall.tosspayment.feign.TossPaymentStatus;
 

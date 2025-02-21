@@ -1,4 +1,4 @@
-package shoppingmall.domainredis.domain.dto;
+package shoppingmall.domainredis.domain.payment.dto;
 
 import lombok.*;
 import org.springframework.cglib.core.Local;

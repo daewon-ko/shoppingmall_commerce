@@ -29,8 +29,8 @@ public class OrderController {
     // Buyer만 주문할 수 있도록 설정
     @PreAuthorize("hasRole('BUYER')")
     @PostMapping("/order")
-    public ApiResponse<List<OrderProductCreateResponseDto>> createOrder(@RequestBody  OrderCreateRequestDto orderCreateRequestDto) {
-        return ApiResponse.ok(orderUsecase.createDirectOrder(orderCreateRequestDto));
+    public ApiResponse<List<OrderProductCreateResponseDto>> createOrder(@RequestHeader("idempotency-key") String idempotenceKey, @RequestBody  OrderCreateRequestDto orderCreateRequestDto) {
+        return ApiResponse.ok(orderUsecase.createDirectOrder(idempotenceKey, orderCreateRequestDto));
 
     }
 

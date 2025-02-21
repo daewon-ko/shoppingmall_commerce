@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import shoppingmall.domainrdb.order.dto.OrderProductResponseDto;
 import shoppingmall.domainrdb.order.dto.OrderSearchCondition;
 import shoppingmall.domainrdb.order.service.OrderRdbService;
+import shoppingmall.domainredis.common.annotation.DistributedLock;
 import shoppingmall.domainservice.common.type.request.RequestType;
 import shoppingmall.domainservice.domain.order.dto.request.OrderCreateRequestDto;
 import shoppingmall.domainservice.domain.order.dto.request.OrderUpdateRequest;
@@ -30,7 +31,8 @@ public class OrderUsecase {
 
 
     @Transactional
-    public List<OrderProductCreateResponseDto> createDirectOrder(final OrderCreateRequestDto orderCreateDto) {
+    @DistributedLock(key = "#idempotenceKey")
+    public List<OrderProductCreateResponseDto> createDirectOrder(final String idempotenceKey, final OrderCreateRequestDto orderCreateDto) {
 
         validateRequest(orderCreateDto, RequestType.ORDER_CREATE);
         return orderCreateService.createOrderWithOutCart(orderCreateDto);
@@ -38,6 +40,7 @@ public class OrderUsecase {
     }
 
     @Transactional
+    @DistributedLock(key = "#idempotenceKey")
     public List<OrderProductCreateResponseDto> createOrderWithCart(final OrderCreateRequestDto orderCreateRequestDto) {
         validateRequest(orderCreateRequestDto, RequestType.ORDER_CREATE);
         return orderCreateService.createOrderWithCart(orderCreateRequestDto);
