@@ -1,5 +1,6 @@
 services:
   mysql-master:
+    platform: linux/amd64
     image: mysql:8.0
     container_name: mysql_master
     volumes:
@@ -9,8 +10,11 @@ services:
       - "3307:3306"
     networks:
       - db-net
+#    command:
+#      - --lower_case_table_names=1
 
   mysql-slave:
+    platform: linux/amd64
     image: mysql:8.0
     container_name: mysql_slave
 #    environment:
@@ -21,6 +25,8 @@ services:
       - "3308:3306"
     networks:
       - db-net
+#    command:
+#      - --lower_case_table_names=1
     depends_on:
       - mysql-master
 
