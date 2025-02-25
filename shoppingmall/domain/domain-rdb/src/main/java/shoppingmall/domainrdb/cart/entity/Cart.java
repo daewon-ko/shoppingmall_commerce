@@ -12,6 +12,7 @@ import shoppingmall.domainrdb.user.entity.User;
 //@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
+@Table(name = "cart")
 public class Cart extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
