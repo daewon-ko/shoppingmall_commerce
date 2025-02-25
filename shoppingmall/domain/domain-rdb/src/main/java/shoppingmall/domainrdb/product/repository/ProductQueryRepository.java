@@ -53,8 +53,8 @@ public class ProductQueryRepository {
     }
 
     private BooleanExpression categoryIdEq(Long categoryId) {
-        return StringUtils.hasText(String.valueOf(categoryId)) ? product.category.id
-                .eq(categoryId) : null;
+        return categoryId != null ? product.category.id.eq(categoryId) : null;
+
     }
 
     private BooleanExpression productNameEq(String productName) {
