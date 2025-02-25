@@ -17,9 +17,12 @@ public class ImageSearchService {
 
     public List<ImageDomain> searchImage(final Long targetId, final List<FileType> fileTypes) {
 
-        return fileTypes.stream().map(
-                fileType -> imageRdbService.getImage(targetId, fileType)
-        ).collect(Collectors.toUnmodifiableList());
+
+
+        if ( fileTypes == null || fileTypes.isEmpty()) {
+            return imageRdbService.getAllImageByTargetId(targetId);
+        }
+        return fileTypes.stream().map(fileType -> imageRdbService.getImage(targetId, fileType)).collect(Collectors.toList());
 
     }
 }

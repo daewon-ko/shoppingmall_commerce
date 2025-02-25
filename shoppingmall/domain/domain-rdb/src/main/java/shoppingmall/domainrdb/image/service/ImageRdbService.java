@@ -47,6 +47,14 @@ public class ImageRdbService {
     }
 
 
+    public List<ImageDomain> getAllImageByTargetId(final Long targetId) {
+        return imageRepository.findAllByTargetId(targetId)
+                .stream()
+                .map(ImageEntityMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+
     @Transactional
     public void deleteImages(Long targetId, List<FileType> fileTypes) {
         // ImageRepository에서 FileType 및 targetId이 일치하는 이미지 조회
