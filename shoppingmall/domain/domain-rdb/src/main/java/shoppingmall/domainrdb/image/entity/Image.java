@@ -17,17 +17,22 @@ public class Image extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "upload_name")
     private String uploadName;
+    @Column(name = "full_path_url")
     private String fullPathUrl;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "file_type")
     private FileType fileType;
 
+    @Column(name = "target_id")
     private Long targetId;
-    @Column(columnDefinition = "TINYINT(1)")
+    @Column(columnDefinition = "TINYINT(1)", name = "is_deleted")
     private Boolean isDeleted;
 
 
+    @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
 
