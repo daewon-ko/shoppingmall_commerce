@@ -3,7 +3,10 @@ package shoppingmall.web.common.config.web;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import shoppingmall.domainrdb.common.JpaInspector;
+import shoppingmall.web.common.interceptor.NPlusOneDetectInterceptor;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -14,6 +17,10 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
+    }
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new NPlusOneDetectInterceptor(new JpaInspector()));
     }
 }

@@ -30,7 +30,7 @@ spring:
       ddl-auto: none
     properties:
       hibernate.format_sql: true
-      hibernate        dialect: "org.hibernate.dialect.MySQLDialect"
+      hibernate .dialect: "org.hibernate.dialect.MySQLDialect"
     show-sql: true
   cloud:
     aws:
@@ -73,6 +73,11 @@ server:
       cookie:
         name: JSESSIONID
 
+logging:
+  slow-query : ${SLOW_QUERY_TIME}
+  use : ${SLOW_QUERY_USE}
+
+
 
 
 
@@ -108,7 +113,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
 
 ---
 spring:
@@ -141,6 +146,10 @@ spring:
       ddl-auto: create-drop
 server:
   port: 9090
+  servlet:
+    session:
+      cookie:
+        same-site: None
 
 
 ---
